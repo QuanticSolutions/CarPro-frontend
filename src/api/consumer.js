@@ -3,7 +3,7 @@ import axios from "axios";
 // export const API_BASE_URL = "http://localhost:3000";
 // const CHAT_BASE_URL = "http://localhost:3002";
 // export const NOTIFY_BASE_URL = "http://localhost:5000";
-export const API_BASE_URL = "https://carprobackend.quanticsols.com";
+export const API_BASE_URL = "http://13.60.195.147:3000";
 const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
 export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
 
