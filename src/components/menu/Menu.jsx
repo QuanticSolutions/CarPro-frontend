@@ -1,0 +1,263 @@
+import { useState } from 'react'
+import { Box, Menu, MenuItem, Grid2, Container } from '@mui/material'
+import { isAuthenticated } from '../../api/consumer'
+import ToggleBtn from './ToggleBtn'
+import { maxWidth, minWidth, styled } from "@mui/system"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import { Badge } from '@mui/material';
+import AuthDialog from '../auth/Dialog';
+import PostBtn from '../menu_image/PostBtn';
+import { useTranslation } from 'react-i18next'
+import i18n from '../../i18n'
+
+const StyledMenu = styled(Box)({
+    background: "#000000",
+    backgroundSize: "cover",
+    position: "absolute",
+    width: "100%",
+    paddingTop: "0.5rem",
+    margin: "0",
+    zIndex: 1000,
+    color: "#fff",
+    "& img": {
+        width: "8rem"
+    },
+    "@media (max-width: 1000px)": {
+        display: "none"
+    }
+})
+
+const MenuItems = styled(Grid2)({
+    display: "flex",
+    gap: i18n.language == "ar" ? 30 : 20,
+})
+
+const StyledMenuItem = styled(MenuItem)({
+    height: "2rem",
+    "@media (max-width: 1062px)": {
+        padding: "3px"
+    },
+    WebkitTapHighlightColor: "transparent",
+    WebkitUserSelect: "none",
+    userSelect: "none",
+    "&:focus, &:active, &:focus-visible": {
+        outline: "none",
+        backgroundColor: "transparent",
+        boxShadow: "none",
+    },
+    "&:hover": {
+        backgroundColor: "rgba(183, 28, 28, 0.08)",
+    },
+    "&.Mui-selected": {
+        backgroundColor: "rgba(183, 28, 28, 0.12)",
+        "&:hover": {
+            backgroundColor: "rgba(183, 28, 28, 0.2)",
+        }
+    },
+    "*": {
+        WebkitTapHighlightColor: "transparent",
+        outline: "none",
+    },
+    "& .MuiTouchRipple-root": {
+        display: "none",
+    }
+});
+
+const DropMenuItem = styled(MenuItem)({
+    width: "100%",
+    p: 1,
+    marginRight: 0,
+    "&:hover": {
+        backgroundColor: "rgba(0, 0, 0, 0.2)"
+    }
+})
+
+const ExpandIcon = styled(ExpandMoreIcon)({
+    color: "#fff",
+    margin: 0,
+    padding: 0
+})
+
+const BoxStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    "@media (max-width: 1024px)": {
+        justifyContent: "left"
+    }
+}
+
+function MainMenu({ notifications, toggleChat }) {
+
+    const [categoryMenuAnchorEl, setcategoryMenuAnchorEl] = useState(null);
+    const [serviceMenuAnchorEl, setserviceMenuAnchorEl] = useState(null);
+    const [formAnchorEl, setFormAnchorEl] = useState(null);
+    const categoryMenuOpen = Boolean(categoryMenuAnchorEl);
+    const serviceMenuOpen = Boolean(serviceMenuAnchorEl);
+    const formOpen = Boolean(formAnchorEl);
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [popup1Open, setPopup1Open] = useState(false);
+    const { t } = useTranslation();
+    let categoryTimer = null;
+    let serviceTimer = null;
+    let formTimer = null;
+
+    const handleCategoryMenuOpen = (e) => {
+        clearTimeout(categoryTimer);
+        setcategoryMenuAnchorEl(e.currentTarget);
+    };
+
+    const handleCategorySubMenuClose = () => {
+        categoryTimer = setTimeout(() => {
+            setcategoryMenuAnchorEl(null);
+        }, 200);
+    };
+
+    const handleServiceSubMenuOpen = (e) => {
+        clearTimeout(serviceTimer);
+        setserviceMenuAnchorEl(e.currentTarget);
+    };
+
+    const handleServiceSubMenuClose = () => {
+        serviceTimer = setTimeout(() => {
+            setserviceMenuAnchorEl(null);
+        }, 200);
+    };
+
+    const handleFormSubMenuOpen = (e) => {
+        clearTimeout(formTimer);
+        setFormAnchorEl(e.currentTarget);
+    };
+
+    const handleFormSubMenuClose = () => {
+        formTimer = setTimeout(() => {
+            setFormAnchorEl(null);
+        }, 200);
+    };
+
+    return (
+        <StyledMenu>
+            <Container sx={{ ...BoxStyles, flexDirection: i18n.language == "ar" ? "row-reverse" : "row" }}>
+                <a href="/">
+                    <img src="/assets/images/logo.png" alt="logo" />
+                </a>
+                <MenuItems flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
+                    <StyledMenuItem onMouseEnter={handleCategoryMenuOpen} onMouseLeave={handleCategorySubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl"}}>
+                        {t("menu.allCategories")}
+                        <ExpandIcon />
+                        {categoryMenuOpen && (
+                            <Box
+                                onMouseEnter={handleCategoryMenuOpen}
+                                onMouseLeave={handleCategorySubMenuClose}
+                                sx={{
+                                    position: 'absolute',
+                                    top: '2.5rem',
+                                    left: 0,
+                                    backgroundColor: '#B71C1C',
+                                    zIndex: 1000,
+                                    color: '#fff',
+                                    borderRadius: 1,
+                                    textAlign: i18n.language === 'ar' ? 'right' : 'left',
+                                    direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
+                                }}
+                            >
+                                <DropMenuItem onClick={() => window.location.href = "/cars/sell"}>{t("categories.cars")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/heavy/sell"}>{t("categories.heavy")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/bikes/sell"}>{t("categories.bikes")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/plates/sell"}>{t("categories.plates")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/construction/sell"}>{t("categories.construction")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/boats/sell"}>{t("categories.boats")}</DropMenuItem>
+                            </Box>
+                        )}
+                    </StyledMenuItem>
+                    <StyledMenuItem onMouseEnter={handleServiceSubMenuOpen} onMouseLeave={handleServiceSubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl"}}>
+                        {t("menu.services")}
+                        <ExpandIcon />
+                        {serviceMenuOpen && (
+                            <Box
+                                onMouseEnter={handleServiceSubMenuOpen}
+                                onMouseLeave={handleServiceSubMenuClose}
+                                sx={{
+                                    position: 'absolute',
+                                    top: '2.5rem',
+                                    left: 0,
+                                    backgroundColor: '#B71C1C',
+                                    zIndex: 1000,
+                                    color: '#fff',
+                                    borderRadius: 1,
+                                    textAlign: i18n.language === 'ar' ? 'right' : 'left',
+                                    direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
+                                }}
+                            >
+                                <DropMenuItem onClick={() => window.location.href = "/services/sell"}>{t("menu.sellACar")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/services/rent"}>{t("menu.rentACar")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/services/insurance"}>{t("menu.carInsurance")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/services/inspection"}>{t("menu.carInspection")}</DropMenuItem>
+                            </Box>
+                        )}
+                    </StyledMenuItem>
+                    <StyledMenuItem onClick={() => { if (isAuthenticated) { toggleChat() } else { setPopupOpen(true) } }}>
+                        {t("menu.chats")}
+                    </StyledMenuItem>
+
+                    <StyledMenuItem onClick={() => window.location.href = "/my/ads"}>
+                        {t("menu.myAds")}
+                    </StyledMenuItem>
+
+                    <StyledMenuItem onClick={() => window.location.href = "/favourites"}>
+                        {t("menu.favourites")}
+                    </StyledMenuItem>
+
+                    <StyledMenuItem onClick={() => window.location.href = "/notifications"}>
+                        <Badge
+                            badgeContent={notifications > 0 ? notifications : 0}
+                            color="error"
+                            invisible={notifications <= 0}
+                        >
+                            {t("menu.notifications")}
+                        </Badge>
+                    </StyledMenuItem>
+                    <StyledMenuItem>
+                        <ToggleBtn />
+                    </StyledMenuItem>
+                    <StyledMenuItem>
+                        <PostBtn handleOnHover={handleFormSubMenuOpen} handleOffHover={handleFormSubMenuClose} />
+                        {formOpen && (
+                            <Box
+                                onMouseEnter={handleFormSubMenuOpen}
+                                onMouseLeave={handleFormSubMenuClose}
+                                sx={{
+                                    position: 'absolute',
+                                    top: '2.5rem',
+                                    left: i18n.language != "ar" && "-3.5rem",
+                                    right: i18n.language == "ar" && "-0.5rem",
+                                    backgroundColor: 'black',
+                                    zIndex: 1000,
+                                    color: '#fff',
+                                    borderRadius: 1,
+                                    minWidth: "7rem",
+                                    textAlign: i18n.language === 'ar' ? 'right' : 'left',
+                                    direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
+                                }}
+                            >
+                                <DropMenuItem sx={{
+                                    "&:hover": {
+                                        color: "#B71C1C"
+                                    }
+                                }} onClick={() => window.location.href = "/sell/categories"}>{t("menu.forSell")}</DropMenuItem>
+                                <DropMenuItem sx={{
+                                    "&:hover": {
+                                        color: "#B71C1C"
+                                    }
+                                }} onClick={() => window.location.href = "/rent/categories"}>{t("menu.forRent")}</DropMenuItem>
+                            </Box>
+                        )}
+                    </StyledMenuItem>
+                </MenuItems>
+                <AuthDialog popupOpen={popupOpen} setPopupOpen={setPopupOpen} popup1Open={popup1Open} setPopup1Open={setPopup1Open} />
+            </Container>
+        </StyledMenu>
+    )
+}
+
+export default MainMenu
