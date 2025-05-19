@@ -139,15 +139,19 @@ function MyAds() {
                         onChange={(e, newValue) => setTab(newValue)}
                         sx={{
                             my: 2,
+                            my: 1,
                             "& .MuiTab-root": {
                                 color: "black",
                                 border: "1px solid black",
-                                borderRadius: "25px",
-                                mr: 1,
-                                p: 1,
+                                borderRadius: "20px",
+                                mr: 0.5,
+                                py: 0.5,
+                                px: 1,
+                                minHeight: "32px",
+                                minWidth: "32px",
                                 fontWeight: "bold",
                                 textTransform: "none",
-                                fontSize: "16px",
+                                fontSize: { xs: "12px", sm: "14px", md: "16px" },
                                 transition: "0.3s",
                             },
                             "& .MuiTab-root.Mui-selected": {
@@ -216,17 +220,7 @@ function MyAds() {
                                         filterAds().length > 0 ?
                                             filterAds().map((items) => (
                                                 <Box sx={{ mb: 2 }}>
-                                                    <Box
-                                                        sx={{
-                                                            bgcolor: theme.palette.grey[200],
-                                                            px: 2,
-                                                            py: 1.5
-                                                        }}
-                                                    >
-                                                        {/* <Typography variant="subtitle1" fontWeight="medium">
-                                                    {items.length}
-                                                </Typography> */}
-                                                    </Box>
+                  
                                                     <Box key={items.id}>
                                                         <Typography
                                                             variant="body2"

@@ -46,7 +46,7 @@ function Home({ data }) {
   const countryCode = localStorage.getItem("selectedCountry");
   const countries = {
     "": "UAE",
-    "sa": "Saudi Arab",
+    "sa": "Saudi Arabia",
     "qtr": "Qatar",
     "syr": "Syria",
     "eg": "Egypt",

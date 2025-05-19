@@ -23,6 +23,10 @@ function Brand({ image, name }) {
                     maxWidth: "calc(20% - 20px)",
                 },
                 "@media (max-width: 425px)": {
+                    flex: "1 1 calc(25% - 20px)",
+                    maxWidth: "calc(25% - 20px)",
+                },
+                "@media (max-width: 320px)": {
                     flex: "1 1 calc(30% - 20px)",
                     maxWidth: "calc(30% - 20px)",
                 },

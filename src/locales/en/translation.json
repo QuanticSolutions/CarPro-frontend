@@ -893,14 +893,14 @@
     },
     "countries": {
         "UAE": "UAE",
-        "Saudi Arab": "Saudi Arab",
+        "Saudi Arabia": "Saudi Arabia",
         "Qatar": "Qatar",
         "Egypt": "Egypt",
         "Syria": "Syria",
         "USA": "USA"
     },
     "cities": {
-        "Saudi Arab": [
+        "Saudi Arabia": [
             "Riyadh",
             "Jeddah",
             "Mecca (Makkah)",

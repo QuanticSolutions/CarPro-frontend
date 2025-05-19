@@ -27,7 +27,7 @@ function Brands() {
         "Volkswagon", "Lamborghini", "Infiniti", "GMC", "McLaren"
     ];
 
-    const visibleBrands = isMobile && !showMore ? brands.slice(0, 9) : brands;
+    const visibleBrands = isMobile && !showMore ? brands.slice(0, 12) : brands;
 
     return (
         <BrandContainer sx={{ direction: i18n.language == "ar" && "rtl"}}>
@@ -39,7 +39,7 @@ function Brands() {
                     sx={{
                         display: "flex",
                         justifyContent: "center",
-                        gap: "3rem",
+                        gap: "1rem",
                         marginTop: "1rem",
                         flexWrap: "wrap",
                         width: "100%"

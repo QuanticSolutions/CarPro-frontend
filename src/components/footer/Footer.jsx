@@ -32,7 +32,7 @@ function Footer({ countryCode }) {
     });
     const countries = {
         "": "UAE",
-        "sa": "Saudi Arab",
+        "sa": "Saudi Arabia",
         "qtr": "Qatar",
         "syr": "Syria",
         "eg": "Egypt",
@@ -107,44 +107,44 @@ function Footer({ countryCode }) {
                             {
                                 countries[countryCode] != "UAE" &&
                                 <StyledListItem sx={{ paddingLeft: "0" }}>
-                                    <a href="/" onClick={()=>localStorage.setItem("selectedCountry", "")}>{t("countries.UAE")}</a>
+                                    <a href="/" onClick={() => localStorage.setItem("selectedCountry", "")}>{t("countries.UAE")}</a>
                                 </StyledListItem>
                             }
                             {
                                 countries[countryCode] != "Saudi Arab" &&
                                 <StyledListItem sx={{ paddingLeft: "0", textWrap: "nowrap" }}>
-                                    <a href="/sa" onClick={()=>localStorage.setItem("selectedCountry", "sa")}>{t("countries.Saudi Arab")}</a>
+                                    <a href="/sa" onClick={() => localStorage.setItem("selectedCountry", "sa")}>{t("countries.Saudi Arabia")}</a>
                                 </StyledListItem>
                             }
                             {
                                 countries[countryCode] != "Qatar" &&
                                 <StyledListItem sx={{ paddingLeft: "0" }}>
-                                    <a href="/qtr" onClick={()=>localStorage.setItem("selectedCountry", "qtr")}>{t("countries.Qatar")}</a>
+                                    <a href="/qtr" onClick={() => localStorage.setItem("selectedCountry", "qtr")}>{t("countries.Qatar")}</a>
                                 </StyledListItem>
                             }
                             {
                                 countries[countryCode] != "Egypt" &&
                                 <StyledListItem sx={{ paddingLeft: "0" }}>
-                                    <a href="/eg" onClick={()=>localStorage.setItem("selectedCountry", "eg")}>{t("countries.Egypt")}</a>
+                                    <a href="/eg" onClick={() => localStorage.setItem("selectedCountry", "eg")}>{t("countries.Egypt")}</a>
                                 </StyledListItem>
                             }
                             {
                                 countries[countryCode] != "Syria" &&
                                 <StyledListItem sx={{ paddingLeft: "0" }}>
-                                    <a href="/syr" onClick={()=>localStorage.setItem("selectedCountry", "syr")}>{t("countries.Syria")}</a>
+                                    <a href="/syr" onClick={() => localStorage.setItem("selectedCountry", "syr")}>{t("countries.Syria")}</a>
                                 </StyledListItem>
                             }
                             {
                                 countries[countryCode] != "USA" &&
                                 <StyledListItem sx={{ paddingLeft: "0" }}>
-                                    <a href="/us" onClick={()=>localStorage.setItem("selectedCountry", "us")}>{t("countries.USA")}</a>
+                                    <a href="/us" onClick={() => localStorage.setItem("selectedCountry", "us")}>{t("countries.USA")}</a>
                                 </StyledListItem>
                             }
                         </List>
                     </Grid2>
                     <Grid2>
                         <Typography variant="h6" fontWeight="bold">{t("footer.company")}</Typography>
-                        <List>
+                        <List sx={{ position: "relative" }}>
                             {/* <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/about">{t("footer.aboutUs")}</a>
                             </StyledListItem> */}
@@ -154,18 +154,7 @@ function Footer({ countryCode }) {
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/privacy">{t("footer.privacy")}</a>
                             </StyledListItem>
-                        </List>
-                    </Grid2>
-                    <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("footer.help")}</Typography>
-                        <List sx={{ position: "relative" }}>
-                            <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a href="/contact">{t("footer.contact")}</a>
-                            </StyledListItem>
-                            <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a href="tel:+971-91225118">{t("footer.call")}</a>
-                            </StyledListItem>
-                            <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 120, right: i18n.language == "ar" && 0 }}>
+                            <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 70, right: i18n.language == "ar" && 0 }}>
                                 <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold" }}>
                                     {t("footer.downloadApp")}
                                 </StyledListItem>
@@ -178,19 +167,19 @@ function Footer({ countryCode }) {
                                     </StyledListItem>
                                 </Box>
                             </Box>
-
                         </List>
+
                     </Grid2>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("footer.languages")}</Typography>
-                        <List>
+                        <Typography variant="h6" fontWeight="bold">{t("footer.help")}</Typography>
+                        <List >
                             <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a>{t("footer.english")}</a>
+                                <a href="/contact">{t("footer.contact")}</a>
                             </StyledListItem>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a>{t("footer.arabic")}</a>
+                                <a href="tel:+971-91225118">{t("footer.call")}</a>
                             </StyledListItem>
-                            <List sx={{ display: "flex", p: 0, m: 0, position: "absolute" }}>
+                            <List sx={{ display: "flex", p: 0, m: 0, position: "absolute", right: i18n.language == "ar" && 0 }}>
                                 <StyledListItem sx={{ pr: 3, pl: 0, width: 0 }}>
                                     <a style={{ display: 'flex', alignItems: "center" }}>
                                         <Facebook sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
@@ -212,6 +201,17 @@ function Footer({ countryCode }) {
                                     </a>
                                 </StyledListItem>
                             </List>
+                        </List>
+                    </Grid2>
+                    <Grid2>
+                        <Typography variant="h6" fontWeight="bold">{t("footer.languages")}</Typography>
+                        <List sx={{ position: "relative" }}>
+                            <StyledListItem sx={{ paddingLeft: "0" }}>
+                                <a>{t("footer.english")}</a>
+                            </StyledListItem>
+                            <StyledListItem sx={{ paddingLeft: "0" }}>
+                                <a>{t("footer.arabic")}</a>
+                            </StyledListItem>
                         </List>
                     </Grid2>
                 </Box>

@@ -29,7 +29,7 @@ function MobileFooter({ countryCode }) {
     console.log(countryCode)
     const countries = {
         "": "UAE",
-        "sa": "Saudi Arab",
+        "sa": "Saudi Arabia",
         "qtr": "Qatar",
         "syr": "Syria",
         "eg": "Egypt",
@@ -100,19 +100,19 @@ function MobileFooter({ countryCode }) {
                                 {
                                     countries[countryCode] != "UAE" &&
                                     <ListItem sx={{ paddingLeft: "0" }}>
-                                        <a href="/">{t("countries.UAE")}</a>
+                                        <a href="/"  onClick={() => localStorage.setItem("selectedCountry", "")}>{t("countries.UAE")}</a>
                                     </ListItem>
                                 }
                                 {
                                     countries[countryCode] != "Saudi Arab" &&
                                     <ListItem sx={{ paddingLeft: "0", textWrap: "nowrap" }}>
-                                        <a href="/sa">{t("countries.Saudi Arab")}</a>
+                                        <a href="/sa"  onClick={() => localStorage.setItem("selectedCountry", "sa")}>{t("countries.Saudi Arabia")}</a>
                                     </ListItem>
                                 }
                                 {
                                     countries[countryCode] != "Qatar" &&
                                     <ListItem sx={{ paddingLeft: "0" }}>
-                                        <a href="/qtr">{t("countries.Qatar")}</a>
+                                        <a href="/qtr"  onClick={() => localStorage.setItem("selectedCountry", "qtr")}>{t("countries.Qatar")}</a>
                                     </ListItem>
                                 }
                                 {

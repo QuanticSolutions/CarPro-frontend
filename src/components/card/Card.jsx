@@ -75,6 +75,9 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn }) {
         direction: i18n.language == "ar" && "rtl",
         "@media(max-width: 700px)": {
           width: 162,
+        },
+        "@media(max-width: 320px)": {
+          width: 140,
         }
       }}
     >

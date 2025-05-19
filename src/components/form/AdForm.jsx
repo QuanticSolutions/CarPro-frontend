@@ -7,13 +7,18 @@ import {
   StepLabel,
   ThemeProvider,
   createTheme,
+  Box,
+  MobileStepper,
+  useMediaQuery,
+  StepContent,
+  Paper
 } from '@mui/material';
 import BasicInformationForm from './BasicInformationForm';
 import ContactForm from './Contact';
 import ImageUploadForm from './ImageUpload';
 import { createAd, createRent, uploadImages, updateAd, updateRent, getAdById } from '../../api/consumer';
 import MessagePopup from "../popup/Popup";
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 const theme = createTheme({
   palette: {
@@ -41,6 +46,7 @@ function AdForm({ title, type, isUpdating = false, category }) {
   const [activeStep, setActiveStep] = useState(0);
   const { t, i18n } = useTranslation();
   const steps = [t('adForm.basicInformation'), t('adForm.contact'), t('adForm.imageUpload')];
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [formData, setFormData] = useState({
     user_id: "",
     city: "",
@@ -85,8 +91,6 @@ function AdForm({ title, type, isUpdating = false, category }) {
     message: "",
     severity: "success",
   });
-
-
 
   useEffect(
     () => {
@@ -232,19 +236,92 @@ function AdForm({ title, type, isUpdating = false, category }) {
     }
   };
 
+  // Mobile stepper with only current label
+  const renderMobileStepper = () => {
+    return (
+      <Box sx={{ width: '100%', mt: 2, mb: 3 }}>
+        <Paper 
+          elevation={0}
+          sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center',
+            background: 'transparent'
+          }}
+        >
+          {/* Current step label */}
+          <Typography 
+            variant="h6" 
+            component="div" 
+            color="primary"
+            sx={{ 
+              fontWeight: 'bold',
+              mb: 1 
+            }}
+          >
+            {steps[activeStep]}
+          </Typography>
+          
+          {/* Progress indicator */}
+          <Box 
+            sx={{ 
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              mt: 1
+            }}
+          >
+            <Box sx={{ width: '80%', display: 'flex', justifyContent: 'space-between' }}>
+              {steps.map((_, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: `${100 / steps.length - 4}%`,
+                    height: 4,
+                    backgroundColor: index <= activeStep ? theme.palette.primary.main : theme.palette.grey[300],
+                    borderRadius: 2
+                  }}
+                />
+              ))}
+            </Box>
+          </Box>
+          
+          {/* Step counter */}
+          {/* <Typography 
+            variant="body2" 
+            color="text.secondary" 
+            sx={{ mt: 1 }}
+          >
+            {t('adForm.step')} {activeStep + 1} {t('adForm.of')} {steps.length}
+          </Typography> */}
+        </Paper>
+      </Box>
+    );
+  };
+
+  // Desktop stepper
+  const renderDesktopStepper = () => {
+    return (
+      <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, flexWrap: "wrap", gap: 1 }}>
+        {steps.map((label, index) => (
+          <Step key={label} sx={{ flexWrap: "wrap" }}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    );
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <Container sx={{ mt: window.innerWidth > 800 && 10, mb: 10, direction: i18n.language == "ar" && "rtl" }}>
+      <Container sx={{ mt: window.innerWidth > 800 ? 10 : 5, mb: 10, direction: i18n.language == "ar" && "rtl" }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
           {t("adForm.formTitle")}
         </Typography>
-        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, flexWrap: "wrap", gap: 1 }}>
-          {steps.map((label, index) => (
-            <Step key={label} sx={{ flexWrap: "wrap" }}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
+        
+        {/* Conditional rendering based on screen size */}
+        {isMobile ? renderMobileStepper() : renderDesktopStepper()}
+        
         {getStepContent(activeStep)}
         <MessagePopup
           open={popup.open}

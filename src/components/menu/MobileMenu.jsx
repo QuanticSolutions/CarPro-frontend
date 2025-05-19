@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { AppBar, Toolbar, IconButton, Drawer, List, MenuItem, ListItemText, Box, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from "@mui/material";
+import {
+    AppBar, Toolbar, IconButton, Drawer, List, MenuItem, ListItemText,
+    Box, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel,
+    FormControl, FormLabel, Accordion, AccordionSummary, AccordionDetails
+} from "@mui/material";
 import { styled } from "@mui/system"
 import ToggleBtn from './ToggleBtn';
 import MenuIcon from "@mui/icons-material/Menu";
@@ -191,6 +195,27 @@ const FilterBtn = styled(Button)({
     padding: "16px 14px"
 })
 
+const FilterAccordion = styled(Accordion)({
+    backgroundColor: "#121212",
+    color: "#fff",
+    marginBottom: "8px",
+    boxShadow: "none",
+    "&:before": {
+        display: "none",
+    },
+    "& .MuiAccordionSummary-content": {
+        margin: "12px 0",
+    }
+});
+
+const FilterAccordionSummary = styled(AccordionSummary)({
+    backgroundColor: "#1E1E1E",
+    borderRadius: "6px",
+    "& .MuiAccordionSummary-expandIconWrapper": {
+        color: "#fff",
+    }
+});
+
 function MobileMenu({ toggleChat }) {
 
     const [open, setOpen] = useState(false);
@@ -205,12 +230,24 @@ function MobileMenu({ toggleChat }) {
     const [selectedCity, setSelectedCity] = useState("");
     const [selectedVehicle, setSelectedVehicle] = useState("");
     const [selectedType, setSelectedType] = useState("");
+    const [expandedAccordion, setExpandedAccordion] = useState(false);
     const { t, i18n } = useTranslation();
+
 
     const handleLogoutClick = () => {
         logout();
         handleMenuClose();
     };
+
+    const countries = {
+        "": "UAE",
+        "sa": "Saudi Arabia",
+        "qtr": "Qatar",
+        "syr": "Syria",
+        "eg": "Egypt",
+        "us": "USA"
+    };
+
 
     const cityOptions = [
         { name: t("filter.cities.dubai"), value: "Dubai" },
@@ -257,6 +294,21 @@ function MobileMenu({ toggleChat }) {
         setFilterDrawerOpen(!filterDrawerOpen);
     };
 
+    const handleAccordionChange = (panel) => (event, isExpanded) => {
+        setExpandedAccordion(isExpanded ? panel : false);
+    };
+
+    const handleOptionSelect = (option, setter, currentValue) => {
+        console.log(option, currentValue)
+        if (currentValue == option) {
+            setter("");
+            console.log("hello1")
+        } else {
+            setter(option);
+            console.log("hello")
+        }
+    };
+
     const applyFilters = () => {
         let filterUrl = `/ads?`;
         if (model) filterUrl += `make=${model}&`;
@@ -288,7 +340,7 @@ function MobileMenu({ toggleChat }) {
                 </Toolbar>
                 <Box sx={{ mt: 2, px: 2 }}>
                     <Typography variant='h4' textAlign={i18n.language == "ar" && "right"}>
-                        {t("findVehicles")}
+                        {t("home.header", { country: t(`countries.${countries[localStorage.getItem("selectedCountry")]}`) })}
                     </Typography>
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                         <StyledTextField
@@ -437,7 +489,7 @@ function MobileMenu({ toggleChat }) {
                 <Box sx={{ p: 3, width: window.innerWidth <= 500 ? '85%' : '93%' }}>
                     <Typography variant="h6">{t("postAd")}</Typography>
                     <IconButton onClick={toggleBottomDrawer}>
-                        <CloseIcon sx={{ color: "#fff", position: "fixed", right: 6, bottom: "8rem"}} />
+                        <CloseIcon sx={{ color: "#fff", position: "fixed", right: 6, bottom: "8rem" }} />
                     </IconButton>
                     <Box sx={{
                         display: 'flex',
@@ -467,133 +519,131 @@ function MobileMenu({ toggleChat }) {
                         display: 'flex',
                         justifyContent: 'right',
                         mb: 2,
-                        direction: i18n.language == "ar" && "rtl"
+                        direction: i18n.language === "ar" ? "rtl" : "ltr"
                     }}>
                         <IconButton onClick={toggleFilterDrawer} sx={{ p: 0 }}>
                             <CloseIcon sx={{ color: "#fff", p: 0 }} />
                         </IconButton>
                     </Box>
 
-                    <Box sx={{ mb: 3, direction: i18n.language == "ar" && "rtl" }}>
-                        <FormControl component="fieldset" fullWidth>
-                            <FormLabel component="legend"
-                                sx={{
-                                    color: "#fff",
-                                    fontWeight: "bold",
-                                    mb: 1,
-                                    "&.Mui-focused": {
-                                        color: "#fff",
-                                    },
-                                    "&.MuiFormLabel-root": {
-                                        color: "#fff",
-                                    }
-                                }}>
-                                {t("filter.city")}
-                            </FormLabel>
-                            <RadioGroup
-                                value={selectedCity}
-                                onChange={(e) => setSelectedCity(e.target.value)}
-                            >
-                                {cityOptions.map((city) => (
-                                    <FilterOption
-                                        key={city.value}
-                                        value={city.value}
-                                        control={<Radio sx={{ color: "#fff" }} />}
-                                        label={city.name}
-                                        sx={{
-                                            "& .Mui-checked": {
-                                                color: "#B71C1C !important",
-                                            },
-                                            "&.Mui-checked": {
-                                                color: "#B71C1C !important",
-                                            },
-                                        }}
-                                    />
-                                ))}
-                            </RadioGroup>
-                        </FormControl>
+                    <Box sx={{ mb: 2, direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+                        <FilterAccordion
+                            expanded={expandedAccordion === 'cityPanel'}
+                            onChange={handleAccordionChange('cityPanel')}
+                        >
+                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}>
+                                <Typography sx={{ fontWeight: "bold" }}>
+                                    {t("filter.city")}
+                                    {selectedCity && `: ${cityOptions.find(c => c.value === selectedCity)?.name}`}
+                                </Typography>
+                            </FilterAccordionSummary>
+                            <AccordionDetails>
+                                <RadioGroup
+                                    value={selectedCity}
+                                >
+                                    {cityOptions.map((city) => (
+                                        <FilterOption
+                                            key={city.value}
+                                            value={city.value}
+                                            control={
+                                                <Radio
+                                                    sx={{ color: "#fff" }}
+                                                    checked={selectedCity === city.value}
+                                                    onClick={() => handleOptionSelect(city.value, setSelectedCity, selectedCity)}
+                                                />
+                                            }
+                                            label={city.name}
+                                            sx={{
+                                                ml: 0.2,
+                                                "& .Mui-checked": {
+                                                    color: "#B71C1C !important",
+                                                },
+                                            }}
+                                        />
+                                    ))}
+                                </RadioGroup>
+                            </AccordionDetails>
+                        </FilterAccordion>
                     </Box>
 
-                    <Box sx={{ mb: 3, direction: i18n.language == "ar" && "rtl" }}>
-                        <FormControl component="fieldset" fullWidth>
-                            <FormLabel component="legend"
-                                sx={{
-                                    color: "#fff",
-                                    fontWeight: "bold",
-                                    mb: 1,
-                                    "&.Mui-focused": {
-                                        color: "#fff",
-                                    },
-                                    "&.MuiFormLabel-root": {
-                                        color: "#fff",
-                                    }
-                                }}
-                            >
-                                {t("filter.vehicle") || "Vehicle Type"}
-                            </FormLabel>
-                            <RadioGroup
-                                value={selectedVehicle}
-                                onChange={(e) => setSelectedVehicle(e.target.value)}
-                            >
-                                {vehicleOptions.map((vehicle) => (
-                                    <FilterOption
-                                        key={vehicle.value}
-                                        value={vehicle.value}
-                                        control={<Radio sx={{ color: "#fff" }} />}
-                                        label={vehicle.name}
-                                        sx={{
-                                            "& .Mui-checked": {
-                                                color: "#B71C1C !important",
-                                            },
-                                            "&.Mui-checked": {
-                                                color: "#B71C1C !important",
-                                            },
-                                        }}
-                                    />
-                                ))}
-                            </RadioGroup>
-                        </FormControl>
+                    <Box sx={{ mb: 2, direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+                        <FilterAccordion
+                            expanded={expandedAccordion === 'vehiclePanel'}
+                            onChange={handleAccordionChange('vehiclePanel')}
+                        >
+                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}>
+                                <Typography sx={{ fontWeight: "bold" }}>
+                                    {t("filter.vehicle") || "Vehicle Type"}
+                                    {selectedVehicle && `: ${vehicleOptions.find(v => v.value === selectedVehicle)?.name}`}
+                                </Typography>
+                            </FilterAccordionSummary>
+                            <AccordionDetails>
+                                <RadioGroup
+                                    value={selectedVehicle}
+                                >
+                                    {vehicleOptions.map((vehicle) => (
+                                        <FilterOption
+                                            key={vehicle.value}
+                                            value={vehicle.value}
+                                            control={
+                                                <Radio
+                                                    sx={{ color: "#fff" }}
+                                                    checked={selectedVehicle === vehicle.value}
+                                                    onClick={() => handleOptionSelect(vehicle.value, setSelectedVehicle, selectedVehicle)}
+                                                />
+                                            }
+                                            label={vehicle.name}
+                                            sx={{
+                                                ml: 0.2,
+                                                "& .Mui-checked": {
+                                                    color: "#B71C1C !important",
+                                                },
+                                            }}
+                                        />
+                                    ))}
+                                </RadioGroup>
+                            </AccordionDetails>
+                        </FilterAccordion>
                     </Box>
 
-                    <Box sx={{ mb: 3, direction: i18n.language == "ar" && "rtl" }}>
-                        <FormControl component="fieldset" fullWidth>
-                            <FormLabel component="legend"
-                                sx={{
-                                    color: "#fff",
-                                    fontWeight: "bold",
-                                    mb: 1,
-                                    "&.Mui-focused": {
-                                        color: "#fff",
-                                    },
-                                    "&.MuiFormLabel-root": {
-                                        color: "#fff",
-                                    }
-                                }}
-                            >
-                                {t("filter.type") || "Item Condition"}
-                            </FormLabel>
-                            <RadioGroup
-                                value={selectedType}
-                                onChange={(e) => setSelectedType(e.target.value)}
-                            >
-                                {typeOptions.map((type) => (
-                                    <FilterOption
-                                        key={type.value}
-                                        value={type.value}
-                                        control={<Radio sx={{ color: "#fff" }} />}
-                                        label={type.name}
-                                        sx={{
-                                            "& .Mui-checked": {
-                                                color: "#B71C1C !important",
-                                            },
-                                            "&.Mui-checked": {
-                                                color: "#B71C1C !important",
-                                            },
-                                        }}
-                                    />
-                                ))}
-                            </RadioGroup>
-                        </FormControl>
+                    <Box sx={{ mb: 2, direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
+                        <FilterAccordion
+                            expanded={expandedAccordion === 'typePanel'}
+                            onChange={handleAccordionChange('typePanel')}
+                        >
+                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}>
+                                <Typography sx={{ fontWeight: "bold" }}>
+                                    {t("filter.type") || "Item Condition"}
+                                    {selectedType && `: ${typeOptions.find(t => t.value === selectedType)?.name}`}
+                                </Typography>
+                            </FilterAccordionSummary>
+                            <AccordionDetails>
+                                <RadioGroup
+                                    value={selectedType}
+                                >
+                                    {typeOptions.map((type) => (
+                                        <FilterOption
+                                            key={type.value}
+                                            value={type.value}
+                                            control={
+                                                <Radio
+                                                    sx={{ color: "#fff" }}
+                                                    checked={selectedType === type.value}
+                                                    onClick={() => handleOptionSelect(type.value, setSelectedType, selectedType)}
+                                                />
+                                            }
+                                            label={type.name}
+                                            sx={{
+                                                ml: 0.2,
+                                                "& .Mui-checked": {
+                                                    color: "#B71C1C !important",
+                                                },
+                                            }}
+                                        />
+                                    ))}
+                                </RadioGroup>
+                            </AccordionDetails>
+                        </FilterAccordion>
                     </Box>
 
                     <FilterButton onClick={applyFilters}>

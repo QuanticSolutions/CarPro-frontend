@@ -118,10 +118,14 @@ export default function Country() {
                             borderRadius: 2,
                             width: "15rem",
                             minWidth: "15rem",
-                            maxWidth: "15rem"
+                            maxWidth: "15rem",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center"
                         }}>
                             <Flag code={country.flag} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 200 }} />
-                            <Typography variant="h4" sx={{ color: '#fff', backgroundColor: "rgba(0, 0, 0, 0.6)", "@media(max-width: 800px)": {} }}>
+                            <Typography variant="h4" sx={{ color: '#fff', backgroundColor: "rgba(0, 0, 0, 0.6)", "@media(max-width: 800px)": { fontSize: "15px", width: "50%", textAlign: "center"} }}>
                                 {country.name}
                             </Typography>
                             {/* <Typography variant="subtitle1" sx={{ 

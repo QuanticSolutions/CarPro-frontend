@@ -57,18 +57,22 @@ function Favourites() {
                     <Tabs
                         value={tab}
                         variant='scrollable'
+                        scrollButtons="auto"
                         onChange={(e, newValue) => setTab(newValue)}
                         sx={{
-                            my: 2,
+                            my: 1,
                             "& .MuiTab-root": {
                                 color: "black",
                                 border: "1px solid black",
-                                borderRadius: "25px",
-                                mr: 1,
-                                p: 1,
+                                borderRadius: "20px",
+                                mr: 0.5,
+                                py: 0.5,
+                                px: 1,
+                                minWidth: "32px",
+                                minHeight: "32px",
                                 fontWeight: "bold",
                                 textTransform: "none",
-                                fontSize: "16px",
+                                fontSize: { xs: "12px", sm: "14px", md: "16px" },
                                 transition: "0.3s",
                             },
                             "& .MuiTab-root.Mui-selected": {
@@ -76,8 +80,7 @@ function Favourites() {
                                 color: "#fff!important",
                             },
                             "& .MuiTabs-indicator": { display: "none" }
-                        }} 
-                    // ...
+                        }}
                     >
                         <Tab label={t('favourites.all', { count: favs.length })} value="all" />
                         <Tab label={t('favourites.cars', { count: favs.filter(f => f[0].category === 'cars').length })} value="cars" />
@@ -90,7 +93,7 @@ function Favourites() {
 
                     {
                         filterFavs().length > 0 ?
-                            <Grid2 pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 1, "@media(max-width:768px)": { justifyContent: "center" } }}>
+                            <Grid2 pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 1, "@media(max-width:768px)": {} }}>
                                 {
                                     filterFavs().map((fav, index) => (
                                         <Grid2 item xs={12} sm={8} md={4} lg={4} key={index}>
@@ -100,12 +103,12 @@ function Favourites() {
                                 }
                             </Grid2>
                             :
-                            <Box sx={{ display: "flex", justifyContent: "center"}}>
-                                <img src="/assets/images/gif-favourite.gif" width="350rem"/>
-                            </Box>   
-                            // <Typography fontWeight="bold" textAlign="center" py={4}>
-                            //     {t('favourites.noFavourites')}
-                            // </Typography>
+                            <Box sx={{ display: "flex", justifyContent: "center" }}>
+                                <img src="/assets/images/gif-favourite.gif" width="350rem" />
+                            </Box>
+                        // <Typography fontWeight="bold" textAlign="center" py={4}>
+                        //     {t('favourites.noFavourites')}
+                        // </Typography>
                     }
                 </Box>
             </Container>

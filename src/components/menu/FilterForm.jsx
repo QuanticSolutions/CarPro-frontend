@@ -109,7 +109,7 @@ function FilterForm() {
 
     const countries = {
         "": "UAE",
-        "sa": "Saudi Arab",
+        "sa": "Saudi Arabia",
         "qtr": "Qatar",
         "syr": "Syria",
         "us": "USA",
