@@ -46,7 +46,7 @@ const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
     );
 };
 
-function Slider({ data, Template, toShow=4, action, responsiveOptions}) {
+function Slider({ data, Template, toShow=4, action, responsiveOptions, carouselClass="carousel-item"}) {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -84,7 +84,7 @@ function Slider({ data, Template, toShow=4, action, responsiveOptions}) {
       transitionDuration={500}
       containerClass="carousel-container"
       dotListClass="custom-dot-list-style"
-      itemClass="carousel-item"
+      itemClass={carouselClass}
       centerMode={false}
       customButtonGroup={window.innerWidth >= 600 && <ButtonGroup />}
       renderButtonGroupOutside={true}

@@ -25,11 +25,51 @@ import {
 import CarCard from '../components/card/Card';
 import { MoreVertical, WindArrowDownIcon } from 'lucide-react';
 import Footer from '../components/footer/Footer';
-import { getAdByUser, getImages, deleteAd, updateAd, API_BASE_URL } from '../api/consumer';
+import { getAdByUser, getImages, deleteAd, updateAd, API_BASE_URL, getRentByUser } from '../api/consumer';
 import { useTranslation } from 'react-i18next';
 
-// const API_BASE_URL = "http://localhost:3000";
-// const API_BASE_URL = "https://carprobackend.quanticsols.com";
+const getStatusChipProps = (status) => {
+    const statusLower = status?.toLowerCase();
+
+    switch (statusLower) {
+        case 'live':
+            return {
+                bgcolor: 'rgba(76, 175, 80, 0.1)',
+                color: 'success.main',
+                borderColor: '#4CAF50'
+            };
+        case 'draft':
+            return {
+                bgcolor: 'rgba(255, 152, 0, 0.1)',
+                color: 'warning.main',
+                borderColor: '#FF9800'
+            };
+        case 'pending':
+            return {
+                bgcolor: 'rgba(33, 150, 243, 0.1)',
+                color: 'info.main',
+                borderColor: '#2196F3'
+            };
+        case 'sold':
+            return {
+                bgcolor: 'rgba(156, 39, 176, 0.1)',
+                color: 'secondary.main',
+                borderColor: '#9C27B0'
+            };
+        case 'rejected':
+            return {
+                bgcolor: 'rgba(244, 67, 54, 0.1)',
+                color: 'error.main',
+                borderColor: '#F44336'
+            };
+        default:
+            return {
+                bgcolor: 'rgba(158, 158, 158, 0.1)',
+                color: 'text.secondary',
+                borderColor: '#9E9E9E'
+            };
+    }
+};
 
 function MyAds() {
 
@@ -55,25 +95,30 @@ function MyAds() {
         setMenuAd(null);
     };
 
-    const retrieveAds = () => {
-        getAdByUser(localStorage.getItem("user_id")).then(
-            response => {
-                setAds(response);
-                response.map(
-                    ad => {
-                        getImages(ad.car_plate_number).then(
-                            data => {
-                                setImages(prev => ({
-                                    ...prev,
-                                    [ad.id]: data
-                                }));
-                            }
-                        )
-                    }
-                )
-            }
-        );
-    }
+    const retrieveAds = async () => {
+        const userId = localStorage.getItem("user_id");
+
+        try {
+            const [adsResponse, rentAdsResponse] = await Promise.all([
+                getAdByUser(userId),
+                getRentByUser(userId)
+            ]);
+            const allAds = [...adsResponse, ...rentAdsResponse];
+            setAds(allAds);
+            allAds.forEach(ad => {
+                getImages(ad.car_plate_number).then(data => {
+                    setImages(prev => ({
+                        ...prev,
+                        [ad.id]: data
+                    }));
+                });
+            });
+
+        } catch (error) {
+            console.error("Failed to retrieve ads:", error);
+        }
+    };
+
 
     const hasImages = (id) => {
         if (images[id] && images[id].length > 0) {
@@ -159,11 +204,12 @@ function MyAds() {
                                 color: "#fff!important",
                             },
                             "& .MuiTabs-indicator": { display: "none" }
-                        }} >
+                        }}
+                    >
                         <Tab label={`${t("myAds.tabs.all")} (${ads.length})`} value="all" />
                         <Tab label={`${t("myAds.tabs.live")} (${ads.filter(ad => ad.status == "live").length})`} value="live" />
                         <Tab label={`${t("myAds.tabs.draft")} (${ads.filter(ad => ad.status == "draft").length})`} value="draft" />
-                        <Tab label={`${t("myAds.tabs.sold")} (${ads.filter(ad => ad.status == "sold").length})`} value="sold" />
+                        <Tab label={`${t("myAds.tabs.pending")} (${ads.filter(ad => ad.status == "pending").length})`} value="pending" />
                         <Tab label={`${t("myAds.tabs.rejected")} (${ads.filter(ad => ad.status == "rejected").length})`} value="rejected" />
                     </Tabs>
                     {
@@ -220,9 +266,9 @@ function MyAds() {
                                         filterAds().length > 0 ?
                                             filterAds().map((items) => (
                                                 <Box sx={{ mb: 2 }}>
-                  
+
                                                     <Box key={items.id}>
-                                                        <Typography
+                                                        {/* <Typography
                                                             variant="body2"
                                                             sx={{
                                                                 px: 2,
@@ -232,7 +278,7 @@ function MyAds() {
                                                                 color: theme.palette.text.secondary
                                                             }}
                                                         >
-                                                        </Typography>
+                                                        </Typography> */}
 
                                                         <Box
                                                             sx={{
@@ -263,6 +309,7 @@ function MyAds() {
                                                                     display: 'flex',
                                                                     width: '100%',
                                                                     flexDirection: isMobile ? 'column' : 'row',
+                                                                    position: "relative",
                                                                     borderRadius: 1,
                                                                     overflow: 'hidden',
                                                                     boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
@@ -274,7 +321,7 @@ function MyAds() {
                                                                         <CardMedia
                                                                             component="img"
                                                                             sx={{
-                                                                                width: isMobile ? '100%' : 150,
+                                                                                width: isMobile ? '100%' : 250,
                                                                                 height: isMobile ? 140 : '100%'
                                                                             }}
                                                                             image={`${API_BASE_URL}${images[items.id][images[items.id].length - 1].imageUrl}`}
@@ -294,19 +341,17 @@ function MyAds() {
                                                                     sx={{
                                                                         flex: 1,
                                                                         p: 2,
+                                                                        position: "relative",
                                                                         '&:last-child': { pb: 2 }
                                                                     }}
                                                                 >
                                                                     <Grid container spacing={1}>
                                                                         <Grid item xs={12} sm={8}>
-                                                                            <Typography variant="subtitle1" component="h3">
-                                                                                {items.model}
+                                                                            <Typography variant="h5" component="h3">
+                                                                                {items.title}
                                                                             </Typography>
-                                                                            <Typography variant="h6" fontWeight="bold" sx={{ my: 0.5 }}>
+                                                                            <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 0.5, color: "#B71C1C" }}>
                                                                                 AED {items.price.toLocaleString()}
-                                                                            </Typography>
-                                                                            <Typography variant="caption" color="text.secondary">
-                                                                                {items.city}
                                                                             </Typography>
                                                                         </Grid>
 
@@ -327,17 +372,15 @@ function MyAds() {
                                                                                     label={items.status}
                                                                                     size="small"
                                                                                     sx={{
-                                                                                        bgcolor: items.status === 'Draft'
-                                                                                            ? 'rgba(255, 152, 0, 0.1)'
-                                                                                            : 'rgba(76, 175, 80, 0.1)',
-                                                                                        color: items.status === 'Draft'
-                                                                                            ? 'warning.main'
-                                                                                            : 'success.main',
+                                                                                        ...getStatusChipProps(items.status),
                                                                                         fontSize: '0.7rem',
-                                                                                        height: 24
+                                                                                        height: 24,
+                                                                                        border: '1px solid',
+                                                                                        fontWeight: 'medium',
+                                                                                        textTransform: 'capitalize'
                                                                                     }}
                                                                                 />
-                                                                                <IconButton size="small" onClick={(e) => handleMenuClick(e, items)}>
+                                                                                <IconButton size="small" onClick={(e) => handleMenuClick(e, items)} sx={{ position: isMobile && "absolute", right: isMobile && i18n.language != "ar" && 0, top: isMobile && 10, left: isMobile && i18n.language == "ar" && 0}}>
                                                                                     <MoreVertical size={16} />
                                                                                 </IconButton>
                                                                                 <Menu
@@ -345,50 +388,48 @@ function MyAds() {
                                                                                     open={Boolean(anchorEl)}
                                                                                     onClose={handleMenuClose}
                                                                                 >
-                                                                                    <MenuItem onClick={() => {
-                                                                                        if (menuAd) {
-                                                                                            updateAd(menuAd.id, { ...menuAd, status: "live" }).then(() => {
-                                                                                                retrieveAds();
-                                                                                                handleMenuClose();
-                                                                                            });
-                                                                                        }
-                                                                                    }}>
-                                                                                        Make Live
+
+                                                                                    <MenuItem
+                                                                                        onClick={() => (window.location = `/ad/${menuAd.adType}?id=${menuAd.id}`)}
+                                                                                    >
+                                                                                       {t("View Ad")}
                                                                                     </MenuItem>
-                                                                                    <MenuItem onClick={() => {
-                                                                                        if (menuAd) {
-                                                                                            updateAd(menuAd.id, { ...menuAd, status: "draft" }).then(() => {
-                                                                                                retrieveAds();
-                                                                                                handleMenuClose();
-                                                                                            });
-                                                                                        }
-                                                                                    }}>
-                                                                                        Add to Draft
+
+                                                                                    <MenuItem onClick={() => { localStorage.setItem("ad_id", items.id); window.location.href = `/update/sell/${menuAd.category}` }}>
+                                                                                        {t("Edit Ad")}
                                                                                     </MenuItem>
+
+                                                                                    {
+                                                                                        menuAd && menuAd.status != "live" &&
+                                                                                        <MenuItem onClick={() => {
+                                                                                            if (menuAd) {
+                                                                                                updateAd(menuAd.id, { ...menuAd, status: "live" }).then(() => {
+                                                                                                    retrieveAds();
+                                                                                                    handleMenuClose();
+                                                                                                });
+                                                                                            }
+                                                                                        }}>
+                                                                                            {t("Make Live")}
+                                                                                        </MenuItem>
+                                                                                    }
+                                                                                    {
+                                                                                        menuAd && menuAd.status != "draft" &&
+                                                                                        <MenuItem onClick={() => {
+                                                                                            if (menuAd) {
+                                                                                                updateAd(menuAd.id, { ...menuAd, status: "draft" }).then(() => {
+                                                                                                    retrieveAds();
+                                                                                                    handleMenuClose();
+                                                                                                });
+                                                                                            }
+                                                                                        }}>
+                                                                                            {t("Add to Draft")}
+                                                                                        </MenuItem>
+                                                                                    }
                                                                                     <MenuItem onClick={() => { localStorage.setItem("ad_id", menuAd.id); window.location.href = "/checkout" }}>
-                                                                                        Feature Your Ad
+                                                                                        {t("Feature Your Ad")}
                                                                                     </MenuItem>
                                                                                 </Menu>
                                                                             </Box>
-                                                                        </Grid>
-                                                                        <Grid item xs={12} sm={4} >
-                                                                            <Button
-                                                                                variant="outlined"
-                                                                                color="inherit"
-                                                                                size="small"
-                                                                                sx={{
-                                                                                    borderColor: "#B71C1C",
-                                                                                    color: "#B71C1C",
-                                                                                    '&:hover': {
-                                                                                        bgcolor: theme.palette.grey[300]
-                                                                                    },
-                                                                                    fontSize: '0.75rem',
-                                                                                    boxShadow: 'none'
-                                                                                }}
-                                                                                onClick={() => { localStorage.setItem("ad_id", items.id); window.location.href = `/update/sell/${items.category}` }}
-                                                                            >
-                                                                                Continue Posting
-                                                                            </Button>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </CardContent>

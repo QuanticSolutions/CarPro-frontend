@@ -145,17 +145,17 @@ function Footer({ countryCode }) {
                     <Grid2>
                         <Typography variant="h6" fontWeight="bold">{t("footer.company")}</Typography>
                         <List sx={{ position: "relative" }}>
-                            {/* <StyledListItem sx={{ paddingLeft: "0" }}>
+                            <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/about">{t("footer.aboutUs")}</a>
-                            </StyledListItem> */}
+                            </StyledListItem>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/terms">{t("footer.terms")}</a>
                             </StyledListItem>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/privacy">{t("footer.privacy")}</a>
                             </StyledListItem>
-                            <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 70, right: i18n.language == "ar" && 0 }}>
-                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold" }}>
+                            <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 80, right: i18n.language == "ar" && 0 }}>
+                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold", "@media(max-width: 2000px)":{width: "8rem"} }}>
                                     {t("footer.downloadApp")}
                                 </StyledListItem>
                                 <Box sx={{ display: "flex" }}>
@@ -207,10 +207,10 @@ function Footer({ countryCode }) {
                         <Typography variant="h6" fontWeight="bold">{t("footer.languages")}</Typography>
                         <List sx={{ position: "relative" }}>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a>{t("footer.english")}</a>
+                                <a style={{ cursor: "pointer" }} onClick={()=>i18n.changeLanguage('en')}>{t("footer.english")}</a>
                             </StyledListItem>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a>{t("footer.arabic")}</a>
+                                <a style={{ cursor: "pointer" }} onClick={()=>i18n.changeLanguage('en')}>{t("footer.arabic")}</a>
                             </StyledListItem>
                         </List>
                     </Grid2>

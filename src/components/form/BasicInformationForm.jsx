@@ -56,6 +56,12 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
     { name: t('cardValues.Beige'), value: 'Beige' }
   ];
 
+  const fuelTyperOptions = [
+    { name: t('filters.options.Diesel'), value: 'Diesel' },
+    { name: t('filters.options.Electric'), value: 'Electric' },
+    { name: t('filters.filters.options.Gasoline'), value: 'Gasoline' },
+  ];
+
   const yesNoOptions = [
     { name: t('cardValues.Yes'), value: 'Yes' },
     { name: t('cardValues.No'), value: 'No' }
@@ -521,6 +527,17 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             options={seatsOptions}
             onChange={(value) => handleChange({ target: { name: "seats", value: value } })}
             placeholder={t("basicInfo.seats")}
+            value={data.seats}
+            showStartAndorement={false}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4}>
+          <CustomSelect
+            styles={customSelectStyles}
+            options={fuelTyperOptions}
+            onChange={(value) => handleChange({ target: { name: "fuel_type", value: value } })}
+            placeholder={t("filters.filters.Fuel Type")}
             value={data.seats}
             showStartAndorement={false}
           />

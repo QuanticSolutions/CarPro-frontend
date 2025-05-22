@@ -21,6 +21,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import CloseIcon from '@mui/icons-material/Close';
+import PublicIcon from '@mui/icons-material/Public';
 import AuthDialog from '../auth/Dialog';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
@@ -178,6 +179,7 @@ const StyledTextField = styled(TextField)({
     "& .MuiOutlinedInput-root": {
         borderTopRightRadius: "0",
         borderBottomRightRadius: "0",
+            borderRadius: 0,
     },
     "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
         borderColor: "#B71C1C !important",
@@ -216,6 +218,19 @@ const FilterAccordionSummary = styled(AccordionSummary)({
     }
 });
 
+const CountryMenuItem = styled(MenuItem)({
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "3rem",
+    "& .country-flag": {
+        width: "24px",
+        height: "16px",
+        marginRight: "12px",
+        borderRadius: "2px",
+        objectFit: "cover"
+    }
+});
+
 function MobileMenu({ toggleChat }) {
 
     const [open, setOpen] = useState(false);
@@ -223,6 +238,7 @@ function MobileMenu({ toggleChat }) {
     const [model, setModel] = useState("");
     const [serviceMenu, setServiceMenu] = useState(false);
     const [postAdMenu, setPostAdMenu] = useState(false);
+    const [countryMenu, setCountryMenu] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
     const [bottomDrawerOpen, setBottomDrawerOpen] = useState(false);
@@ -232,7 +248,6 @@ function MobileMenu({ toggleChat }) {
     const [selectedType, setSelectedType] = useState("");
     const [expandedAccordion, setExpandedAccordion] = useState(false);
     const { t, i18n } = useTranslation();
-
 
     const handleLogoutClick = () => {
         logout();
@@ -248,6 +263,50 @@ function MobileMenu({ toggleChat }) {
         "us": "USA"
     };
 
+    const countryOptions = [
+        { 
+            code: "", 
+            name: "UAE", 
+            arabicName: 'الإمارات العربية المتحدة',
+            flag: "🇦🇪",
+            flagUrl: "https://flagcdn.com/w40/ae.png"
+        },
+        { 
+            code: "sa", 
+            name: "Saudi Arabia", 
+            arabicName: 'المملكة العربية السعودية',
+            flag: "🇸🇦",
+            flagUrl: "https://flagcdn.com/w40/sa.png"
+        },
+        { 
+            code: "qtr", 
+            name: "Qatar", 
+            arabicName: 'قطر',
+            flag: "🇶🇦",
+            flagUrl: "https://flagcdn.com/w40/qa.png"
+        },
+        { 
+            code: "eg", 
+            name: "Egypt", 
+            arabicName: 'مصر',
+            flag: "🇪🇬",
+            flagUrl: "https://flagcdn.com/w40/eg.png"
+        },
+        { 
+            code: "syr", 
+            name: "Syria", 
+            arabicName: 'سوريا',
+            flag: "🇸🇾",
+            flagUrl: "/assets/images/syria-flag.png"
+        },
+        { 
+            code: "us", 
+            name: "USA", 
+            arabicName: "الولايات المتحدة الأمريكية",
+            flag: "🇺🇸",
+            flagUrl: "https://flagcdn.com/w40/us.png"
+        }
+    ];
 
     const cityOptions = [
         { name: t("filter.cities.dubai"), value: "Dubai" },
@@ -262,8 +321,9 @@ function MobileMenu({ toggleChat }) {
 
     const vehicleOptions = [
         { name: t("filter.vehicles.cars"), value: "cars" },
-        { name: t("filter.vehicles.bikes"), value: "bikes" },
         { name: t("filter.vehicles.heavy"), value: "heavy" },
+        { name: t("filter.vehicles.bikes"), value: "bikes" },
+        { name: t("filter.vehicles.plates"), value: "plates" },
         { name: t("filter.vehicles.construction"), value: "construction" },
         { name: t("filter.vehicles.boats"), value: "boats" },
     ];
@@ -284,6 +344,15 @@ function MobileMenu({ toggleChat }) {
 
     const handlePostAdMenu = () => {
         setPostAdMenu(!postAdMenu);
+    };
+
+    const handleCountryMenu = () => {
+        setCountryMenu(!countryMenu);
+    };
+
+    const getCurrentCountry = () => {
+        const currentCountryCode = localStorage.getItem("selectedCountry") || "";
+        return countryOptions.find(country => country.code === currentCountryCode) || countryOptions[0];
     };
 
     const toggleBottomDrawer = () => {
@@ -325,24 +394,24 @@ function MobileMenu({ toggleChat }) {
     return (
         <>
             <CustomAppBar position="static">
-                <Toolbar sx={{ display: "flex", justifyContent: "left", p: 0 }}>
+                <Toolbar sx={{ display: "flex", justifyContent: "space-between", p: 0 }}>
                     <a href="/">
                         <img src="/assets/images/logo.png" alt="logo" width="100rem" style={{ marginTop: "1rem", marginLeft: "0.5rem" }} />
                     </a>
-                    {/* <IconButton edge="start" color="inherit" onClick={() => setOpen(!open)} sx={{ display: "flex", justifyContent: "right" }}>
+                    <IconButton edge="start" color="inherit" onClick={() => setOpen(!open)} sx={{ display: "flex", justifyContent: "right" }}>
                         {
                             !open ?
                                 <MenuIcon sx={{ fontSize: "1.2rem", color: "#fff" }} />
                                 :
                                 <CloseIcon sx={{ fontSize: "1.2rem", color: "#fff" }} />
                         }
-                    </IconButton> */}
+                    </IconButton>
                 </Toolbar>
                 <Box sx={{ mt: 2, px: 2 }}>
                     <Typography variant='h4' textAlign={i18n.language == "ar" && "right"}>
                         {t("home.header", { country: t(`countries.${countries[localStorage.getItem("selectedCountry")]}`) })}
                     </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", flexDirection: i18n.language == "ar" && "row-reverse" }}>
                         <StyledTextField
                             placeholder={t("filter.makePlaceholder")}
                             name="make"
@@ -378,7 +447,7 @@ function MobileMenu({ toggleChat }) {
                                     }
                             }
                         />
-                        <FilterBtn onClick={applyFilters}>
+                        <FilterBtn onClick={applyFilters} sx={{ transform: i18n.language == "ar" && "rotateY(180deg)" }}>
                             <SearchIcon />
                         </FilterBtn>
                     </Box>
@@ -405,6 +474,43 @@ function MobileMenu({ toggleChat }) {
                         <CloseIcon sx={{ color: "#fff" }} />
                     </IconButton>
                     <ToggleBtn />
+                    <MenuItem button onClick={handleCountryMenu}>
+                        <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
+                            <img 
+                                src={getCurrentCountry().flagUrl} 
+                                alt={getCurrentCountry().name}
+                                className="country-flag"
+                                style={{ width: "24px", height: "16px", marginRight: "8px", borderRadius: "2px" }}
+                            />
+                            {/* <ListItemText primary={getCurrentCountry().name} /> */}
+                        </Box>
+                        <ExpandMoreIcon />
+                    </MenuItem>
+                    {
+                        countryMenu &&
+                        <List sx={{ margin: "0", padding: "0" }}>
+                            {countryOptions.map((country) => {
+                                if(localStorage.getItem("selectedCountry") != country.code) {
+                                    return (
+                                        <CountryMenuItem 
+                                            key={country.code}
+                                            onClick={() => { window.location.href = `/${country.code}`; localStorage.setItem("selectedCountry", country.code)}}
+                                        >
+                                            <img 
+                                                src={country.flagUrl} 
+                                                alt={country.name}
+                                                className="country-flag"
+                                            />
+                                            &nbsp;
+                                            {i18n.language != "ar" ? country.name : country.arabicName}
+                                        </CountryMenuItem>
+                                    )
+                                }
+                            }
+                            )}
+                        </List>
+                    }
+
                     <MenuItem button onClick={() => handleCategoryMenu()}>
                         <CategoryIcon />
                         &nbsp;
@@ -675,11 +781,14 @@ function MobileMenu({ toggleChat }) {
                     <NotesIcon />
                     <Typography variant="caption">{t("menu.myAds")}</Typography>
                 </NavItem>
-                <NavItem onClick={() => setOpen(!open)}>
-                    {/* <ChatIcon /> */}
-                    <MenuIcon />
-                    <Typography variant="caption">{t("menu.menu")}</Typography>
+                <NavItem onClick={() => { if (isAuthenticated) { toggleChat() } else { setPopupOpen(true) }}}>
+                    <ChatIcon />
+                    <Typography variant="caption">{t("menu.chats")}</Typography>
                 </NavItem>
+                {/* <NavItem onClick={() => setOpen(!open)}>
+                    <MenuIcon />
+                    <Typography variant="caption">{t("menu.chats")}</Typography>
+                </NavItem> */}
             </BottomNavigation>
         </>
     )

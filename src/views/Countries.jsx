@@ -15,9 +15,9 @@ const countries = [
     { name: 'UAE', arabicName: 'الإمارات العربية المتحدة', code: "", flag: "ae" },
     { name: 'Saudi Arab', arabicName: 'المملكة العربية السعودية', code: "sa", flag: "sa" },
     { name: 'Qatar', arabicName: 'قطر', code: "qtr", flag: "qa" },
-    { name: 'Egypt', arabicName: 'سوريا', code: "eg", flag: "eg" },
+    { name: 'Egypt', arabicName: 'مصر', code: "eg", flag: "eg" },
     { name: 'Syria', arabicName: 'سوريا', code: "syr", flag: "syr" },
-    { name: 'USA', arabicName: 'سوريا', code: "us", flag: "us" }
+    { name: 'USA', arabicName: "الولايات المتحدة الأمريكية", code: "us", flag: "us" }
 ];
 
 export default function Country() {
@@ -124,7 +124,12 @@ export default function Country() {
                             justifyContent: "center",
                             alignItems: "center"
                         }}>
-                            <Flag code={country.flag} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 200 }} />
+                            {
+                                country.code == "syr" ?
+                                <img src={"/assets/images/syria-flag.png"} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 150, paddingBottom: 15, paddingTop: 15 }} />
+                                :
+                                <Flag code={country.flag} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 200 }} />
+                            }
                             <Typography variant="h4" sx={{ color: '#fff', backgroundColor: "rgba(0, 0, 0, 0.6)", "@media(max-width: 800px)": { fontSize: "15px", width: "50%", textAlign: "center"} }}>
                                 {country.name}
                             </Typography>

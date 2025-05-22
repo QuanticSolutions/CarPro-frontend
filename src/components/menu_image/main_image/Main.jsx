@@ -14,6 +14,9 @@ const ImageContainer = styled(Box)(({ theme }) => ({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     flex: "1 0 auto",
+    "@media (max-width: 950px)": {
+        display: "none"
+    },
     [theme.breakpoints.down("md")]: {
       display: "none"
     },
@@ -69,7 +72,7 @@ function Main({ showForm, form, image, showText, headerText, headerTextStyles, t
                 backgroundImage: `url(/assets/images/${image}.png)`,
                 height: {
                     xs: "50vh",
-                    md: "95vh",
+                    md: "110vh",
                     lg: "90vh"
                 },
                 backgroundColor: "#F2F3F3",

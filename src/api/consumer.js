@@ -3,12 +3,12 @@ import axios from "axios";
 // export const API_BASE_URL = "http://localhost:3000";
 // const CHAT_BASE_URL = "http://localhost:3002";
 // export const NOTIFY_BASE_URL = "http://localhost:5000";
-export const API_BASE_URL = "https://carprobackend.quanticsols.com";
-const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
-export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
-// export const API_BASE_URL = "http://13.60.195.147:3000";
-// const CHAT_BASE_URL = "http://16.170.244.16:3002";
-// export const NOTIFY_BASE_URL = "http://16.170.236.65:5000";
+// export const API_BASE_URL = "https://carprobackend.quanticsols.com";
+// const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
+// export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
+export const API_BASE_URL = "http://13.60.195.147:3000";
+const CHAT_BASE_URL = "http://16.170.244.16:3002";
+export const NOTIFY_BASE_URL = "http://16.170.236.65:5000";
 
 export const signup = async (userData) => {
     try {
@@ -110,6 +110,15 @@ export const getAdByUser = async (id) => {
     }
 };
 
+export const getRentByUser = async (id) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/rent/user/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching ad:", error.response?.data || error.message);
+        throw error;
+    }
+};
 
 export const updateAd = async (adId, updatedData) => {
     try {

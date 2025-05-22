@@ -42,6 +42,7 @@ const DataGrid = ({ data, title, type }) => {
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
     const itemsPerPage = window.innerWidth > 800 && view == "Grid" ? 28 : window.innerWidth > 800 && view == "List" ? 7 : window.innerWidth < 800 && view == "list" ? 7 : 6;
+    
     const handlePageChange = (event, value) => {
         setPage(value);
     };
@@ -63,9 +64,28 @@ const DataGrid = ({ data, title, type }) => {
     };
 
     const sortedData = [...data].sort((a, b) => {
-        if (sortOption === "highest") return b.price - a.price;
-        if (sortOption === "lowest") return a.price - b.price;
-        return 0;
+        switch (sortOption) {
+    
+            case "price_high_to_low":
+                return b.price - a.price;
+            case "price_low_to_high":
+                return a.price - b.price;
+            case "newest":
+                return new Date(b.created_at || b.date || b.createdAt) - new Date(a.created_at || a.date || a.createdAt);
+            case "oldest":
+                return new Date(a.created_at || a.date || a.createdAt) - new Date(b.created_at || b.date || b.createdAt);
+            case "mileage_low_to_high":
+                return (a.mileage || a.kilometers || 0) - (b.mileage || b.kilometers || 0);
+            case "mileage_high_to_low":
+                return (b.mileage || b.kilometers || 0) - (a.mileage || a.kilometers || 0);
+            case "highest":
+                return b.price - a.price;
+            case "lowest":
+                return a.price - b.price;
+            
+            default:
+                return 0;
+        }
     });
 
     const displayedCars = sortedData.slice(
@@ -79,7 +99,7 @@ const DataGrid = ({ data, title, type }) => {
                 <Typography variant="h5" fontWeight="bold">{title}</Typography>
                 <Box display="flex" alignItems="center" flexWrap="wrap" gap={3}>
                     <Box display="flex" justifyContent="center" gap={1} flexDirection={"column"}>
-                        <Typography variant="body" fontWeight="bold" textAlign={"left"}>{view == "Grid" ? t("grid") : t("list")} {t('view')}</Typography> {/* Translation for 'View' */}
+                        <Typography variant="body" fontWeight="bold" textAlign={"left"}>{view == "Grid" ? t("grid") : t("list")} {t('view')}</Typography>
                         <Box>
                             <Button onClick={() => setView("List")} sx={{ minWidth: "0", background: view == "List" && "#B71C1C" }}>
                                 <ViewListIcon sx={{ color: view == "List" ? "#fff" : "#B71C1C" }} />
@@ -90,10 +110,10 @@ const DataGrid = ({ data, title, type }) => {
                         </Box>
                     </Box>
                     <Box display="flex" justifyContent="center" gap={1} flexDirection={"column"}>
-                        <Typography variant="body1" fontWeight={"bold"} textAlign={ i18n.language == "ar" ? "right" : "left"}>{t('sortBy')}:</Typography> {/* Translation for 'Sort By' */}
+                        <Typography variant="body1" fontWeight={"bold"} textAlign={ i18n.language == "ar" ? "right" : "left"}>{t('sortBy')}:</Typography>
                         <CustomSelect
                             styles={{
-                                width: "10rem",
+                                width: "12rem",
                                 padding: "12px",
                                 borderRadius: "4px",
                                 backgroundColor: "#f5f5f5",
@@ -114,8 +134,14 @@ const DataGrid = ({ data, title, type }) => {
                             placeholder={t('select')}
                             options={[
                                 { name: t('mostRelevant'), value: "rel" },
+                                { name: t('priceHighToLow') || "Price: High to Low", value: "price_high_to_low" },
+                                { name: t('priceLowToHigh') || "Price: Low to High", value: "price_low_to_high" },
+                                { name: t('newest') || "Newest First", value: "newest" },
+                                { name: t('oldest') || "Oldest First", value: "oldest" },
+                                { name: t('mileageLowToHigh') || "Mileage: Low to High", value: "mileage_low_to_high" },
+                                { name: t('mileageHighToLow') || "Mileage: High to Low", value: "mileage_high_to_low" },
                                 { name: t('highestPrice'), value: "highest" },
-                                { name: t('lowestPrice'), value: 'lowest' }
+                                { name: t('lowestPrice'), value: 'lowest' },
                             ]}
                         />
                     </Box>
@@ -124,10 +150,10 @@ const DataGrid = ({ data, title, type }) => {
 
             {
                 view == "Grid" ?
-                    <Grid2 item pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 3, "@media(max-width: 758px)": { gap: 1 }, "@media(max-width: 350px)": { justifyContent: "center" } }}>
+                    <Grid2 item pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 3, "@media(max-width: 800px)": { gap: 1 }}}>
                         {displayedCars.map((car, index) => (
                             <Grid2 item xs={12} sm={6} md={4} lg={3} key={index}>
-                                <CarCard data={car} type={type} handleFavBtn={handleFavBtn} />
+                                <CarCard data={car} type={type} handleFavBtn={handleFavBtn} isGrid={true} />
                             </Grid2>
                         ))}
                     </Grid2>

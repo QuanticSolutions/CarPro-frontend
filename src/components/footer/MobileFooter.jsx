@@ -100,19 +100,19 @@ function MobileFooter({ countryCode }) {
                                 {
                                     countries[countryCode] != "UAE" &&
                                     <ListItem sx={{ paddingLeft: "0" }}>
-                                        <a href="/"  onClick={() => localStorage.setItem("selectedCountry", "")}>{t("countries.UAE")}</a>
+                                        <a href="/" onClick={() => localStorage.setItem("selectedCountry", "")}>{t("countries.UAE")}</a>
                                     </ListItem>
                                 }
                                 {
                                     countries[countryCode] != "Saudi Arab" &&
                                     <ListItem sx={{ paddingLeft: "0", textWrap: "nowrap" }}>
-                                        <a href="/sa"  onClick={() => localStorage.setItem("selectedCountry", "sa")}>{t("countries.Saudi Arabia")}</a>
+                                        <a href="/sa" onClick={() => localStorage.setItem("selectedCountry", "sa")}>{t("countries.Saudi Arabia")}</a>
                                     </ListItem>
                                 }
                                 {
                                     countries[countryCode] != "Qatar" &&
                                     <ListItem sx={{ paddingLeft: "0" }}>
-                                        <a href="/qtr"  onClick={() => localStorage.setItem("selectedCountry", "qtr")}>{t("countries.Qatar")}</a>
+                                        <a href="/qtr" onClick={() => localStorage.setItem("selectedCountry", "qtr")}>{t("countries.Qatar")}</a>
                                     </ListItem>
                                 }
                                 {
@@ -167,6 +167,32 @@ function MobileFooter({ countryCode }) {
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <a>{t("footer.arabic")}</a>
                                 </ListItem>
+                            </List>
+                            <List sx={{ display: "flex", m:0, p:0, flexWrap: "wrap" }}>
+                                <Box>
+                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                        <a style={{ display: 'flex', alignItems: "center" }}>
+                                            <Facebook sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
+                                        </a>
+                                    </ListItem>
+                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                        <a style={{ display: 'flex', alignItems: "center" }}>
+                                            <Twitter sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
+                                        </a>
+                                    </ListItem>
+                                </Box>
+                                <Box>
+                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                        <a style={{ display: 'flex', alignItems: "center" }}>
+                                            <YouTube sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
+                                        </a>
+                                    </ListItem>
+                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                        <a style={{ display: 'flex', alignItems: "center" }}>
+                                            <Instagram sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
+                                        </a>
+                                    </ListItem>
+                                </Box>
                             </List>
                         </Grid2>
                         <Box sx={{ display: "flex", gap: 2, mt: 2, flexDirection: "column" }}>

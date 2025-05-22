@@ -22,6 +22,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import { useTranslation } from 'react-i18next';
 
 // Styled components
 const DrawerHeader = styled(Box)(({ theme }) => ({
@@ -56,6 +57,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const MobileFilterDrawer = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedFilter, setExpandedFilter] = useState(null);
+  const { t, i18n } = useTranslation();
   const [filters, setFilters] = useState({
     city: [],
     brand: [],
@@ -63,32 +65,30 @@ const MobileFilterDrawer = () => {
     exteriorColor: [],
     body: [],
     doors: [],
+    fuelType: [],
     price: { min: '', max: '' },
     mileage: { min: '', max: '' },
     year: { min: '', max: '' }
   });
 
-  // Toggle drawer open/close
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
     if (!drawerOpen) setExpandedFilter(null);
   };
 
-  // Toggle dropdown expansion
   const toggleFilterExpansion = (filterId) => {
     setExpandedFilter(expandedFilter === filterId ? null : filterId);
   };
 
-  // Handle checkbox changes
   const handleCheckboxChange = (filterId, option) => {
     const updatedFilters = { ...filters };
-    
+
     if (updatedFilters[filterId].includes(option)) {
       updatedFilters[filterId] = updatedFilters[filterId].filter(item => item !== option);
     } else {
       updatedFilters[filterId] = [...updatedFilters[filterId], option];
     }
-    
+
     setFilters(updatedFilters);
   };
 
@@ -119,13 +119,13 @@ const MobileFilterDrawer = () => {
       exteriorColor: [],
       body: [],
       doors: [],
+      fuelType: [],
       price: { min: '', max: '' },
       mileage: { min: '', max: '' },
       year: { min: '', max: '' }
     });
   };
 
-  // Get active filter count
   const getActiveFilterCount = (filterId) => {
     if (['price', 'mileage', 'year'].includes(filterId)) {
       return (filters[filterId].min ? 1 : 0) + (filters[filterId].max ? 1 : 0);
@@ -133,67 +133,80 @@ const MobileFilterDrawer = () => {
     return filters[filterId].length;
   };
 
-  // Filter categories with their options
   const filterCategories = [
-    { 
-      id: "city", 
-      label: "City", 
+    {
+      id: "city",
+      label: t("filters.filters.City"),
       type: "checkbox",
-      options: ["Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Fujairah", "Al Ain", "Umm Al Quwain"] 
+      options: [
+        "Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Fujairah", "Al Ain", "Umm Al Qwain"
+      ].map(city => t(`filters.options.${city}`))
     },
-    { 
-      id: "brand", 
-      label: "Brand", 
+    {
+      id: "brand",
+      label: t("filters.filters.Brand"),
       type: "checkbox",
-      options: ["Mercedes-Benz", "Mitsubishi", "BMW", "Toyota", "Nissan", "Ford", "Honda"] 
+      options: ["Mercedes-Benz", "Mitsubishi", "Peugeot"].map(brand => t(`filters.options.${brand}`)),
+
     },
-    { 
-      id: "transmission", 
-      label: "Transmission", 
+    {
+      id: "transmission",
+      label: t("filters.filters.Transmission"),
       type: "checkbox",
-      options: ["Automatic", "Manual"] 
+      options: ["Automatic", "Manual"].map(option => t(`filters.options.${option}`)),
+
     },
-    { 
-      id: "exteriorColor", 
-      label: "Exterior Color", 
+    {
+      id: "exteriorColor",
+      label: t("filters.filters.Exterior Color"),
       type: "checkbox",
-      options: ["White", "Black", "Silver", "Blue", "Red", "Gold", "Gray"] 
+      options: ["White", "Black", "Silver", "Blue", "Gold"].map(color => t(`filters.options.${color}`)),
+
     },
-    { 
-      id: "body", 
-      label: "Body Type", 
+    {
+      id: "body",
+      label: t("filters.filters.Body"),
       type: "checkbox",
-      options: ["Crossover", "SUV", "Sedan", "Coupe", "Convertible", "Pickup Truck", "Hatchback"] 
+      options: [
+        "Crossover", "SUV", "Sedan", "Coupe", "Hard Top Convertible", "Pick Up Truck"
+      ].map(body => t(`filters.options.${body}`))
     },
     {
       id: "doors",
-      label: "Doors",
+      label: t("filters.filters.Doors"),
       type: "checkbox",
-      options: ["2", "4", "5"]
+      options: ["2", "4", "6"].map(door => t(`filters.options.${door}`)),
+
+    },
+    {
+      id: "fuelType",
+      label: t("filters.filters.Fuel Type"),
+      type: "checkbox",
+      options: ["Diesel", "Electric", "Gasoline"].map(ft => t(`filters.options.${ft}`)),
+
     },
     {
       id: "price",
-      label: "Price Range",
+      label: t("filters.filters.Price"),
       type: "range"
     },
     {
       id: "mileage",
-      label: "Mileage",
+      label: t("filters.filters.Mileage"),
       type: "range"
     },
     {
       id: "year",
-      label: "Year",
+      label: t("filters.filters.Year"),
       type: "range"
     }
   ];
 
   return (
-    <Box sx={{ width: '100%', display: { xs: 'block', md: 'none' } }}>
-      {/* Filter Button */}
+    <Box sx={{ width: '100%', display: { xs: 'block', md: 'none' }, direction: i18n.language == "ar" && "rtl" }}>
+
       <Button
         variant="contained"
-        startIcon={<FilterAltIcon />}
         onClick={toggleDrawer}
         fullWidth
         sx={{
@@ -207,10 +220,11 @@ const MobileFilterDrawer = () => {
           mb: 2,
         }}
       >
-        Advanced Filters
+        <FilterAltIcon />
+        &nbsp;
+        {t('filter.advancedFilter')}
       </Button>
 
-      {/* Bottom Drawer */}
       <Drawer
         anchor="bottom"
         open={drawerOpen}
@@ -223,30 +237,29 @@ const MobileFilterDrawer = () => {
           }
         }}
       >
-        {/* Drawer handle/puller */}
-        <Box 
-          sx={{ 
-            width: 40, 
-            height: 5, 
-            backgroundColor: '#ddd', 
+
+        <Box
+          sx={{
+            width: 40,
+            height: 5,
+            backgroundColor: '#ddd',
             borderRadius: 3,
             mx: 'auto',
             my: 1
-          }} 
+          }}
         />
-        
-        {/* Drawer header */}
-        <DrawerHeader>
+
+        <DrawerHeader sx={{ direction: i18n.language == "ar" && "rtl" }}>
           <Typography variant="h6" fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ color: '#B71C1C' }}>
-            Filters
+            {t("filters.filterHeading")}
           </Typography>
           <Box>
-            <Button 
+            <Button
               color="inherit"
               onClick={resetFilters}
               sx={{ mr: 1, textTransform: 'none' }}
             >
-              Reset
+              {t('filters.Reset')}
             </Button>
             <IconButton size="small" edge="end" onClick={toggleDrawer}>
               <CloseIcon />
@@ -254,32 +267,31 @@ const MobileFilterDrawer = () => {
           </Box>
         </DrawerHeader>
 
-        {/* Filter content */}
-        <List sx={{ pb: 8 }}>
+        <List sx={{ pb: 8, px:1, direction: i18n.language == "ar" && "rtl" }}>
           {filterCategories.map((category) => (
             <React.Fragment key={category.id}>
-              <ListItem disablePadding>
-                <ListItemButton 
+              <ListItem disablePadding sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                <ListItemButton
                   onClick={() => toggleFilterExpansion(category.id)}
                   sx={{ p: 2 }}
                 >
-                  <StyledBadge 
-                    badgeContent={getActiveFilterCount(category.id)} 
+                  <StyledBadge
+                    badgeContent={getActiveFilterCount(category.id)}
                     invisible={getActiveFilterCount(category.id) === 0}
-                    sx={{ width: '100%' }}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <ListItemText 
+                    <ListItemText
                       primary={category.label}
-                      primaryTypographyProps={{ 
+                      primaryTypographyProps={{
                         fontWeight: 'medium',
-                        sx: { flex: 1 }
+            
                       }}
                     />
                   </StyledBadge>
                   {expandedFilter === category.id ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </ListItemButton>
               </ListItem>
-              
+
               <Collapse in={expandedFilter === category.id} timeout="auto" unmountOnExit>
                 <FilterOptionContainer>
                   {category.type === "checkbox" && (
@@ -304,12 +316,12 @@ const MobileFilterDrawer = () => {
                       ))}
                     </FormGroup>
                   )}
-                  
+
                   {category.type === "range" && (
                     <Box sx={{ display: 'flex', gap: 2 }}>
                       <TextField
                         fullWidth
-                        label="Min"
+                        label={t("filters.from")}
                         variant="outlined"
                         size="small"
                         type="number"
@@ -318,7 +330,7 @@ const MobileFilterDrawer = () => {
                       />
                       <TextField
                         fullWidth
-                        label="Max"
+                        label={t("filters.to")}
                         variant="outlined"
                         size="small"
                         type="number"
@@ -333,8 +345,6 @@ const MobileFilterDrawer = () => {
             </React.Fragment>
           ))}
         </List>
-
-        {/* Apply button */}
         <DrawerFooter>
           <Button
             fullWidth

@@ -22,7 +22,7 @@ const getConditionColor = (condition) => {
   }
 };
 
-function CarCard({ data, type = "sell", width = 275, handleFavBtn }) {
+function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid=false }) {
   const [isFav, setIsFav] = useState(false);
   const [images, setImages] = useState([]);
   const { t, i18n } = useTranslation();
@@ -77,7 +77,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn }) {
           width: 162,
         },
         "@media(max-width: 320px)": {
-          width: 140,
+          width: isGrid && 300,
         }
       }}
     >

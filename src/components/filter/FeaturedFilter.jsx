@@ -14,7 +14,7 @@ const FilterBox = styled(Box)({
   display: "flex",
   gap: "18px",
   position: "relative",
-  "@media (max-width: 700px)": {
+  "@media (max-width: 800px)": {
     flexDirection: "column"
   },
 });
@@ -43,7 +43,8 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
     doors: [],
     sellerType: [],
     seats: [],
-    steeringWheel: []
+    steeringWheel: [],
+    fuelType: []
   });
   const [filteredData, setFilteredData] = useState([]);
   const { t, i18n } = useTranslation();
@@ -77,6 +78,9 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
         return false;
       }
       if (filters.seats.length > 0 && !filters.seats.includes(car.seats.toString())) {
+        return false;
+      }
+      if (filters.fuelType.length > 0 && !filters.fuelType.includes(car.fuel_type.toString())) {
         return false;
       }
       if (filters.steeringWheel.length > 0 && !filters.steeringWheel.includes(car.steering_wheel)) {

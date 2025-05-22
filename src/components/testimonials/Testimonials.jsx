@@ -67,7 +67,7 @@ const TestimonialSlider = () => {
       <Typography variant="h4" fontWeight="bold" sx={{ mb: 5, textAlign: i18n.language == "ar" ? "right" : "left" }}>
         {t("reviews")}
       </Typography>
-      <Slider data={testimonials} Template={TestCard} toShow={3} />
+      <Slider data={testimonials} Template={TestCard} toShow={3} carouselClass="test-carousel-item"/>
     </Container>
   );
 };

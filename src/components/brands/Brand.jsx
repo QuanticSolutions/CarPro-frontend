@@ -18,11 +18,11 @@ function Brand({ image, name }) {
                     flex: "1 1 calc(12% - 20px)",
                     maxWidth: "calc(12% - 20px)",
                 },
-                "@media (max-width: 768px)": {
+                "@media (max-width: 950px)": {
                     flex: "1 1 calc(20% - 20px)",
                     maxWidth: "calc(20% - 20px)",
                 },
-                "@media (max-width: 425px)": {
+                "@media (max-width: 500px)": {
                     flex: "1 1 calc(25% - 20px)",
                     maxWidth: "calc(25% - 20px)",
                 },

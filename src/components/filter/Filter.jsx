@@ -215,6 +215,11 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
                         title: t("filters.filters.Steering Wheel"),
                         options: ["Right", "Left"].map(sw => t(`filters.options.${sw}`)),
                         field: "steeringWheel"
+                    },
+                    {
+                        title: t("filters.filters.Fuel Type"),
+                        options: ["Diesel", "Electric", "Gasoline"].map(ft => t(`filters.options.${ft}`)),
+                        field: "fuelType"
                     }
                 ].map((filter, index) => (
                     <React.Fragment key={index}>

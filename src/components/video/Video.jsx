@@ -46,7 +46,7 @@ function Video() {
     }
     const { t, i18n } = useTranslation();
     return (
-        <Box sx={{ width: "100%", margin: "auto", marginTop: "4rem", position: "relative" }}>
+        <Box sx={{ width: "100%", margin: "auto", marginTop: "4rem" }}>
             <Container>
                 <Box>
                     <Typography variant="h5" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif'  textAlign={i18n.language == "ar" ? "right" : "left" }>
@@ -57,7 +57,7 @@ function Video() {
                     </Typography>
                 </Box>
                 <Box sx={{ position: "relative" }}>
-                    <Slider data={videos} Template={VideoCard} toShow={3} />
+                    <Slider data={videos} Template={VideoCard} toShow={3} carouselClass='test-carousel-item'/>
                 </Box>
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: "2rem" }}>
                     <Button sx={styles}>

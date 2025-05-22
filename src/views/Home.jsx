@@ -125,7 +125,6 @@ function Home({ data }) {
       <CardSlider data={data.filter(obj => obj.category == "boats" && obj.status == "live")} title={t("home.rentBoats")} openTo='boats' category={"rent"} />
       <Brands />
       <Video />
-      <News />
     </>
   )
 }

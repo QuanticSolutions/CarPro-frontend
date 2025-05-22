@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/fav.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CarPro</title>
+  <title>Cars Finder Pro</title>
 </head>
 <style>
   html {
@@ -90,6 +90,16 @@
     text-transform: uppercase;
   }
 
+  @media screen and (max-width: 900px) {
+    .carousel-item {
+      padding-right: 2px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+}
+
+
   @media screen and (max-width: 768px) {
     .carousel-item {
       padding-right: 2px;
@@ -97,7 +107,13 @@
       display: flex;
       justify-content: center;
     }
-
+    
+    .test-carousel-item {
+      padding-right: 0;
+      width: 90%;
+      display: flex;
+      justify-content: center;
+    }
     ::-webkit-scrollbar {
       display: none;
 
@@ -107,6 +123,13 @@
   @media screen and (max-width: 350px) {
     .carousel-item {
       padding-right: 6px;
+      width: 90%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .test-carousel-item {
+      padding-right: 0;
       width: 90%;
       display: flex;
       justify-content: center;

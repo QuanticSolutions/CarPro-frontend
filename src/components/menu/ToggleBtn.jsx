@@ -5,7 +5,8 @@ import { isAuthenticated, logout, getImages, getUser, API_BASE_URL } from '../..
 import AuthDialog from '../auth/Dialog';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { ChevronRight } from '@mui/icons-material';
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"
+import { ChevronRight, ChevronLeft } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 
 const LanguageToggleContainer = styled("div")({
@@ -135,13 +136,17 @@ function ToggleBtn() {
                 }
                 {
                     window.innerWidth > 800 &&
-                    <ExpandMoreIcon />
+                    <ExpandMoreIcon  />
                 }
                 {
                     (window.innerWidth <= 800 && isAuthenticated) ?
                         <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold" }} onClick={() => window.location.href = "/my/profile"}>
                             {t("auth.myProfile")}
-                            <ChevronRight />
+                            {
+                                i18n.language != "ar" ?
+                                <ChevronRight /> :
+                                <ChevronLeft />
+                            }
                         </MenuItem>
                         : !isAuthenticated && window.innerWidth <= 800 && <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold" }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
                 }
