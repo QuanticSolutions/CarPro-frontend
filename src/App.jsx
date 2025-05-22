@@ -401,7 +401,7 @@ function App() {
         <Route path='/popular/cars' element={<Featured data={data.filter(obj => obj.category == "cars")} title={t("popular.cars")} />} />
         <Route path='/popular/bikes' element={<Featured data={data.filter(obj => obj.category == "bikes")} title={t("popular.bikes")} />} />
         <Route path='/popular/construction' element={<Featured data={data.filter(obj => obj.category == "construction")} title={t("popular.construction")} />} />
-        <Route path='/popular/number' element={<Featured data={data.filter(obj => obj.category == "plates")} title={t("popular.plates")} />} />
+        <Route path='/popular/plates' element={<Featured data={data.filter(obj => obj.category == "plates")} title={t("popular.plates")} />} />
         <Route path='/popular/heavy' element={<Featured data={data.filter(obj => obj.category == "heavy")} title={t("popular.heavy")} />} />
         <Route path='/popular/boats' element={<Featured data={data.filter(obj => obj.category == "boats")} title={t("popular.boats")} />} />
         <Route path='/services/insurance' element={<Insurance />} />
