@@ -1,10 +1,6 @@
 import { useState, useRef } from 'react'
-import { Box, TextField, Typography, Button, FormControl, Select, InputLabel, MenuItem } from '@mui/material'
-import { styled } from "@mui/system"
-import EmailIcon from "@mui/icons-material/Email";
-import PersonIcon from "@mui/icons-material/Person";
-import PhoneIcon from "@mui/icons-material/Phone";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { Box, TextField, Typography, Button } from '@mui/material'
+import { styled } from "@mui/system";
 import CustomSelect from '../../../utils/Select';
 import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
@@ -58,21 +54,6 @@ const textFieldStyles = {
         "& fieldset": {
             borderColor: "transparent",
         }
-    }
-}
-
-const selectStyles = {
-    backgroundColor: "#fff",
-    borderRadius: "15px",
-    color: "#000000",
-    "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: "transparent",
-    },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: "transparent",
-    },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: "transparent",
     }
 }
 

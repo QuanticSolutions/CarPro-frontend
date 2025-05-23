@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
     useCreateChatClient,
     useChannelStateContext,
-    useMessageInputContext,
     Chat,
     Channel,
     ChannelList,
@@ -13,7 +12,8 @@ import {
 } from "stream-chat-react";
 import { EmojiPicker } from "stream-chat-react/emojis";
 import { SearchIndex } from "emoji-mart";
-import { getUser, isAuthenticated, createNotification, getStreamImages, API_BASE_URL } from '../../api/consumer';
+import { getUser, isAuthenticated, createNotification, getStreamImages } from '../../api/consumer';
+import { ArrowLeft } from '@mui/icons-material';
 import { ArrowRight } from '@mui/icons-material';
 import './layout.css'
 import moment from 'moment';
@@ -45,7 +45,7 @@ const ChannelListHeader = ({ onBackClick, isMobileView }) => {
                         fontSize: "18px"
                     }}
                 >
-                    ✕
+                    <ArrowLeft />
                 </button>
             }
         </div>
@@ -135,7 +135,7 @@ const CustomChannelPreview = ({
             </div>
             {lastMessage.created_at && (
                 <div style={{ fontSize: "0.75rem", color: "black", marginLeft: "8px" }}>
-                    {moment(lastMessage.created_at).fromNow()} {/* e.g. "5 minutes ago" */}
+                    {moment(lastMessage.created_at).fromNow()}
                 </div>
             )
             }
@@ -200,56 +200,6 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                 </div>
             </div>
         </>
-    );
-};
-
-const CustomMessageInput = () => {
-    const {
-        handleSubmit,
-        handleChange,
-        inputRef,
-        text,
-        imageUploads,
-        fileUploads
-    } = useMessageInputContext();
-
-    const onKeyDown = (event) => {
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault();
-            if (text.trim() !== "") {
-                handleSubmit();
-            }
-        }
-    };
-
-    return (
-        <div style={{ padding: "10px", borderTop: "1px solid #ccc" }}>
-            <ImageDropzone>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <FileUploadButton />
-                    <EmojiPicker />
-
-                    <textarea
-                        ref={inputRef}
-                        value={text}
-                        onChange={handleChange}
-                        onKeyDown={onKeyDown}
-                        placeholder="Type your message..."
-                        style={{
-                            flex: 1,
-                            padding: "10px",
-                            fontSize: "1rem",
-                            borderRadius: "8px",
-                            border: "1px solid #ccc",
-                            resize: "none",
-                            minHeight: "40px"
-                        }}
-                    />
-
-                    <SendButton />
-                </div>
-            </ImageDropzone>
-        </div>
     );
 };
 

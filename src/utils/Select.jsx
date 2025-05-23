@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TextField, Box, Typography, ClickAwayListener, IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
 
-const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Select", size = "large", slotProps = {}, label = "", value = "", showStartAndorement=true }) => {
+const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Select", size = "large", slotProps = {}, label = "", value = "", showStartAndorement = true }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(value);
   const dropdownRef = useRef(null);
@@ -80,7 +80,7 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
                 textAlign: i18n.language == "ar" && "right",
               }
             }}
-            InputProps={i18n.language == "ar" && showStartAndorement?
+            InputProps={i18n.language == "ar" && showStartAndorement ?
               {
                 startAdornment: (
                   <IconButton>

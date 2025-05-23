@@ -77,7 +77,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid=false 
           width: 162,
         },
         "@media(max-width: 320px)": {
-          width: isGrid && 300,
+          width: isGrid ? 300 : 162,
         }
       }}
     >

@@ -15,7 +15,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 
-
 const CreditCard = ({
   cardType,
   cardNumber,

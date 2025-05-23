@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { Card, CardMedia, Typography, CardContent } from '@mui/material'
-
+import { Card, Typography, CardContent } from '@mui/material'
 
 function Brand({ image, name }) {
 

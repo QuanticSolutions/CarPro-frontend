@@ -139,8 +139,8 @@ function Sell() {
       <Categories title={t("sellPage.vehicleCategories")} contents={categories} />
       <Container sx={{ mt: '4rem' }}>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 'bold',  textAlign: i18n.language == "ar" ? "right" : "left" }}>
-          {t("sellPage.whySell")}
+          <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
+            {t("sellPage.whySell")}
           </Typography>
 
           <Grid container spacing={2}>

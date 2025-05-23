@@ -1,10 +1,7 @@
 import {
     Box,
-    Container,
     Grid,
     Typography,
-    Stack,
-    useTheme,
     Card,
     CardContent
 } from "@mui/material";
@@ -41,37 +38,12 @@ export default function Country() {
                 color: "white",
                 position: "relative",
                 overflow: "hidden",
-                // "@media(max-width: 800px)": {overflow: "scroll",} 
             }}
         >
             <Box sx={{ width: "100%", backgroundColor: "black", display: "flex", alignItems: 'center', justifyContent: "center", py: '1rem' }}>
                 <img src={'/assets/images/logo.png'} style={{ width: "8rem" }} />
             </Box>
-            {/* <Box
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    zIndex: 10,
-                    textAlign: "center",
-                    transition: "opacity 0.5s ease",
-                    opacity: hoveredCountry || hoveredCountry == "" ? 0 : 1,
-                    pointerEvents: "none"
-                }}
-            >
-                <Typography 
-                    variant="h4" 
-                    sx={{ 
-                        fontWeight: "bold",
-                        textShadow: "0px 0px 10px rgba(0,0,0,0.8)"
-                    }}
-                >
-                    Select Country You Want To Explore
-                </Typography>
-            </Box> */}
-
-            <Grid container sx={{ width: "100%", "@media(max-width: 800px)": { display: "flex"} }}>
+            <Grid container sx={{ width: "100%", "@media(max-width: 800px)": { display: "flex" } }}>
                 {countries.map((country, index) => (
                     <Card
                         sx={{
@@ -101,7 +73,7 @@ export default function Country() {
                                 transition: "opacity 0.5s ease",
                                 zIndex: 1
                             },
-                            "@media(max-width: 800px)": {width: "50%", minHeight: "30vh", height: "100%"} 
+                            "@media(max-width: 800px)": { width: "50%", minHeight: "30vh", height: "100%" }
                         }}
                         onClick={() => {
                             localStorage.setItem("selectedCountry", country.code),
@@ -126,21 +98,13 @@ export default function Country() {
                         }}>
                             {
                                 country.code == "syr" ?
-                                <img src={"/assets/images/syria-flag.png"} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 150, paddingBottom: 15, paddingTop: 15 }} />
-                                :
-                                <Flag code={country.flag} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 200 }} />
+                                    <img src={"/assets/images/syria-flag.png"} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 150, paddingBottom: 15, paddingTop: 15 }} />
+                                    :
+                                    <Flag code={country.flag} style={{ width: window.innerWidth <= 800 ? 50 : 200, height: window.innerWidth <= 800 ? 50 : 200 }} />
                             }
-                            <Typography variant="h4" sx={{ color: '#fff', backgroundColor: "rgba(0, 0, 0, 0.6)", "@media(max-width: 800px)": { fontSize: "15px", width: "50%", textAlign: "center"} }}>
+                            <Typography variant="h4" sx={{ color: '#fff', backgroundColor: "rgba(0, 0, 0, 0.6)", "@media(max-width: 800px)": { fontSize: "15px", width: "50%", textAlign: "center" } }}>
                                 {country.name}
                             </Typography>
-                            {/* <Typography variant="subtitle1" sx={{ 
-                                    color: 'rgba(255, 255, 255, 0.8)',
-                                    marginTop: 1,
-                                    opacity: hoveredCountry === country.code ? 1 : 0,
-                                    transition: "opacity 0.5s ease",
-                                }}>
-                                    {country.arabicName}
-                                </Typography> */}
                         </CardContent>
                     </Card>
                 ))}

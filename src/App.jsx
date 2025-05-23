@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import Nav from './components/menu/Nav';
 import Footer from './components/footer/Footer';
 import MobileFooter from './components/footer/MobileFooter';

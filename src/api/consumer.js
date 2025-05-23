@@ -1,14 +1,8 @@
 import axios from "axios";
 
-// export const API_BASE_URL = "http://localhost:3000";
-// const CHAT_BASE_URL = "http://localhost:3002";
-// export const NOTIFY_BASE_URL = "http://localhost:5000";
-// export const API_BASE_URL = "https://carprobackend.quanticsols.com";
-// const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
-// export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
-export const API_BASE_URL = "http://13.60.195.147:3000";
-const CHAT_BASE_URL = "http://16.170.244.16:3002";
-export const NOTIFY_BASE_URL = "http://16.170.236.65:5000";
+export const API_BASE_URL = "https://api.carsfinderpro.com";
+const CHAT_BASE_URL = "https://chats.carsfinderpro.com";
+export const NOTIFY_BASE_URL = "https://notification.carsfinderpro.com";
 
 export const signup = async (userData) => {
     try {

@@ -25,7 +25,6 @@ const getDaysDifference = (date1, date2) => {
   return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 };
 
-
 const getConditionColor = (condition) => {
   switch (condition?.toLowerCase()) {
     case 'new':

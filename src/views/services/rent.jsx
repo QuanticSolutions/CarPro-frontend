@@ -92,7 +92,7 @@ function Rent() {
       <Banner image="18" />
       <Container>
         <Box sx={{ mt: "4rem" }}>
-          <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold',  textAlign: i18n.language == "ar" ? "right" : "left" }}>
+          <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
             {t("rentPage.vehicleCategories")}
           </Typography>
         </Box>
@@ -144,10 +144,10 @@ function Rent() {
               </Box>
               <Box width="50%" textAlign={"right"} sx={{ "@media (max-width:768px)": { textAlign: "left", width: "100%" } }}>
                 <Typography variant="h4" component="h2" fontWeight="bold" py={2}>
-                {t("rentPage.beyondRentals")}
+                  {t("rentPage.beyondRentals")}
                 </Typography>
                 <Typography variant="body1" py={1}>
-                {t("rentPage.luxuryJourney")}
+                  {t("rentPage.luxuryJourney")}
                 </Typography>
                 <Button
                   variant="contained"

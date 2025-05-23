@@ -1,6 +1,4 @@
-import React from "react";
 import { Box, Typography, Divider, List, ListItem, IconButton } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
 import ReportIcon from "@mui/icons-material/Report";
 import moment from "moment";
 import { useTranslation } from "react-i18next";

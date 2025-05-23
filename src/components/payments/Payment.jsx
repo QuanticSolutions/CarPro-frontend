@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
     CardElement,
     useStripe,
@@ -18,8 +18,6 @@ const StyledBtn = styled(Button)({
     marginTop: "1rem",
     padding: "0.5rem"
 })
-
-
 
 const CheckoutForm = () => {
     const stripe = useStripe();

@@ -11,7 +11,7 @@ const StyledCard = styled(Card)({
 function VideoCard({ data }) {
 
   return (
-    <StyledCard sx={{ backgroundImage: `url(/assets/images/${data.image}.png)`, width: window.innerWidth <= 950 ? 260 : 300  }}>
+    <StyledCard sx={{ backgroundImage: `url(/assets/images/${data.image}.png)`, width: window.innerWidth <= 950 ? 260 : 300 }}>
     </StyledCard>
   )
 }

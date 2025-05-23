@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import FilterSection from "./Filter";
 import MobileFilterSection from "./MobileFilter";
@@ -18,7 +17,6 @@ const FilterBox = styled(Box)({
     flexDirection: "column"
   },
 });
-
 
 const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
 
@@ -113,27 +111,27 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
       if (filters.keyword) {
         const keyword = filters.keyword.toLowerCase();
         const matchesKeyword =
-          car.title?.toLowerCase().includes(keyword) || 
+          car.title?.toLowerCase().includes(keyword) ||
           car.price?.toLowerCase().includes(keyword)
-          car.model?.toLowerCase().includes(keyword) ||
+        car.model?.toLowerCase().includes(keyword) ||
           car.manufacturer?.toLowerCase().includes(keyword) ||
           car.city?.toLowerCase().includes(keyword) ||
           car.transmission?.toLowerCase().includes(keyword) ||
           car.exterior_color?.toLowerCase().includes(keyword) ||
           car.city?.toLowerCase().includes(keyword) ||
           car.interior_color?.toLowerCase().includes(keyword);
-      
+
         if (!matchesKeyword) return false;
       }
-      
+
       return true;
     });
   };
 
 
   useEffect(() => {
-    if (loc !== "null") {setFilters({ ...filters, city: [loc] })}
-    if(vehicleCondition !== "null") setFilters({...filters, vehicle_condition: vehicleCondition})
+    if (loc !== "null") { setFilters({ ...filters, city: [loc] }) }
+    if (vehicleCondition !== "null") setFilters({ ...filters, vehicle_condition: vehicleCondition })
     console.log(vehicleCondition)
   }, []);
 
@@ -160,16 +158,16 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
   const englishTitle = t(title, { lng: 'en' });
 
   return (
-    <Box sx={{ marginTop: window.innerWidth >= 1000 && "10rem"}}>
+    <Box sx={{ marginTop: window.innerWidth >= 1000 && "10rem" }}>
       <Banner image={banners[englishTitle] || "7"} />
       <Container>
-        <FilterBox sx={{ flexDirection: i18n.language == "ar" && "row-reverse"}}>
+        <FilterBox sx={{ flexDirection: i18n.language == "ar" && "row-reverse" }}>
           {
-            window.innerWidth < 800 ? 
-            <MobileFilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} /> :
-            <FilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} />
+            window.innerWidth < 800 ?
+              <MobileFilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} /> :
+              <FilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} />
           }
-          <DataGrid data={filteredData} title={title} type={type}  />
+          <DataGrid data={filteredData} title={title} type={type} />
         </FilterBox>
       </Container>
     </Box>

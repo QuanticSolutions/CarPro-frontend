@@ -19,6 +19,24 @@ const StyledBtn = styled(Button)({
     textTransform: "none"
 });
 
+const isPasswordValid = (password, name) => {
+    const hasLength = password.length >= 7;
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasNoName = name ? !password.toLowerCase().includes(name.toLowerCase()) : true;
+
+    return {
+        length: hasLength,
+        case: hasUpper && hasLower,
+        number: hasNumber,
+        special: hasSpecial,
+        noName: hasNoName,
+        isValid: hasLength && hasUpper && hasLower && hasNumber && hasSpecial && hasNoName
+    };
+};
+
 function Signup() {
     const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
@@ -33,9 +51,21 @@ function Signup() {
         message: "",
         severity: "success",
     });
+    const [passwordValidity, setPasswordValidity] = useState({
+        length: false,
+        case: false,
+        number: false,
+        special: false,
+        noName: true,
+        isValid: false
+    });
 
     const handleSendOtp = async (event) => {
         event.preventDefault();
+        if (!passwordValidity.isValid) {
+            setPopup({ open: true, message: t("signup.invalidPassword"), severity: "error" });
+            return;
+        }
         try {
             await sendOtp(email);
             setOtpSent(true);
@@ -49,8 +79,6 @@ function Signup() {
         event.preventDefault();
         try {
             await verifyOtp(email, otp);
-
-            // Proceed with signup
             const res = await signup({ name, email, password });
             setPopup({ open: true, message: t("signup.success"), severity: "success" });
 
@@ -113,7 +141,12 @@ function Signup() {
                             variant="outlined"
                             type={showPassword ? "text" : "password"}
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                const newPassword = e.target.value;
+                                setPassword(newPassword);
+                                const validity = isPasswordValid(newPassword, name);
+                                setPasswordValidity(validity);
+                            }}
                             onFocus={() => setShowRules(true)}
                             sx={{
                                 mb: 2,
@@ -139,14 +172,23 @@ function Signup() {
                         />
                         {showRules && !otpSent && (
                             <Box sx={{ p: 2, border: "1px solid #ccc", borderRadius: "5px", backgroundColor: "#F8F9FA" }}>
-                                <Typography variant="body2">{t("signup.passwordRules.length")}</Typography>
-                                <Typography variant="body2">{t("signup.passwordRules.case")}</Typography>
-                                <Typography variant="body2">{t("signup.passwordRules.number")}</Typography>
-                                <Typography variant="body2">{t("signup.passwordRules.special")}</Typography>
-                                <Typography variant="body2">{t("signup.passwordRules.noName")}</Typography>
+                                <Typography variant="body2" color={passwordValidity.length ? "green" : "error"}>
+                                    {t("signup.passwordRules.length")}
+                                </Typography>
+                                <Typography variant="body2" color={passwordValidity.case ? "green" : "error"}>
+                                    {t("signup.passwordRules.case")}
+                                </Typography>
+                                <Typography variant="body2" color={passwordValidity.number ? "green" : "error"}>
+                                    {t("signup.passwordRules.number")}
+                                </Typography>
+                                <Typography variant="body2" color={passwordValidity.special ? "green" : "error"}>
+                                    {t("signup.passwordRules.special")}
+                                </Typography>
+                                <Typography variant="body2" color={passwordValidity.noName ? "green" : "error"}>
+                                    {t("signup.passwordRules.noName")}
+                                </Typography>
                             </Box>
                         )}
-
                         {otpSent && (
                             <TextField
                                 fullWidth
@@ -167,11 +209,9 @@ function Signup() {
                                 }}
                             />
                         )}
-
                         <StyledBtn type="submit" fullWidth>
                             {otpSent ? t("signup.verifyOtpBtn") : t("signup.sendOtpBtn")}
                         </StyledBtn>
-
                         {!otpSent && (
                             <StyledBtn
                                 startIcon={<img src="/assets/images/google.png" style={{ width: "25px" }} />}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -8,9 +8,7 @@ import {
   ThemeProvider,
   createTheme,
   Box,
-  MobileStepper,
   useMediaQuery,
-  StepContent,
   Paper
 } from '@mui/material';
 import BasicInformationForm from './BasicInformationForm';
@@ -236,35 +234,32 @@ function AdForm({ title, type, isUpdating = false, category }) {
     }
   };
 
-  // Mobile stepper with only current label
   const renderMobileStepper = () => {
     return (
       <Box sx={{ width: '100%', mt: 2, mb: 3 }}>
-        <Paper 
+        <Paper
           elevation={0}
-          sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             background: 'transparent'
           }}
         >
-          {/* Current step label */}
-          <Typography 
-            variant="h6" 
-            component="div" 
+          <Typography
+            variant="h6"
+            component="div"
             color="primary"
-            sx={{ 
+            sx={{
               fontWeight: 'bold',
-              mb: 1 
+              mb: 1
             }}
           >
             {steps[activeStep]}
           </Typography>
-          
-          {/* Progress indicator */}
-          <Box 
-            sx={{ 
+
+          <Box
+            sx={{
               width: '100%',
               display: 'flex',
               justifyContent: 'center',
@@ -285,21 +280,11 @@ function AdForm({ title, type, isUpdating = false, category }) {
               ))}
             </Box>
           </Box>
-          
-          {/* Step counter */}
-          {/* <Typography 
-            variant="body2" 
-            color="text.secondary" 
-            sx={{ mt: 1 }}
-          >
-            {t('adForm.step')} {activeStep + 1} {t('adForm.of')} {steps.length}
-          </Typography> */}
         </Paper>
       </Box>
     );
   };
 
-  // Desktop stepper
   const renderDesktopStepper = () => {
     return (
       <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, flexWrap: "wrap", gap: 1 }}>
@@ -318,10 +303,9 @@ function AdForm({ title, type, isUpdating = false, category }) {
         <Typography variant="h4" component="h1" align="center" gutterBottom>
           {t("adForm.formTitle")}
         </Typography>
-        
-        {/* Conditional rendering based on screen size */}
+
         {isMobile ? renderMobileStepper() : renderDesktopStepper()}
-        
+
         {getStepContent(activeStep)}
         <MessagePopup
           open={popup.open}

@@ -8,7 +8,6 @@ import {
     FormControlLabel,
     Checkbox,
     TextField,
-    Button,
     Box,
     Divider
 } from "@mui/material";
@@ -56,9 +55,7 @@ const BoxStyles = {
 
 const FilterSection = ({ filters, setFilters, title, filterData }) => {
 
-
     const { t, i18n } = useTranslation();
-
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -90,14 +87,6 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
         }));
     };
 
-    const handleBtnClick = (name, value) => {
-        setFilters((prevFilters) => ({
-            ...prevFilters,
-            [name]: value,
-        }));
-        filterData();
-    };
-
     const handleCheckboxChange = (event, label) => {
         const { name, checked } = event.target;
         setFilters((prevFilters) => {
@@ -115,7 +104,6 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
         });
         filterData();
     };
-
 
     return (
         <Box sx={BoxStyles}>
@@ -176,7 +164,38 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
                     },
                     {
                         title: t("filters.filters.Brand"),
-                        options: ["Mercedes-Benz", "Mitsubishi", "Peugeot"].map(brand => t(`filters.options.${brand}`)),
+                        options: [
+                            t('cardValues.AccessMotor'),
+                            t('cardValues.Aprillia'),
+                            t('cardValues.Asiawing'),
+                            t('cardValues.BMW'),
+                            t('cardValues.Bajaj'),
+                            t('cardValues.Benelli'),
+                            t('cardValues.Buell'),
+                            t('cardValues.Can-am'),
+                            t('cardValues.Ducati'),
+                            t('cardValues.Fantic'),
+                            t('cardValues.Gas Gas'),
+                            t('cardValues.Harley Davidson'),
+                            t('cardValues.Hero'),
+                            t('cardValues.Honda'),
+                            t('cardValues.Husaberg'),
+                            t('cardValues.Husqvarna'),
+                            t('cardValues.Indian'),
+                            t('cardValues.KTM'),
+                            t('cardValues.Kawasaki'),
+                            t('cardValues.MV Agusta'),
+                            t('cardValues.Moto Guzzi'),
+                            t('cardValues.Norton'),
+                            t('cardValues.Polaris'),
+                            t('cardValues.Royal Enfield'),
+                            t('cardValues.Sharmax'),
+                            t('cardValues.Suzuki'),
+                            t('cardValues.Triumph'),
+                            t('cardValues.Vespa'),
+                            t('cardValues.Victory'),
+                            t('cardValues.Yamaha'),
+                        ],
                         field: "brand"
                     },
                     {
@@ -254,7 +273,7 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
                     </React.Fragment>
                 ))}
             </Box>
-            
+
             <StyledAccordion defaultExpanded={false}>
                 <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                     <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Price")}</Typography>

@@ -32,8 +32,6 @@ const CatCard = styled(Card)(({ theme }) => ({
     },
 }));
 
-
-
 function Categories({ title, contents }) {
 
     const { i18n } = useTranslation();

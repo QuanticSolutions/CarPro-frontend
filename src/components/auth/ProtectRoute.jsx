@@ -13,7 +13,7 @@ const ProtectRoute = ({ children }) => {
                 setPopupOpen(true);
             }
         };
-        
+
         checkAuth();
     }, []);
 

@@ -15,7 +15,6 @@ const BoxStyles = {
     mt: "4rem",
 }
 
-
 function Inspection() {
 
     const { t, i18n } = useTranslation();
@@ -63,7 +62,7 @@ function Inspection() {
             />
             <Container sx={BoxStyles}>
                 <Typography variant="h5" fontWeight="bold" sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
-                    {t("inspectionPage.revolutionizingTitle", { country: t(`countries.${countries[localStorage.getItem('selectedCountry')]}`)})}
+                    {t("inspectionPage.revolutionizingTitle", { country: t(`countries.${countries[localStorage.getItem('selectedCountry')]}`) })}
                 </Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", "@media (max-width: 768px)": { justifyContent: "center" } }}>
                     <Box>

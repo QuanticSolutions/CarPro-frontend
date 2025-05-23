@@ -1,38 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     Grid2,
     Typography,
     Pagination,
     Box,
-    Button,
-    Select,
-    MenuItem,
-    FormControl,
-    InputLabel,
-    Dialog,
-    DialogContent,
-    DialogActions
+    Button
 } from "@mui/material";
-import { styled } from "@mui/system";
 import CarCard from "../card/Card";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import CardList from "../card/CardList";
-import Signin from "../auth/Signin";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { isAuthenticated, deleteFav, createFavs } from "../../api/consumer";
 import CustomSelect from "../../utils/Select";
 import AuthDialog from "../auth/Dialog";
 import { useTranslation } from 'react-i18next';
-
-const SelectArrow = styled(KeyboardArrowDownIcon)({
-    position: 'absolute',
-    right: '10px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    pointerEvents: 'none',
-    color: '#B71C1C',
-});
 
 const DataGrid = ({ data, title, type }) => {
     const { t, i18n } = useTranslation();
@@ -42,8 +23,8 @@ const DataGrid = ({ data, title, type }) => {
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
     const itemsPerPage = window.innerWidth > 800 && view == "Grid" ? 28 : window.innerWidth > 800 && view == "List" ? 7 : window.innerWidth < 800 && view == "list" ? 7 : 6;
-    
-    const handlePageChange = (event, value) => {
+
+    const handlePageChange = (value) => {
         setPage(value);
     };
 
@@ -65,7 +46,7 @@ const DataGrid = ({ data, title, type }) => {
 
     const sortedData = [...data].sort((a, b) => {
         switch (sortOption) {
-    
+
             case "price_high_to_low":
                 return b.price - a.price;
             case "price_low_to_high":
@@ -82,7 +63,7 @@ const DataGrid = ({ data, title, type }) => {
                 return b.price - a.price;
             case "lowest":
                 return a.price - b.price;
-            
+
             default:
                 return 0;
         }
@@ -110,7 +91,7 @@ const DataGrid = ({ data, title, type }) => {
                         </Box>
                     </Box>
                     <Box display="flex" justifyContent="center" gap={1} flexDirection={"column"}>
-                        <Typography variant="body1" fontWeight={"bold"} textAlign={ i18n.language == "ar" ? "right" : "left"}>{t('sortBy')}:</Typography>
+                        <Typography variant="body1" fontWeight={"bold"} textAlign={i18n.language == "ar" ? "right" : "left"}>{t('sortBy')}:</Typography>
                         <CustomSelect
                             styles={{
                                 width: "12rem",
@@ -150,7 +131,7 @@ const DataGrid = ({ data, title, type }) => {
 
             {
                 view == "Grid" ?
-                    <Grid2 item pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 3, "@media(max-width: 800px)": { gap: 1 }}}>
+                    <Grid2 item pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 3, "@media(max-width: 800px)": { gap: 1 } }}>
                         {displayedCars.map((car, index) => (
                             <Grid2 item xs={12} sm={6} md={4} lg={3} key={index}>
                                 <CarCard data={car} type={type} handleFavBtn={handleFavBtn} isGrid={true} />
@@ -172,7 +153,7 @@ const DataGrid = ({ data, title, type }) => {
                 page={page}
                 onChange={handlePageChange}
                 color="#B71C1C"
-                sx={{ display: "flex", justifyContent: "center", mt: 3, direction:  i18n.language === "ar" ? "ltr" : "ltr" }}
+                sx={{ display: "flex", justifyContent: "center", mt: 3, direction: i18n.language === "ar" ? "ltr" : "ltr" }}
             />
 
             <AuthDialog popupOpen={popupOpen} setPopupOpen={setPopupOpen} popup1Open={popup1Open} setPopup1Open={setPopup1Open} />

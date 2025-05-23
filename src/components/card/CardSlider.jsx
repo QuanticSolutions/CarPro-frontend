@@ -1,15 +1,10 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { styled, textTransform } from "@mui/system";
-import { Box, Typography, Button, Container, Dialog, DialogContent, DialogActions } from "@mui/material";
+import { useState } from "react";
+import { Box, Typography, Container } from "@mui/material";
 import AuthDialog from "../auth/Dialog";
 import CarCard from "./Card";
-import Signin from "../auth/Signin";
 import { createFavs, isAuthenticated, deleteFav } from "../../api/consumer";
-import { ArrowRightAlt } from "@mui/icons-material";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { alignProperty } from "@mui/material/styles/cssUtils";
 import Slider from "../slider/slider";
 import { useTranslation } from 'react-i18next'
 

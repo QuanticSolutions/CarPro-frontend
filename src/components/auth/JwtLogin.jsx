@@ -20,7 +20,6 @@ const StyledBtn = styled(Button)({
     textTransform: "none"
 })
 
-
 function JwtLogin({ backBtnHandler }) {
 
     const [showPassword, setShowPassword] = useState(false);

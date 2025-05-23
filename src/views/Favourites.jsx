@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import Nav from '../components/menu/Nav'
-import { Box, Typography, Card, CardContent, Tabs, Tab, Avatar, Container, Grid2 } from "@mui/material"
+import { Box, Typography, Tabs, Tab, Container, Grid2 } from "@mui/material"
 import CarCard from '../components/card/Card';
-import Footer from '../components/footer/Footer';
 import { getFavsByUser, getAdById, isAuthenticated, deleteFav, createFavs } from '../api/consumer';
 import { useTranslation } from 'react-i18next';
 
@@ -106,9 +104,6 @@ function Favourites() {
                             <Box sx={{ display: "flex", justifyContent: "center" }}>
                                 <img src="/assets/images/gif-favourite.gif" width="350rem" />
                             </Box>
-                        // <Typography fontWeight="bold" textAlign="center" py={4}>
-                        //     {t('favourites.noFavourites')}
-                        // </Typography>
                     }
                 </Box>
             </Container>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { List, Grid } from "lucide-react";
-import { Select, MenuItem } from "@mui/material";
 
 export default function FilterBar() {
   const [view, setView] = useState("grid");

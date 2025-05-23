@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import Nav from '../components/menu/Nav';
 import Main from '../components/menu_image/main_image/Main';
 import Categories from '../components/categories/Categories';
 import Services from '../components/services/Services';
@@ -7,10 +5,7 @@ import Banner from '../components/banner.jsx/Banner';
 import CardSlider from '../components/card/CardSlider';
 import Brands from '../components/brands/Brands';
 import Video from '../components/video/Video';
-import News from '../components/news/News';
-import Footer from '../components/footer/Footer';
 import FilterForm from '../components/menu/FilterForm';
-import { getAllAds } from '../api/consumer';
 import { useTranslation } from 'react-i18next'
 
 
@@ -87,7 +82,7 @@ function Home({ data }) {
     },
   ]
 
-  const headertext = t("home.header", { country: t(`countries.${countries[localStorage.getItem("selectedCountry")]}`)});
+  const headertext = t("home.header", { country: t(`countries.${countries[localStorage.getItem("selectedCountry")]}`) });
   const headerTextStyles = {
     textAlign: i18n.language == "ar" ? "right" : "left",
     marginTop: "8rem",

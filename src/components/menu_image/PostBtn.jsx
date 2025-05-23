@@ -16,7 +16,7 @@ const styles = {
 function PostBtn({ handleOnHover, handleOffHover }) {
   const { t, i18n } = useTranslation();
   return (
-    <Button sx={{...styles,  marginLeft: i18n.language != "ar" && "-4.5rem", marginRight: i18n.language == "ar" && "-1.5rem",  direction: i18n.language == "ar" && "rtl"}} onMouseEnter={handleOnHover} onMouseLeave={handleOffHover}>
+    <Button sx={{ ...styles, marginLeft: i18n.language != "ar" && "-4.5rem", marginRight: i18n.language == "ar" && "-1.5rem", direction: i18n.language == "ar" && "rtl" }} onMouseEnter={handleOnHover} onMouseLeave={handleOffHover}>
       {t("postAd")} <ExpandMoreIcon />
     </Button>
   )

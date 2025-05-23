@@ -15,7 +15,6 @@ import { SearchIndex } from "emoji-mart";
 import { getUser, isAuthenticated, createNotification } from '../../api/consumer';
 import { ArrowRight } from '@mui/icons-material';
 import './layout.css'
-import { Typography } from '@mui/material';
 import { Avatar } from '@mui/material';
 import moment from 'moment';
 
@@ -127,7 +126,7 @@ const CustomChannelPreview = ({
             </div>
             {lastMessage.created_at && (
                 <div style={{ fontSize: "0.75rem", color: "black", marginLeft: "8px" }}>
-                    {moment(lastMessage.created_at).fromNow()} {/* e.g. "5 minutes ago" */}
+                    {moment(lastMessage.created_at).fromNow()}
                 </div>
             )
             }

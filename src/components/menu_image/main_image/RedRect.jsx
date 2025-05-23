@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Box, Typography, Grid2 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 

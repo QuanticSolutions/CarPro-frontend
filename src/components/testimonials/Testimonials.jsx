@@ -1,7 +1,4 @@
-import React from "react";
-import { Box, Typography, Container, Slide } from "@mui/material";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
-import { styled } from "@mui/system"
+import { Typography, Container } from "@mui/material";
 import TestCard from "./TestCard";
 import Slider from "../slider/slider";
 import { useTranslation } from 'react-i18next'
@@ -67,7 +64,7 @@ const TestimonialSlider = () => {
       <Typography variant="h4" fontWeight="bold" sx={{ mb: 5, textAlign: i18n.language == "ar" ? "right" : "left" }}>
         {t("reviews")}
       </Typography>
-      <Slider data={testimonials} Template={TestCard} toShow={3} carouselClass="test-carousel-item"/>
+      <Slider data={testimonials} Template={TestCard} toShow={3} carouselClass="test-carousel-item" />
     </Container>
   );
 };

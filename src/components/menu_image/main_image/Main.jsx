@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { Box, Grid2, Typography, Container, useMediaQuery } from '@mui/material'
-import { display, styled, textAlign } from "@mui/system"
-import PostBtn from '../PostBtn'
+import { styled } from "@mui/system"
 import { useTranslation } from 'react-i18next';
 
 const ImageContainer = styled(Box)(({ theme }) => ({
@@ -18,11 +16,11 @@ const ImageContainer = styled(Box)(({ theme }) => ({
         display: "none"
     },
     [theme.breakpoints.down("md")]: {
-      display: "none"
+        display: "none"
     },
     [theme.breakpoints.between("sm", "md")]: {
-      height: "65vh",
-      textAlign: "center",
+        height: "65vh",
+        textAlign: "center",
     },
 }));
 
@@ -85,15 +83,15 @@ function Main({ showForm, form, image, showText, headerText, headerTextStyles, t
                         <HeaderText variant="h2" sx={headerTextStyles}>
                             {
                                 headerText.split ?
-                                headerText.split("\n").map((line, index) => (
-                                <span key={index}>
-                                    {line}
-                                    <br />
-                                </span>
-                            ))
-                            :
-                            headerText
-                        }
+                                    headerText.split("\n").map((line, index) => (
+                                        <span key={index}>
+                                            {line}
+                                            <br />
+                                        </span>
+                                    ))
+                                    :
+                                    headerText
+                            }
                         </HeaderText>
                         <Text variant="body1" sx={textStyles}>
                             {text.split("\n").map((line, index) => (

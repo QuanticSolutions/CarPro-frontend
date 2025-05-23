@@ -1,10 +1,5 @@
-import { useState } from 'react'
-import { Box, Container } from '@mui/material';
-import Nav from '../components/menu/Nav';
+import { Container } from '@mui/material';
 import Notifications from '../components/notifications/Notifications';
-import Footer from '../components/footer/Footer';
-
-
 
 function Notification({ notifications, setNotifications }) {
 

@@ -51,11 +51,9 @@ function Brands() {
                         ))
                     }
                 </Box>
-
-                {/* Show more button only on mobile when not showing all brands */}
                 {isMobile && (
                     <Box textAlign="center" marginTop="2rem">
-                        <Button variant="outlined" onClick={() => setShowMore(prev => !prev)} sx={{ color: "#B71C1C", borderColor: "#B71C1C"}}>
+                        <Button variant="outlined" onClick={() => setShowMore(prev => !prev)} sx={{ color: "#B71C1C", borderColor: "#B71C1C", textTransform: "none"}}>
                             {showMore ? t("showLess") : t("showMore")}
                         </Button>
                     </Box>

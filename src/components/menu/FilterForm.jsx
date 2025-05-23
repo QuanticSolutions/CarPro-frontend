@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Grid2, TextField, FormControl, Select, Typography, MenuItem, Button, Box, InputLabel } from '@mui/material'
+import { Grid2, TextField, Button, Box } from '@mui/material'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import { border, padding, styled, textAlign } from "@mui/system"
+import { styled } from "@mui/system"
 import CustomSelect from '../../utils/Select'
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from 'react-i18next'
@@ -119,7 +118,7 @@ function FilterForm() {
     const { t, i18n } = useTranslation();
 
     const cityOptions = t(`cities.${countries[localStorage.getItem("selectedCountry")]}`, { returnObjects: true })
-    .map((city)=>({ name: city, value: city}))
+        .map((city) => ({ name: city, value: city }))
 
     const vehicleOptions = [
         { name: t("filter.vehicles.cars"), value: "cars" },
@@ -144,8 +143,8 @@ function FilterForm() {
                     value={data.make}
                     onChange={(e) => { setData({ ...data, make: e.target.value }) }}
                     sx={{
-                        transform: i18n.language == "ar" && "rotateY(180deg)", 
-                        "& .MuiOutlinedInput-root": { transform: i18n.language == "ar" && "rotateY(180deg)" }, 
+                        transform: i18n.language == "ar" && "rotateY(180deg)",
+                        "& .MuiOutlinedInput-root": { transform: i18n.language == "ar" && "rotateY(180deg)" },
                         "& .MuiOutlinedInput-input": {
                             textAlign: i18n.language == "ar" && "right",
                         },
@@ -159,12 +158,12 @@ function FilterForm() {
                 </FilterBtn>
             </FiltersForm>
             <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3 }}>
-                <Button sx={{ border: "3px solid #fff", fontWeight: "bold", color: "#ffff", borderRadius: "5px", width: "12rem", marginTop: "1rem", display: "flex", flexDirection: i18n.language == "ar" && "row-reverse"  }} onClick={() => window.location.href = `/ads`}>
+                <Button sx={{ border: "3px solid #fff", fontWeight: "bold", color: "#ffff", borderRadius: "5px", width: "12rem", marginTop: "1rem", display: "flex", flexDirection: i18n.language == "ar" && "row-reverse" }} onClick={() => window.location.href = `/ads`}>
                     {t("filter.advancedFilter")}
                     {
                         i18n.language == "ar" ?
-                        <ArrowLeftIcon /> :
-                        <ArrowRightIcon />
+                            <ArrowLeftIcon /> :
+                            <ArrowRightIcon />
                     }
                 </Button>
             </Box>

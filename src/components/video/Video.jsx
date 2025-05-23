@@ -1,8 +1,4 @@
-import { useState } from 'react'
-import { Box, Typography, Button, IconButton, Container } from '@mui/material'
-import { styled } from "@mui/system"
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import { Box, Typography, Button, Container } from '@mui/material'
 import Slider from '../slider/slider';
 import VideoCard from './VideoCard';
 import { useTranslation } from 'react-i18next'
@@ -49,19 +45,19 @@ function Video() {
         <Box sx={{ width: "100%", margin: "auto", marginTop: "4rem" }}>
             <Container>
                 <Box>
-                    <Typography variant="h5" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif'  textAlign={i18n.language == "ar" ? "right" : "left" }>
+                    <Typography variant="h5" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' textAlign={i18n.language == "ar" ? "right" : "left"}>
                         {t("videoSection.title")}
                     </Typography>
-                    <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif'  textAlign={i18n.language == "ar" ? "right" : "left" }>
-                    {t("videoSection.description")}
+                    <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' textAlign={i18n.language == "ar" ? "right" : "left"}>
+                        {t("videoSection.description")}
                     </Typography>
                 </Box>
                 <Box sx={{ position: "relative" }}>
-                    <Slider data={videos} Template={VideoCard} toShow={3} carouselClass='test-carousel-item'/>
+                    <Slider data={videos} Template={VideoCard} toShow={3} carouselClass='test-carousel-item' />
                 </Box>
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: "2rem" }}>
                     <Button sx={styles}>
-                    {t("videoSection.viewAll")}
+                        {t("videoSection.viewAll")}
                     </Button>
                 </Box>
             </Container>

@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import Nav from '../components/menu/Nav'
 import {
     Box,
     Typography,
@@ -16,15 +15,11 @@ import {
     Grid,
     useMediaQuery,
     useTheme,
-    Divider,
     Container,
-    Grid2,
     Menu,
     MenuItem
 } from '@mui/material';
-import CarCard from '../components/card/Card';
-import { MoreVertical, WindArrowDownIcon } from 'lucide-react';
-import Footer from '../components/footer/Footer';
+import { MoreVertical } from 'lucide-react';
 import { getAdByUser, getImages, deleteAd, updateAd, API_BASE_URL, getRentByUser } from '../api/consumer';
 import { useTranslation } from 'react-i18next';
 
@@ -268,18 +263,6 @@ function MyAds() {
                                                 <Box sx={{ mb: 2 }}>
 
                                                     <Box key={items.id}>
-                                                        {/* <Typography
-                                                            variant="body2"
-                                                            sx={{
-                                                                px: 2,
-                                                                py: 1,
-                                                                borderBottom: 1,
-                                                                borderColor: 'divider',
-                                                                color: theme.palette.text.secondary
-                                                            }}
-                                                        >
-                                                        </Typography> */}
-
                                                         <Box
                                                             sx={{
                                                                 display: 'flex',
@@ -380,7 +363,7 @@ function MyAds() {
                                                                                         textTransform: 'capitalize'
                                                                                     }}
                                                                                 />
-                                                                                <IconButton size="small" onClick={(e) => handleMenuClick(e, items)} sx={{ position: isMobile && "absolute", right: isMobile && i18n.language != "ar" && 0, top: isMobile && 10, left: isMobile && i18n.language == "ar" && 0}}>
+                                                                                <IconButton size="small" onClick={(e) => handleMenuClick(e, items)} sx={{ position: isMobile && "absolute", right: isMobile && i18n.language != "ar" && 0, top: isMobile && 10, left: isMobile && i18n.language == "ar" && 0 }}>
                                                                                     <MoreVertical size={16} />
                                                                                 </IconButton>
                                                                                 <Menu
@@ -392,7 +375,7 @@ function MyAds() {
                                                                                     <MenuItem
                                                                                         onClick={() => (window.location = `/ad/${menuAd.adType}?id=${menuAd.id}`)}
                                                                                     >
-                                                                                       {t("View Ad")}
+                                                                                        {t("View Ad")}
                                                                                     </MenuItem>
 
                                                                                     <MenuItem onClick={() => { localStorage.setItem("ad_id", items.id); window.location.href = `/update/sell/${menuAd.category}` }}>

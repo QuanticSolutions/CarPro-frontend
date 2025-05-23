@@ -3,11 +3,7 @@ import {
     Facebook,
     Twitter,
     Instagram,
-    LinkedIn,
-    YouTube,
-    Pinterest,
-    Reddit,
-    GitHub
+    YouTube
 } from '@mui/icons-material';
 
 const BoxStyles = {
@@ -21,6 +17,7 @@ const BoxStyles = {
         color: "#fff"
     }
 }
+
 import { useTranslation } from "react-i18next";
 
 function MobileFooter({ countryCode }) {
@@ -168,26 +165,26 @@ function MobileFooter({ countryCode }) {
                                     <a>{t("footer.arabic")}</a>
                                 </ListItem>
                             </List>
-                            <List sx={{ display: "flex", m:0, p:0, flexWrap: "wrap" }}>
+                            <List sx={{ display: "flex", m: 0, p: 0, flexWrap: "wrap" }}>
                                 <Box>
-                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                    <ListItem sx={{ p: 1, m: 0, pl: 0 }}>
                                         <a style={{ display: 'flex', alignItems: "center" }}>
                                             <Facebook sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
                                         </a>
                                     </ListItem>
-                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                    <ListItem sx={{ p: 1, m: 0, pl: 0 }}>
                                         <a style={{ display: 'flex', alignItems: "center" }}>
                                             <Twitter sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
                                         </a>
                                     </ListItem>
                                 </Box>
                                 <Box>
-                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                    <ListItem sx={{ p: 1, m: 0, pl: 0 }}>
                                         <a style={{ display: 'flex', alignItems: "center" }}>
                                             <YouTube sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
                                         </a>
                                     </ListItem>
-                                    <ListItem sx={{ p:1, m:0, pl: 0 }}>
+                                    <ListItem sx={{ p: 1, m: 0, pl: 0 }}>
                                         <a style={{ display: 'flex', alignItems: "center" }}>
                                             <Instagram sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
                                         </a>

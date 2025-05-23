@@ -1,7 +1,4 @@
 import { useLocation } from "react-router-dom";
-import Nav from '../components/menu/Nav';
-import Main from '../components/menu_image/main_image/Main';
-import Footer from '../components/footer/Footer';
 import FeaturedFilter from '../components/filter/FeaturedFilter';
 
 function Featured({ data, title, type }) {

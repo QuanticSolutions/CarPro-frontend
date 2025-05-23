@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import { useLocation } from "react-router-dom";
 import { Box } from '@mui/material';
-import Nav from '../components/menu/Nav';
 import Details from '../components/detail/Details'
-
-
 
 function Ad({ type }) {
 

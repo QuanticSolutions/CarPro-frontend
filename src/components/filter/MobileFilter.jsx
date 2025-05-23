@@ -24,7 +24,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { useTranslation } from 'react-i18next';
 
-// Styled components
 const DrawerHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -92,7 +91,6 @@ const MobileFilterDrawer = () => {
     setFilters(updatedFilters);
   };
 
-  // Handle range filter changes
   const handleRangeChange = (filterId, bound, value) => {
     setFilters({
       ...filters,
@@ -103,14 +101,11 @@ const MobileFilterDrawer = () => {
     });
   };
 
-  // Apply filters and close drawer
   const applyFilters = () => {
-    // Here you would implement logic to filter data based on selected filters
     console.log("Applying filters:", filters);
     setDrawerOpen(false);
   };
 
-  // Reset all filters
   const resetFilters = () => {
     setFilters({
       city: [],
@@ -146,8 +141,38 @@ const MobileFilterDrawer = () => {
       id: "brand",
       label: t("filters.filters.Brand"),
       type: "checkbox",
-      options: ["Mercedes-Benz", "Mitsubishi", "Peugeot"].map(brand => t(`filters.options.${brand}`)),
-
+      options: [
+        t('cardValues.AccessMotor'),
+        t('cardValues.Aprillia'),
+        t('cardValues.Asiawing'),
+        t('cardValues.BMW'),
+        t('cardValues.Bajaj'),
+        t('cardValues.Benelli'),
+        t('cardValues.Buell'),
+        t('cardValues.Can-am'),
+        t('cardValues.Ducati'),
+        t('cardValues.Fantic'),
+        t('cardValues.Gas Gas'),
+        t('cardValues.Harley Davidson'),
+        t('cardValues.Hero'),
+        t('cardValues.Honda'),
+        t('cardValues.Husaberg'),
+        t('cardValues.Husqvarna'),
+        t('cardValues.Indian'),
+        t('cardValues.KTM'),
+        t('cardValues.Kawasaki'),
+        t('cardValues.MV Agusta'),
+        t('cardValues.Moto Guzzi'),
+        t('cardValues.Norton'),
+        t('cardValues.Polaris'),
+        t('cardValues.Royal Enfield'),
+        t('cardValues.Sharmax'),
+        t('cardValues.Suzuki'),
+        t('cardValues.Triumph'),
+        t('cardValues.Vespa'),
+        t('cardValues.Victory'),
+        t('cardValues.Yamaha'),
+      ]
     },
     {
       id: "transmission",
@@ -267,7 +292,7 @@ const MobileFilterDrawer = () => {
           </Box>
         </DrawerHeader>
 
-        <List sx={{ pb: 8, px:1, direction: i18n.language == "ar" && "rtl" }}>
+        <List sx={{ pb: 8, px: 1, direction: i18n.language == "ar" && "rtl" }}>
           {filterCategories.map((category) => (
             <React.Fragment key={category.id}>
               <ListItem disablePadding sx={{ direction: i18n.language == "ar" && "rtl" }}>
@@ -284,7 +309,7 @@ const MobileFilterDrawer = () => {
                       primary={category.label}
                       primaryTypographyProps={{
                         fontWeight: 'medium',
-            
+
                       }}
                     />
                   </StyledBadge>

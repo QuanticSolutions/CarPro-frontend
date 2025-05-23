@@ -179,7 +179,7 @@ const StyledTextField = styled(TextField)({
     "& .MuiOutlinedInput-root": {
         borderTopRightRadius: "0",
         borderBottomRightRadius: "0",
-            borderRadius: 0,
+        borderRadius: 0,
     },
     "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
         borderColor: "#B71C1C !important",
@@ -264,44 +264,44 @@ function MobileMenu({ toggleChat }) {
     };
 
     const countryOptions = [
-        { 
-            code: "", 
-            name: "UAE", 
+        {
+            code: "",
+            name: "UAE",
             arabicName: 'الإمارات العربية المتحدة',
             flag: "🇦🇪",
             flagUrl: "https://flagcdn.com/w40/ae.png"
         },
-        { 
-            code: "sa", 
-            name: "Saudi Arabia", 
+        {
+            code: "sa",
+            name: "Saudi Arabia",
             arabicName: 'المملكة العربية السعودية',
             flag: "🇸🇦",
             flagUrl: "https://flagcdn.com/w40/sa.png"
         },
-        { 
-            code: "qtr", 
-            name: "Qatar", 
+        {
+            code: "qtr",
+            name: "Qatar",
             arabicName: 'قطر',
             flag: "🇶🇦",
             flagUrl: "https://flagcdn.com/w40/qa.png"
         },
-        { 
-            code: "eg", 
-            name: "Egypt", 
+        {
+            code: "eg",
+            name: "Egypt",
             arabicName: 'مصر',
             flag: "🇪🇬",
             flagUrl: "https://flagcdn.com/w40/eg.png"
         },
-        { 
-            code: "syr", 
-            name: "Syria", 
+        {
+            code: "syr",
+            name: "Syria",
             arabicName: 'سوريا',
             flag: "🇸🇾",
             flagUrl: "/assets/images/syria-flag.png"
         },
-        { 
-            code: "us", 
-            name: "USA", 
+        {
+            code: "us",
+            name: "USA",
             arabicName: "الولايات المتحدة الأمريكية",
             flag: "🇺🇸",
             flagUrl: "https://flagcdn.com/w40/us.png"
@@ -370,11 +370,9 @@ function MobileMenu({ toggleChat }) {
     const handleOptionSelect = (option, setter, currentValue) => {
         console.log(option, currentValue)
         if (currentValue == option) {
-            setter("");
-            console.log("hello1")
+            setter("")
         } else {
             setter(option);
-            console.log("hello")
         }
     };
 
@@ -476,13 +474,12 @@ function MobileMenu({ toggleChat }) {
                     <ToggleBtn />
                     <MenuItem button onClick={handleCountryMenu}>
                         <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
-                            <img 
-                                src={getCurrentCountry().flagUrl} 
+                            <img
+                                src={getCurrentCountry().flagUrl}
                                 alt={getCurrentCountry().name}
                                 className="country-flag"
                                 style={{ width: "24px", height: "16px", marginRight: "8px", borderRadius: "2px" }}
                             />
-                            {/* <ListItemText primary={getCurrentCountry().name} /> */}
                         </Box>
                         <ExpandMoreIcon />
                     </MenuItem>
@@ -490,14 +487,14 @@ function MobileMenu({ toggleChat }) {
                         countryMenu &&
                         <List sx={{ margin: "0", padding: "0" }}>
                             {countryOptions.map((country) => {
-                                if(localStorage.getItem("selectedCountry") != country.code) {
+                                if (localStorage.getItem("selectedCountry") != country.code) {
                                     return (
-                                        <CountryMenuItem 
+                                        <CountryMenuItem
                                             key={country.code}
-                                            onClick={() => { window.location.href = `/${country.code}`; localStorage.setItem("selectedCountry", country.code)}}
+                                            onClick={() => { window.location.href = `/${country.code}`; localStorage.setItem("selectedCountry", country.code) }}
                                         >
-                                            <img 
-                                                src={country.flagUrl} 
+                                            <img
+                                                src={country.flagUrl}
                                                 alt={country.name}
                                                 className="country-flag"
                                             />
@@ -781,14 +778,10 @@ function MobileMenu({ toggleChat }) {
                     <NotesIcon />
                     <Typography variant="caption">{t("menu.myAds")}</Typography>
                 </NavItem>
-                <NavItem onClick={() => { if (isAuthenticated) { toggleChat() } else { setPopupOpen(true) }}}>
+                <NavItem onClick={() => { if (isAuthenticated) { toggleChat() } else { setPopupOpen(true) } }}>
                     <ChatIcon />
                     <Typography variant="caption">{t("menu.chats")}</Typography>
                 </NavItem>
-                {/* <NavItem onClick={() => setOpen(!open)}>
-                    <MenuIcon />
-                    <Typography variant="caption">{t("menu.chats")}</Typography>
-                </NavItem> */}
             </BottomNavigation>
         </>
     )

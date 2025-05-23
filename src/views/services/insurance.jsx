@@ -2,11 +2,9 @@ import { useState } from 'react'
 import LocalCarWashIcon from "@mui/icons-material/LocalCarWash";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import CarCrashIcon from "@mui/icons-material/CarCrash";
-import Nav from '../../components/menu/Nav';
 import { Box, Grid, Typography, Card, CardContent, Container } from "@mui/material";
 import Services from '../../components/services/Services';
 import Banner from '../../components/banner.jsx/Banner';
-import Footer from '../../components/footer/Footer';
 import Main from '../../components/menu_image/main_image/Main';
 import InspectionForm from '../../components/menu_image/main_image/InspectionForm';
 import RedRect from '../../components/menu_image/main_image/RedRect';
@@ -42,7 +40,7 @@ function Insurance() {
         { title: t("insurancePage.legalProtection"), description: t("insurancePage.legalProtectionDescription") },
         { title: t("insurancePage.personalAccidentCover"), description: t("insurancePage.personalAccidentCoverDescription") },
         { title: t("insurancePage.financialSecurity"), description: t("insurancePage.financialSecurityDescription") },
-        { title: t("insurancePage.peaceOfMind"), description: t("insurancePage.peaceOfMindDescription")  },
+        { title: t("insurancePage.peaceOfMind"), description: t("insurancePage.peaceOfMindDescription") },
         { title: t("insurancePage.protectionAgainstTheft"), description: t("insurancePage.protectionAgainstTheftDescription") },
         { title: t("insurancePage.legalCompliance"), description: t("insurancePage.legalComplianceDescription") }
     ];
@@ -117,7 +115,7 @@ function Insurance() {
                 <Container>
                     <Box sx={{ color: "white", mb: 4 }}>
                         <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>
-                        {t("insurancePage.carInsuranceTypes")}
+                            {t("insurancePage.carInsuranceTypes")}
                         </Typography>
                     </Box>
                     <Box display="flex" justifyContent={"center"} gap={4} flexWrap="wrap" sx={{ "@media (max-width: 768px)": { flexDirection: "column" } }}>
@@ -128,9 +126,6 @@ function Insurance() {
                                     <Typography variant="body1" fontWeight="bold" sx={{ mt: 2 }}>
                                         {insurance.title}
                                     </Typography>
-                                    {/* <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
-                                        {insurance.description}
-                                    </Typography> */}
                                 </CardContent>
                             </Card>
                         ))}

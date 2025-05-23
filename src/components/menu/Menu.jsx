@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Box, Menu, MenuItem, Grid2, Container } from '@mui/material'
+import { Box, MenuItem, Grid2, Container } from '@mui/material'
 import { isAuthenticated } from '../../api/consumer'
 import ToggleBtn from './ToggleBtn'
-import { maxWidth, minWidth, styled } from "@mui/system"
+import { styled } from "@mui/system"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { Badge } from '@mui/material';
 import AuthDialog from '../auth/Dialog';
@@ -142,7 +142,7 @@ function MainMenu({ notifications, toggleChat }) {
                     <img src="/assets/images/logo.png" alt="logo" />
                 </a>
                 <MenuItems flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
-                    <StyledMenuItem onMouseEnter={handleCategoryMenuOpen} onMouseLeave={handleCategorySubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl"}}>
+                    <StyledMenuItem onMouseEnter={handleCategoryMenuOpen} onMouseLeave={handleCategorySubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                         {t("menu.allCategories")}
                         <ExpandIcon />
                         {categoryMenuOpen && (
@@ -170,7 +170,7 @@ function MainMenu({ notifications, toggleChat }) {
                             </Box>
                         )}
                     </StyledMenuItem>
-                    <StyledMenuItem onMouseEnter={handleServiceSubMenuOpen} onMouseLeave={handleServiceSubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl"}}>
+                    <StyledMenuItem onMouseEnter={handleServiceSubMenuOpen} onMouseLeave={handleServiceSubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                         {t("menu.services")}
                         <ExpandIcon />
                         {serviceMenuOpen && (

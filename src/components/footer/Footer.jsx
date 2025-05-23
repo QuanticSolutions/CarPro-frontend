@@ -90,15 +90,6 @@ function Footer({ countryCode }) {
                                     <a href={`${countryCode}/ads?location=${city}`}>{city}</a>
                                 </StyledListItem>
                             ))}
-                            {/* <StyledListItem sx={{ paddingLeft: "0", textWrap: "nowrap" }}>
-                                <a href="/ads?location=Abu%20Dhabi">{t("filter.cities.abudhabi")}</a>
-                            </StyledListItem>
-                            <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a href="/ads?location=Sharjah">{t("filter.cities.sharjah")}</a>
-                            </StyledListItem>
-                            <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a href="/ads?location=Ajman">{t("filter.cities.ajman")}</a>
-                            </StyledListItem> */}
                         </List>
                     </Grid2>
                     <Grid2>
@@ -155,7 +146,7 @@ function Footer({ countryCode }) {
                                 <a href="/privacy">{t("footer.privacy")}</a>
                             </StyledListItem>
                             <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 80, right: i18n.language == "ar" && 0 }}>
-                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold", "@media(max-width: 2000px)":{width: "8rem"} }}>
+                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold", "@media(max-width: 2000px)": { width: "8rem" } }}>
                                     {t("footer.downloadApp")}
                                 </StyledListItem>
                                 <Box sx={{ display: "flex" }}>
@@ -207,10 +198,10 @@ function Footer({ countryCode }) {
                         <Typography variant="h6" fontWeight="bold">{t("footer.languages")}</Typography>
                         <List sx={{ position: "relative" }}>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a style={{ cursor: "pointer" }} onClick={()=>i18n.changeLanguage('en')}>{t("footer.english")}</a>
+                                <a style={{ cursor: "pointer" }} onClick={() => i18n.changeLanguage('en')}>{t("footer.english")}</a>
                             </StyledListItem>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
-                                <a style={{ cursor: "pointer" }} onClick={()=>i18n.changeLanguage('en')}>{t("footer.arabic")}</a>
+                                <a style={{ cursor: "pointer" }} onClick={() => i18n.changeLanguage('en')}>{t("footer.arabic")}</a>
                             </StyledListItem>
                         </List>
                     </Grid2>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { Box, Typography, Card, CardContent, Tabs, Tab, Avatar, Dialog, DialogContent, DialogActions, Button } from "@mui/material"
-import { updateNotification, createNotification, NOTIFY_BASE_URL, getAllNotifications } from "../../api/consumer";
+import { Box, Typography, Card, CardContent, Tabs, Tab, Avatar, Dialog } from "@mui/material"
+import { updateNotification, NOTIFY_BASE_URL, getAllNotifications } from "../../api/consumer";
 import Chat from '../chat/Chat'
 import moment from "moment/moment";
 import CloseIcon from '@mui/icons-material/Close';

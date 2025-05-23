@@ -6,7 +6,6 @@ import Signup from "./Signup";
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 
-
 const AuthDialog = ({ popupOpen, setPopupOpen, popup1Open, setPopup1Open, backToHome = false }) => {
 
     const theme = useTheme();
@@ -35,7 +34,7 @@ const AuthDialog = ({ popupOpen, setPopupOpen, popup1Open, setPopup1Open, backTo
                     <Signup />
                     <Box sx={{ width: "100%", textAlign: "center" }}>
                         <Typography variant="body" sx={{ textAlign: "center", width: "100%", p: 1 }}>
-                        {t("auth.haveAccount")} <a style={{ color: "#B71C1C" }} href="#" onClick={() => { setPopupOpen(true); setPopup1Open(false) }}>{t("auth.signIn")}</a>
+                            {t("auth.haveAccount")} <a style={{ color: "#B71C1C" }} href="#" onClick={() => { setPopupOpen(true); setPopup1Open(false) }}>{t("auth.signIn")}</a>
                         </Typography>
                     </Box>
                 </DialogContent>

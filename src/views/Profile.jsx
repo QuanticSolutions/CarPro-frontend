@@ -10,15 +10,12 @@ import {
     MenuItem,
     Select,
     FormControl,
-    InputLabel,
     Divider,
     Avatar,
     IconButton,
     Dialog, DialogContent, DialogActions
 } from '@mui/material';
-import { InfoIcon, HelpCircle, Trash } from 'lucide-react';
-import Nav from '../components/menu/Nav';
-import Footer from '../components/footer/Footer';
+import { Trash } from 'lucide-react';
 import { getUser, updateUser, deleteUser, uploadImages, getImages, API_BASE_URL, logout, socialLogin } from '../api/consumer';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import moment from 'moment';
@@ -125,13 +122,13 @@ export default function EditProfile() {
             <Container sx={{ py: 4, marginTop: window.innerWidth >= 1000 && "10rem", mb: "5rem" }}>
                 <Paper elevation={1} sx={{ p: 4, mb: 3 }}>
                     <Typography variant="h5" fontWeight="medium" gutterBottom>
-                    {t("editProfile.title")}
+                        {t("editProfile.title")}
                     </Typography>
 
                     <Box component="form" onSubmit={handleSubmit}>
 
                         <Typography variant="subtitle1" fontWeight="medium" gutterBottom sx={{ mt: 2 }}>
-                        {t("editProfile.profilePicture")}
+                            {t("editProfile.profilePicture")}
                         </Typography>
 
                         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -161,7 +158,7 @@ export default function EditProfile() {
                         <Grid container spacing={3}>
                             <Grid item xs={12} md={8}>
                                 <Typography variant="subtitle2" gutterBottom>
-                                {t("editProfile.name")}
+                                    {t("editProfile.name")}
                                 </Typography>
                                 <TextField
                                     name="fullname"
@@ -175,7 +172,7 @@ export default function EditProfile() {
                                 />
 
                                 <Typography variant="subtitle2" gutterBottom>
-                                {t("editProfile.dob")}
+                                    {t("editProfile.dob")}
                                 </Typography>
                                 <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
                                     <FormControl size="small" sx={{ width: '80px' }}>
@@ -222,7 +219,7 @@ export default function EditProfile() {
                                 </Box>
 
                                 <Typography variant="subtitle2" gutterBottom>
-                                {t("editProfile.gender")}
+                                    {t("editProfile.gender")}
                                 </Typography>
                                 <FormControl fullWidth size="small" sx={{ mb: 3 }}>
                                     <TextField
@@ -238,7 +235,7 @@ export default function EditProfile() {
                                 </FormControl>
 
                                 <Typography variant="subtitle2" gutterBottom>
-                                {t("editProfile.about")}
+                                    {t("editProfile.about")}
                                 </Typography>
                                 <TextField
                                     name="about"
@@ -257,11 +254,11 @@ export default function EditProfile() {
                                 <Box sx={{ border: '1px solid #e0e0e0', p: 2, borderRadius: 1 }}>
                                     <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
                                         <Typography variant="subtitle2" fontWeight="bold">
-                                        {t("editProfile.whyImportant")}
+                                            {t("editProfile.whyImportant")}
                                         </Typography>
                                     </Box>
                                     <Typography variant="body2" sx={{ mt: 1, color: 'text.secondary', fontSize: '0.85rem' }}>
-                                    {t("editProfile.whyImportantDesc")}
+                                        {t("editProfile.whyImportantDesc")}
                                     </Typography>
                                 </Box>
                             </Grid>
@@ -269,11 +266,11 @@ export default function EditProfile() {
 
                         <Divider sx={{ my: 3 }} />
                         <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                        {t("editProfile.contactInfo")}
+                            {t("editProfile.contactInfo")}
                         </Typography>
 
                         <Typography variant="caption" color="textSecondary" gutterBottom>
-                        {t("editProfile.contactNote")}
+                            {t("editProfile.contactNote")}
                         </Typography>
 
                         <TextField
@@ -287,7 +284,7 @@ export default function EditProfile() {
                         />
 
                         <Typography variant="caption" color="textSecondary" sx={{ display: 'block', mb: 3 }}>
-                        {t("editProfile.emailNote")}
+                            {t("editProfile.emailNote")}
                         </Typography>
 
                         <TextField
@@ -296,7 +293,7 @@ export default function EditProfile() {
                             value={formData.currentPassword || ''}
                             onChange={handleChange}
                             fullWidth
-                            placeholder= {t("editProfile.currentPassword")}
+                            placeholder={t("editProfile.currentPassword")}
                             variant="outlined"
                             size="small"
                             sx={{ mb: 2 }}
@@ -351,16 +348,16 @@ export default function EditProfile() {
 
                         <Divider sx={{ my: 3 }} />
                         <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                        {t("editProfile.optionalInfo")}
+                            {t("editProfile.optionalInfo")}
                         </Typography>
 
                         <Grid container spacing={2} sx={{ mt: 1 }}>
                             <Grid item xs={12} sm={6}>
                                 <Typography variant="subtitle2" gutterBottom>
-                                {t("editProfile.google")}
+                                    {t("editProfile.google")}
                                 </Typography>
                                 <Typography variant="caption" color="textSecondary" sx={{ display: 'block', mb: 1 }}>
-                                {t("editProfile.googleNote")}
+                                    {t("editProfile.googleNote")}
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -377,7 +374,7 @@ export default function EditProfile() {
 
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
                             <Button variant="outlined" sx={{ borderColor: "#B71C1C", color: "#B71C1C" }} onClick={() => window.location.href = "/my/profile"}>
-                            {t("editProfile.cancel")}
+                                {t("editProfile.cancel")}
                             </Button>
                             <Button
                                 variant="contained"
@@ -392,7 +389,7 @@ export default function EditProfile() {
                 </Paper>
                 <Paper elevation={1} sx={{ p: 4 }}>
                     <Typography variant="subtitle1" fontWeight="medium" color="error" gutterBottom>
-                    {t("editProfile.deleteAccount")}
+                        {t("editProfile.deleteAccount")}
                     </Typography>
 
                     <Button
@@ -408,14 +405,14 @@ export default function EditProfile() {
             </Container>
             <Dialog open={popupOpen} onClose={() => setPopupOpen(false)} maxWidth="sm" fullWidth >
                 <DialogContent>
-                {t("editProfile.deleteConfirm")}
+                    {t("editProfile.deleteConfirm")}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => { deleteUser(localStorage.getItem("user_id")); logout() }} sx={{ backgroundColor: "#B71C1C" }} variant="contained">
-                    {t("editProfile.yes")}
+                        {t("editProfile.yes")}
                     </Button>
                     <Button onClick={() => setPopupOpen(false)} sx={{ backgroundColor: "#B71C1C" }} variant="contained">
-                    {t("editProfile.no")}
+                        {t("editProfile.no")}
                     </Button>
                 </DialogActions>
             </Dialog>

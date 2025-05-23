@@ -4,7 +4,6 @@ import {
   Button,
   Typography,
   Paper,
-  Divider,
   Grid,
   IconButton
 } from '@mui/material';

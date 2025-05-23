@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Typography,
@@ -9,19 +9,16 @@ import {
   Paper,
   FormControl,
   FormLabel,
-  InputLabel,
-  MenuItem,
-  Select
 } from '@mui/material';
 import ReCAPTCHA from 'react-google-recaptcha';
-import Nav from '../components/menu/Nav';
-import Main from '../components/menu_image/main_image/Main';
-import Footer from '../components/footer/Footer';
 import CustomSelect from '../utils/Select';
 import { Phone } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
+import emailjs from '@emailjs/browser';
+
 
 export default function ContactUs() {
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -40,10 +37,8 @@ export default function ContactUs() {
     }));
   };
 
-  // Special handler for phone input that only allows numbers
   const handlePhoneChange = (e) => {
     const { value } = e.target;
-    // Only update if the input contains only numbers
     if (value === '' || /^[0-9]+$/.test(value)) {
       setFormData(prevState => ({
         ...prevState,
@@ -58,7 +53,48 @@ export default function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    if (!/^[0-9]*$/.test(formData.phone) && formData.phone !== '') {
+      alert(t("contact.phoneValidation"));
+      return;
+    }
+
+    const templateParams = {
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      subject: subject,
+      message: `
+      Name: ${formData.name}
+      Phone: ${formData.phone}
+      Email: ${formData.email}
+      Subject: ${subject}
+      Message: ${formData.message}
+    `
+    };
+
+    emailjs.send(
+      'service_nx01xqp',
+      'template_7x2v6n4',
+      templateParams,
+      'X-YVdfmRqOGareB2p'
+    ).then(
+      (result) => {
+        alert(t("contact.successMessage"));
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+        setSubject('');
+      },
+      (error) => {
+        console.error("EmailJS Error:", error);
+        alert(t("contact.errorMessage"));
+      }
+    );
   };
 
   const handleCaptchaChange = (value) => {
@@ -68,9 +104,9 @@ export default function ContactUs() {
 
   const subjectOptions = [
     { value: 'general', name: t("contact.subjectOptions.general") },
-    { value: 'support', name: t("contact.subjectOptions.support")  },
-    { value: 'booking', name: t("contact.subjectOptions.booking")  },
-    { value: 'feedback', name: t("contact.subjectOptions.feedback")  }
+    { value: 'support', name: t("contact.subjectOptions.support") },
+    { value: 'booking', name: t("contact.subjectOptions.booking") },
+    { value: 'feedback', name: t("contact.subjectOptions.feedback") }
   ]
 
   return (
@@ -82,57 +118,46 @@ export default function ContactUs() {
               <Typography variant="h5" component="h2" fontFamily='"Franklin Gothic Demi", sans-serif' gutterBottom>
                 {t("contact.title")}
               </Typography>
-
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph>
-              {t("contact.description")}
+                {t("contact.description")}
               </Typography>
-
               <Typography variant="h6" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ mt: 4, mb: 1, display: "flex", alignItems: "center", gap: 1 }}>
-              {t("contact.telephoneTitle")}
+                {t("contact.telephoneTitle")}
               </Typography>
-
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph>
-              {t("contact.telephoneDescription")}
+                {t("contact.telephoneDescription")}
               </Typography>
-
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' fontWeight="bold" sx={{ mt: 4, mb: 1, display: "flex", alignItems: "center", gap: 1 }}>
                 <Phone /> {t("contact.phoneNumber")}
               </Typography>
-
               <Typography variant="body2" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph sx={{ mb: 4 }}>
-              {t("contact.workingHours")}
+                {t("contact.workingHours")}
               </Typography>
-
               <Typography variant="h6" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ mb: 1 }}>
-              {t("contact.addressTitle")}
+                {t("contact.addressTitle")}
               </Typography>
-
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph>
-              {t("contact.addressDescription")}
-              </Typography>
-
-              <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif'>
-              {t("contact.addressLine1")}
+                {t("contact.addressDescription")}
               </Typography>
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif'>
-              {t("contact.addressLine2")}
+                {t("contact.addressLine1")}
               </Typography>
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif'>
-              {t("contact.addressLine3")}
+                {t("contact.addressLine2")}
               </Typography>
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif'>
-              {t("contact.addressLine4")}
+                {t("contact.addressLine3")}
+              </Typography>
+              <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif'>
+                {t("contact.addressLine4")}
               </Typography>
             </Box>
           </Grid>
-
-          {/* Right column - Contact form */}
           <Grid item xs={12} md={7}>
             <Paper elevation={1} sx={{ p: 3, borderRadius: 2 }}>
               <Typography variant="body1" sx={{ mb: 2, color: '#444' }} fontFamily='"Franklin Gothic Demi", sans-serif'>
-              {t("contact.formTitle")}
+                {t("contact.formTitle")}
               </Typography>
-
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -150,7 +175,6 @@ export default function ContactUs() {
                       margin="dense"
                     />
                   </Grid>
-
                   <Grid item xs={12}>
                     <FormLabel htmlFor="email" fontFamily='"Franklin Gothic Demi", sans-serif' required sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}>{t("contact.emailLabel")}</FormLabel>
                     <TextField
@@ -167,7 +191,6 @@ export default function ContactUs() {
                       margin="dense"
                     />
                   </Grid>
-
                   <Grid item xs={12}>
                     <FormLabel htmlFor="phone" fontFamily='"Franklin Gothic Demi", sans-serif'>{t("contact.phoneLabel")}</FormLabel>
                     <TextField
@@ -186,7 +209,6 @@ export default function ContactUs() {
                       }}
                     />
                   </Grid>
-
                   <Grid item xs={12}>
                     <FormLabel htmlFor="subject" fontFamily='"Franklin Gothic Demi", sans-serif' required sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}>{t("contact.subjectLabel")}</FormLabel>
                     <FormControl fullWidth margin="dense" required>
@@ -216,7 +238,6 @@ export default function ContactUs() {
                       />
                     </FormControl>
                   </Grid>
-
                   <Grid item xs={12}>
                     <FormLabel htmlFor="message" fontFamily='"Franklin Gothic Demi", sans-serif' required sx={{ "& .MuiFormLabel-asterisk": { color: "red" } }}>{t("contact.messageLabel")}</FormLabel>
                     <TextField
@@ -233,7 +254,6 @@ export default function ContactUs() {
                       margin="dense"
                     />
                   </Grid>
-
                   <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
                     <Box>
                       <ReCAPTCHA
@@ -242,7 +262,6 @@ export default function ContactUs() {
                         size="normal"
                       />
                     </Box>
-
                     <Button
                       type="submit"
                       variant="contained"

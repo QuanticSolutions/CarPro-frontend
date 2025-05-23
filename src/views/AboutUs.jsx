@@ -5,10 +5,7 @@ import {
     Box,
     Divider,
     Paper,
-    Grid
 } from '@mui/material';
-import Nav from '../components/menu/Nav';
-import Footer from '../components/footer/Footer';
 import { useTranslation } from 'react-i18next';
 
 export default function AboutUs() {
@@ -49,7 +46,7 @@ export default function AboutUs() {
 
                     <Box sx={{ mb: 4, textAlign: 'center' }} >
                         <Typography variant="body1" paragraph>
-                           {t("about.cars")}
+                            {t("about.cars")}
                         </Typography>
 
                         <Typography variant="body1" paragraph>
@@ -92,7 +89,7 @@ export default function AboutUs() {
                         </Typography>
 
                         <Typography variant="body1" paragraph>
-                           {t("about.classifieds_p1")}
+                            {t("about.classifieds_p1")}
                         </Typography>
 
                         <Typography variant="body1" paragraph>
@@ -100,7 +97,7 @@ export default function AboutUs() {
                         </Typography>
 
                         <Typography variant="body1" paragraph>
-                           {t("about.classifieds_p3")}
+                            {t("about.classifieds_p3")}
                         </Typography>
                     </Box>
                     <Divider sx={{ my: 4 }} />
