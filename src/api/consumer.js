@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://carprobackend.quanticsols.com";
-const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
-export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
+export const API_BASE_URL = "https://api.carsfinderpro.com";
+const CHAT_BASE_URL = "https://chats.carsfinderpro.com";
+export const NOTIFY_BASE_URL = "https://notification.carsfinderpro.com";
 
 export const signup = async (userData) => {
     try {
