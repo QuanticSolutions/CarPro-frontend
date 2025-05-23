@@ -18,7 +18,6 @@ import { useTranslation } from "react-i18next";
 const StyledAccordion = styled(Accordion)({
     marginTop: "5px",
     marginBottom: "0px",
-    boxShadow: "none",
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
     "&:before": {
         display: "none",
@@ -112,7 +111,6 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
                     background: "#fff",
                     color: "#B71C1C",
                     padding: "20px",
-                    textAlign: "left",
                     fontWeight: "bold",
                     borderTopRightRadius: "8px",
                     borderTopLeftRadius: "8px",

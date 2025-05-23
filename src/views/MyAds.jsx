@@ -178,7 +178,6 @@ function MyAds() {
                         variant='scrollable'
                         onChange={(e, newValue) => setTab(newValue)}
                         sx={{
-                            my: 2,
                             my: 1,
                             "& .MuiTab-root": {
                                 color: "black",

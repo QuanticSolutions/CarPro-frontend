@@ -126,12 +126,11 @@ function InspectionForm({ leftAdjustment, rightAdjustment, heading, buttonText }
                 City: ${formData.city}
             `
         };
-
         emailjs.send(
-            'service_nx01xqp',
-            'template_7x2v6n4',
+            'service_41f0v98',
+            'template_vsk7twk',
             templateParams,
-            'X-YVdfmRqOGareB2p'
+            'DMNvhItaC2rXMKIU4'
         ).then(
             (result) => {
                 alert(t("inspection.success_message"));
