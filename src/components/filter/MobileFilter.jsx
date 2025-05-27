@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -16,13 +16,16 @@ import {
   Typography,
   Divider,
   Badge,
-  styled
+  styled,
+  InputAdornment
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from 'react-i18next';
+import { getModels } from '../../api/consumer';
 
 const DrawerHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -53,9 +56,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const MobileFilterDrawer = () => {
+const MobileFilterDrawer = ({ showBrands }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [expandedFilter, setExpandedFilter] = useState(null);
+  const [modelOptions, setModelOptions] = useState([]);
+  const [brandSearchQuery, setBrandSearchQuery] = useState('');
   const { t, i18n } = useTranslation();
   const [filters, setFilters] = useState({
     city: [],
@@ -70,13 +75,30 @@ const MobileFilterDrawer = () => {
     year: { min: '', max: '' }
   });
 
+  useEffect(
+    () => {
+      getModels().then(
+        (response) => {
+          setModelOptions(response.map(model => (model.make)))
+        }
+      )
+    },
+    []
+  )
+
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
-    if (!drawerOpen) setExpandedFilter(null);
+    if (!drawerOpen) {
+      setExpandedFilter(null);
+      setBrandSearchQuery(''); // Reset search when closing drawer
+    }
   };
 
   const toggleFilterExpansion = (filterId) => {
     setExpandedFilter(expandedFilter === filterId ? null : filterId);
+    if (filterId !== 'brand') {
+      setBrandSearchQuery(''); // Reset brand search when switching to other filters
+    }
   };
 
   const handleCheckboxChange = (filterId, option) => {
@@ -119,6 +141,7 @@ const MobileFilterDrawer = () => {
       mileage: { min: '', max: '' },
       year: { min: '', max: '' }
     });
+    setBrandSearchQuery('');
   };
 
   const getActiveFilterCount = (filterId) => {
@@ -128,6 +151,11 @@ const MobileFilterDrawer = () => {
     return filters[filterId].length;
   };
 
+  // Filter brands based on search query
+  const filteredBrandOptions = modelOptions.filter(option =>
+    option.toLowerCase().includes(brandSearchQuery.toLowerCase())
+  );
+
   const filterCategories = [
     {
       id: "city",
@@ -136,43 +164,6 @@ const MobileFilterDrawer = () => {
       options: [
         "Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Fujairah", "Al Ain", "Umm Al Qwain"
       ].map(city => t(`filters.options.${city}`))
-    },
-    {
-      id: "brand",
-      label: t("filters.filters.Brand"),
-      type: "checkbox",
-      options: [
-        t('cardValues.AccessMotor'),
-        t('cardValues.Aprillia'),
-        t('cardValues.Asiawing'),
-        t('cardValues.BMW'),
-        t('cardValues.Bajaj'),
-        t('cardValues.Benelli'),
-        t('cardValues.Buell'),
-        t('cardValues.Can-am'),
-        t('cardValues.Ducati'),
-        t('cardValues.Fantic'),
-        t('cardValues.Gas Gas'),
-        t('cardValues.Harley Davidson'),
-        t('cardValues.Hero'),
-        t('cardValues.Honda'),
-        t('cardValues.Husaberg'),
-        t('cardValues.Husqvarna'),
-        t('cardValues.Indian'),
-        t('cardValues.KTM'),
-        t('cardValues.Kawasaki'),
-        t('cardValues.MV Agusta'),
-        t('cardValues.Moto Guzzi'),
-        t('cardValues.Norton'),
-        t('cardValues.Polaris'),
-        t('cardValues.Royal Enfield'),
-        t('cardValues.Sharmax'),
-        t('cardValues.Suzuki'),
-        t('cardValues.Triumph'),
-        t('cardValues.Vespa'),
-        t('cardValues.Victory'),
-        t('cardValues.Yamaha'),
-      ]
     },
     {
       id: "transmission",
@@ -293,6 +284,78 @@ const MobileFilterDrawer = () => {
         </DrawerHeader>
 
         <List sx={{ pb: 8, px: 1, direction: i18n.language == "ar" && "rtl" }}>
+          <React.Fragment key={"brand"}>
+            <ListItem disablePadding sx={{ direction: i18n.language == "ar" && "rtl" }}>
+              <ListItemButton
+                onClick={() => toggleFilterExpansion("brand")}
+                sx={{ p: 2 }}
+              >
+                <StyledBadge
+                  badgeContent={getActiveFilterCount("brand")}
+                  invisible={getActiveFilterCount("brand") === 0}
+                  sx={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <ListItemText
+                    primary={"Brand"}
+                    primaryTypographyProps={{
+                      fontWeight: 'medium',
+
+                    }}
+                  />
+                </StyledBadge>
+                {expandedFilter === "brand"? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemButton>
+            </ListItem>
+
+            <Collapse in={expandedFilter === "brand"} timeout="auto" unmountOnExit>
+              <FilterOptionContainer>
+                {/* Search Box for Brands */}
+                <TextField
+                  fullWidth
+                  size="small"
+                  placeholder="Search brands..."
+                  value={brandSearchQuery}
+                  onChange={(e) => setBrandSearchQuery(e.target.value)}
+                  sx={{ mb: 2 }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon color="action" />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+                
+                <FormGroup sx={{ maxHeight: "300px", overflowY: "scroll"}}>
+                  {filteredBrandOptions.length > 0 ? (
+                    filteredBrandOptions.map((option) => (
+                      <FormControlLabel
+                        key={option}
+                        control={
+                          <Checkbox
+                            checked={filters["brand"].includes(option)}
+                            onChange={() => handleCheckboxChange("brand", option)}
+                            sx={{
+                              color: "#9e9e9e",
+                              '&.Mui-checked': {
+                                color: "#B71C1C",
+                              },
+                            }}
+                          />
+                        }
+                        label={option}
+                      />
+                    ))
+                  ) : (
+                    <Typography variant="body2" color="text.secondary" sx={{ p: 2, textAlign: 'center' }}>
+                      No brands found matching "{brandSearchQuery}"
+                    </Typography>
+                  )}
+                </FormGroup>
+              </FilterOptionContainer>
+            </Collapse>
+            <Divider />
+          </React.Fragment>
           {filterCategories.map((category) => (
             <React.Fragment key={category.id}>
               <ListItem disablePadding sx={{ direction: i18n.language == "ar" && "rtl" }}>

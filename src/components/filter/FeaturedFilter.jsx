@@ -18,7 +18,7 @@ const FilterBox = styled(Box)({
   },
 });
 
-const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
+const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }) => {
 
   const [filters, setFilters] = useState({
     type: "",
@@ -164,8 +164,8 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition }) => {
         <FilterBox sx={{ flexDirection: i18n.language == "ar" && "row-reverse" }}>
           {
             window.innerWidth < 800 ?
-              <MobileFilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} /> :
-              <FilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} />
+              <MobileFilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} showBrands={showBrands} /> :
+              <FilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} showBrands={showBrands} />
           }
           <DataGrid data={filteredData} title={title} type={type} />
         </FilterBox>

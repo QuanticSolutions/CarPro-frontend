@@ -75,7 +75,7 @@ const BoxStyles = {
     },
 }
 
-const FilterSection = ({ filters, setFilters, title, filterData }) => {
+const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) => {
 
     const { t, i18n } = useTranslation();
     const [modelOptions, setModelOptions] = useState([]);
@@ -308,14 +308,17 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
                 ))}
 
                 {/* Special Brand Accordion with Search */}
-                <StyledAccordion defaultExpanded={false}>
-                    <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
-                        <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Brand")}</Typography>
-                    </StyledSummary>
-                    <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
-                        {getBrandAccordionContent()}
-                    </StyledDetails>
-                </StyledAccordion>
+                {
+                    showBrands &&
+                    <StyledAccordion defaultExpanded={false}>
+                        <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                            <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Brand")}</Typography>
+                        </StyledSummary>
+                        <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                            {getBrandAccordionContent()}
+                        </StyledDetails>
+                    </StyledAccordion>
+                }
 
                 {[
                     {

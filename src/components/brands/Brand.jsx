@@ -30,7 +30,7 @@ function Brand({ image, name }) {
                     maxWidth: "calc(30% - 20px)",
                 },
             }}
-            onClick={()=> window.location.href = `/ads?make=${name}`}
+            onClick={()=> window.location.href = `/ads/${name}`}
         >
             <CardContent sx={{ marginTop: "auto" }}>
                 <img src={`/assets/images/${image}.png`} style={{ width: "5rem"}}/>

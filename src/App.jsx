@@ -388,7 +388,8 @@ function App() {
         <Route path='/plates/rent' element={<Featured data={rent.filter(obj => obj.category == "plates")} title={t("listing.platesForRent")} type="rent" />} />
         <Route path='/heavy/rent' element={<Featured data={rent.filter(obj => obj.category == "heavy")} title={t("listing.heavyForRent")} type="rent" />} />
         <Route path='/boats/rent' element={<Featured data={rent.filter(obj => obj.category == "boats")} title={t("listing.boatsForRent")} type="rent" />} />
-        <Route path='/ads' element={<Featured data={data} title={t("general.allAds")} type="sell" />} />
+        <Route path='/ads' element={<Featured data={data} title={t("general.allAds")} type="sell" />} /> 
+        <Route path='/ads/:brand' element={<Featured data={data} type="sell" showBrands={false} />} /> 
         <Route path='/ad/sell' element={<Ad type="sell" />} />
         <Route path='/ad/rent' element={<Ad type="rent" />} />
         <Route path='/featured/cars' element={<Featured data={data.filter(obj => obj.category == "cars")} title={t("featured.cars")} />} />

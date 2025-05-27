@@ -103,6 +103,7 @@ function Home({ data }) {
       <Main image={i18n.language == "ar" ? "red-bg3_ar" : "red-bg3"} showForm={true} showText={true} form={<FilterForm />} headerText={headertext} headerTextStyles={headerTextStyles} text={text} textStyles={textStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"} />
       <Categories title={t("menu.allCategories")} contents={categories} />
       <Services title={t("menu.services")} cards={cards} background="linear-gradient(#B71C1C, black)" />
+      <Brands />
       <Banner image="1" link="/featured/Cars" />
       <CardSlider data={data.filter(obj => obj.category == "cars" && obj.status == "live")} title={t("home.featuredCars")} category={"cars"} />
       <CardSlider data={data.filter(obj => obj.category == "cars" && obj.status == "live")} title={t("home.rentCars")} openTo='cars' category={"rent"} />
@@ -118,7 +119,6 @@ function Home({ data }) {
       <CardSlider data={data.filter(obj => obj.category == "construction" && obj.status == "live")} title={t("home.rentConstruction")} openTo='construction' category={"rent"} />
       <CardSlider data={data.filter(obj => obj.category == "boats" && obj.status == "live")} title={t("home.featuredBoats")} category={"boats"} />
       <CardSlider data={data.filter(obj => obj.category == "boats" && obj.status == "live")} title={t("home.rentBoats")} openTo='boats' category={"rent"} />
-      <Brands />
       <Video />
     </>
   )
