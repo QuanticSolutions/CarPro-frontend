@@ -23,7 +23,7 @@ const StyledBtn = styled(Button)({
 function JwtLogin({ backBtnHandler }) {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState("");
+    const [identifier, setIdentifier] = useState(""); // Can be email or phone
     const [password, setPassword] = useState("");
     const [popup, setPopup] = useState({
         open: false,
@@ -31,10 +31,36 @@ function JwtLogin({ backBtnHandler }) {
         severity: "success",
     });
 
+    // Function to detect if input is email or phone
+    const isEmail = (input) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(input);
+    };
 
-    const handleSubmit = (event, data) => {
+    const isPhone = (input) => {
+        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+        return phoneRegex.test(input.replace(/[\s\-\(\)]/g, ''));
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        login(data)
+        
+        let loginData = {
+            password: password,
+            firebaseToken: localStorage.getItem("FCM Token")
+        };
+
+        // Determine if identifier is email or phone and add to loginData
+        if (isEmail(identifier)) {
+            loginData.email = identifier;
+        } else if (isPhone(identifier)) {
+            loginData.phone = identifier;
+        } else {
+            setPopup({ open: true, message: "Please enter a valid email or phone number", severity: "error" });
+            return;
+        }
+        
+        login(loginData)
             .then(
                 (response) => {
                     setPopup({ open: true, message: "Signin Successful!", severity: "success" });
@@ -54,17 +80,17 @@ function JwtLogin({ backBtnHandler }) {
             )
     }
 
-
     return (
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
             <Typography variant="h5" fontWeight="bold" color="black" textAlign="center">Login To Your Account</Typography>
             <Container>
                 <Box sx={{ width: window.innerWidth > 800 ? 400 : "auto", mx: "auto", mt: 5 }}>
-                    <form onSubmit={() => handleSubmit(event, { email: email, password: password, firebaseToken: localStorage.getItem("FCM Token") })}>
+                    <form onSubmit={handleSubmit}>
                         <TextField
                             fullWidth
-                            label="Email"
+                            label="Email or Phone Number"
                             variant="outlined"
+                            type="text"
                             sx={{
                                 mb: 2,
                                 '& label.Mui-focused': {
@@ -76,8 +102,9 @@ function JwtLogin({ backBtnHandler }) {
                                     },
                                 },
                             }}
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
+                            value={identifier}
+                            onChange={(event) => setIdentifier(event.target.value)}
+                            placeholder="example@email.com or +1234567890"
                         />
 
                         <TextField

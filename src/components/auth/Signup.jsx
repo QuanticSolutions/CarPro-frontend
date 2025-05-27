@@ -37,11 +37,17 @@ const isPasswordValid = (password, name) => {
     };
 };
 
+const isPhoneValid = (phone) => {
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+    return phoneRegex.test(phone.replace(/[\s\-\(\)]/g, ''));
+};
+
 function Signup() {
     const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [otpSent, setOtpSent] = useState(false);
     const [otp, setOtp] = useState("");
@@ -62,15 +68,23 @@ function Signup() {
 
     const handleSendOtp = async (event) => {
         event.preventDefault();
+    
+        if (!isPhoneValid(phone)) {
+            setPopup({ open: true, message: t("signup.invalidPhone"), severity: "error" });
+            return;
+        }
+        
         if (!passwordValidity.isValid) {
             setPopup({ open: true, message: t("signup.invalidPassword"), severity: "error" });
             return;
         }
+        
         try {
             await sendOtp(email);
             setOtpSent(true);
             setPopup({ open: true, message: t("signup.otpSent"), severity: "success" });
         } catch (error) {
+            console.log(error)
             setPopup({ open: true, message: error.response?.data?.message || "Failed to send OTP", severity: "error" });
         }
     };
@@ -79,7 +93,7 @@ function Signup() {
         event.preventDefault();
         try {
             await verifyOtp(email, otp);
-            const res = await signup({ name, email, password });
+            const res = await signup({ name, email, phone, password });
             setPopup({ open: true, message: t("signup.success"), severity: "success" });
 
             await login({ email, password, firebaseToken: localStorage.getItem("FCM Token") });
@@ -91,6 +105,12 @@ function Signup() {
         } catch (error) {
             setPopup({ open: true, message: error.response?.data?.message || "OTP verification failed", severity: "error" });
         }
+    };
+
+    const handlePhoneChange = (e) => {
+        const value = e.target.value;
+        const sanitized = value.replace(/[^0-9\s\-\(\)\+]/g, '');
+        setPhone(sanitized);
     };
 
     return (
@@ -121,6 +141,7 @@ function Signup() {
                             fullWidth
                             label={t("signup.email")}
                             variant="outlined"
+                            type="email"
                             sx={{
                                 mb: 2, '& label.Mui-focused': {
                                     color: '#B71C1C',
@@ -134,6 +155,27 @@ function Signup() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             disabled={otpSent}
+                        />
+                        <TextField
+                            fullWidth
+                            label={t("signup.phone")}
+                            variant="outlined"
+                            placeholder="+1 234 567 8900"
+                            sx={{
+                                mb: 2, '& label.Mui-focused': {
+                                    color: '#B71C1C',
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#B71C1C',
+                                    },
+                                },
+                            }}
+                            value={phone}
+                            onChange={handlePhoneChange}
+                            disabled={otpSent}
+                            error={phone && !isPhoneValid(phone)}
+                            helperText={phone && !isPhoneValid(phone) ? t("signup.phoneError") : ""}
                         />
                         <TextField
                             fullWidth

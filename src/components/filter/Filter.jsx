@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
     Accordion,
     AccordionSummary,
@@ -9,11 +9,14 @@ import {
     Checkbox,
     TextField,
     Box,
-    Divider
+    Divider,
+    InputAdornment
 } from "@mui/material";
 import { styled } from "@mui/system"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
+import { getModels } from '../../api/consumer';
 
 const StyledAccordion = styled(Accordion)({
     marginTop: "5px",
@@ -40,6 +43,26 @@ const StyledDivider = styled(Divider)({
     margin: "0",
 });
 
+const ScrollableFormGroup = styled(FormGroup)({
+    maxHeight: "200px",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    "&::-webkit-scrollbar": {
+        width: "6px",
+    },
+    "&::-webkit-scrollbar-track": {
+        background: "#f1f1f1",
+        borderRadius: "3px",
+    },
+    "&::-webkit-scrollbar-thumb": {
+        background: "#B71C1C",
+        borderRadius: "3px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+        background: "#8B0000",
+    },
+});
+
 const BoxStyles = {
     width: 300,
     height: "min-content",
@@ -55,6 +78,9 @@ const BoxStyles = {
 const FilterSection = ({ filters, setFilters, title, filterData }) => {
 
     const { t, i18n } = useTranslation();
+    const [modelOptions, setModelOptions] = useState([]);
+    const [brandSearchTerm, setBrandSearchTerm] = useState("");
+    const [showAllBrands, setShowAllBrands] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -103,6 +129,94 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
         });
         filterData();
     };
+
+    const handleBrandSearchChange = (event) => {
+        setBrandSearchTerm(event.target.value);
+        if (event.target.value) {
+            setShowAllBrands(true);
+        }
+    };
+
+    const getFilteredBrands = () => {
+        if (!brandSearchTerm) {
+            return showAllBrands ? modelOptions : modelOptions.slice(0, 5);
+        }
+        return modelOptions.filter(brand =>
+            brand.toLowerCase().includes(brandSearchTerm.toLowerCase())
+        );
+    };
+
+    const getBrandAccordionContent = () => {
+        const filteredBrands = brandSearchTerm
+            ? modelOptions.filter((brand) =>
+                brand.toLowerCase().includes(brandSearchTerm.toLowerCase())
+            )
+            : modelOptions;
+
+        return (
+            <>
+                <TextField
+                    variant="outlined"
+                    size="small"
+                    placeholder={t("filters.search")}
+                    fullWidth
+                    value={brandSearchTerm}
+                    onChange={handleBrandSearchChange}
+                    sx={{
+                        mb: 2,
+                        "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                                borderColor: "#ccc",
+                            },
+                            "&:hover fieldset": {
+                                borderColor: "#B71C1C",
+                            },
+                            "&.Mui-focused fieldset": {
+                                borderColor: "#B71C1C",
+                            },
+                        },
+                    }}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon sx={{ color: "#B71C1C" }} />
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+                <ScrollableFormGroup>
+                    <Box display="flex" flexDirection="column">
+                        {filteredBrands.map((option, idx) => (
+                            <FormControlLabel
+                                key={idx}
+                                control={<Checkbox />}
+                                checked={filters.brand?.includes(option)}
+                                name="brand"
+                                label={option}
+                                sx={{
+                                    "& .Mui-checked": {
+                                        color: "#B71C1C !important",
+                                    },
+                                }}
+                                onChange={(event) => handleCheckboxChange(event, option)}
+                            />
+                        ))}
+                    </Box>
+                </ScrollableFormGroup>
+            </>
+        );
+    };
+
+    useEffect(
+        () => {
+            getModels().then(
+                (response) => {
+                    setModelOptions(response.map(model => (model.make)))
+                }
+            )
+        },
+        []
+    )
 
     return (
         <Box sx={BoxStyles}>
@@ -159,43 +273,51 @@ const FilterSection = ({ filters, setFilters, title, filterData }) => {
                             "Dubai", "Abu Dhabi", "Sharjah", "Ajman", "Fujairah", "Al Ain", "Umm Al Qwain"
                         ].map(city => t(`filters.options.${city}`)),
                         field: "city"
-                    },
-                    {
-                        title: t("filters.filters.Brand"),
-                        options: [
-                            t('cardValues.AccessMotor'),
-                            t('cardValues.Aprillia'),
-                            t('cardValues.Asiawing'),
-                            t('cardValues.BMW'),
-                            t('cardValues.Bajaj'),
-                            t('cardValues.Benelli'),
-                            t('cardValues.Buell'),
-                            t('cardValues.Can-am'),
-                            t('cardValues.Ducati'),
-                            t('cardValues.Fantic'),
-                            t('cardValues.Gas Gas'),
-                            t('cardValues.Harley Davidson'),
-                            t('cardValues.Hero'),
-                            t('cardValues.Honda'),
-                            t('cardValues.Husaberg'),
-                            t('cardValues.Husqvarna'),
-                            t('cardValues.Indian'),
-                            t('cardValues.KTM'),
-                            t('cardValues.Kawasaki'),
-                            t('cardValues.MV Agusta'),
-                            t('cardValues.Moto Guzzi'),
-                            t('cardValues.Norton'),
-                            t('cardValues.Polaris'),
-                            t('cardValues.Royal Enfield'),
-                            t('cardValues.Sharmax'),
-                            t('cardValues.Suzuki'),
-                            t('cardValues.Triumph'),
-                            t('cardValues.Vespa'),
-                            t('cardValues.Victory'),
-                            t('cardValues.Yamaha'),
-                        ],
-                        field: "brand"
-                    },
+                    }
+                ].map((filter, index) => (
+                    <React.Fragment key={index}>
+                        <StyledAccordion defaultExpanded={false}>
+                            <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                                <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{filter.title}</Typography>
+                            </StyledSummary>
+                            <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                                <FormGroup>
+                                    {filter.options.map((option, idx) => (
+                                        <FormControlLabel
+                                            key={idx}
+                                            control={<Checkbox />}
+                                            checked={filters[filter.field]?.includes(option)}
+                                            name={filter.field}
+                                            label={option}
+                                            fontFamily='"Franklin Gothic Demi", sans-serif'
+                                            sx={{
+                                                "& .Mui-checked": {
+                                                    color: "#B71C1C !important",
+                                                },
+                                                "&.Mui-checked": {
+                                                    color: "#B71C1C !important",
+                                                },
+                                            }}
+                                            onChange={(event) => handleCheckboxChange(event, option)}
+                                        />
+                                    ))}
+                                </FormGroup>
+                            </StyledDetails>
+                        </StyledAccordion>
+                    </React.Fragment>
+                ))}
+
+                {/* Special Brand Accordion with Search */}
+                <StyledAccordion defaultExpanded={false}>
+                    <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                        <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Brand")}</Typography>
+                    </StyledSummary>
+                    <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                        {getBrandAccordionContent()}
+                    </StyledDetails>
+                </StyledAccordion>
+
+                {[
                     {
                         title: t("filters.filters.Transmission"),
                         options: ["Automatic", "Manual"].map(option => t(`filters.options.${option}`)),

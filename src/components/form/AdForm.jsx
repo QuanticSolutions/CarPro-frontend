@@ -131,7 +131,7 @@ function AdForm({ title, type, isUpdating = false, category }) {
 
         const updatedData = prevData;
         updatedData.user_id = localStorage.getItem("user_id")
-        updatedData.status = "live"
+        updatedData.status = "pending"
         updatedData.featured = false;
         updatedData.category = path.substring(path.lastIndexOf('/') + 1);
         updatedData.country = countries[localStorage.getItem("selectedCountry")];

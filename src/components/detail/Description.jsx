@@ -1,7 +1,11 @@
-import { Box, Typography, Divider, List, ListItem, IconButton } from "@mui/material";
+import { Box, Typography, Divider, List, ListItem, IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControl, InputLabel, Select, MenuItem, Alert, CircularProgress } from "@mui/material";
 import ReportIcon from "@mui/icons-material/Report";
+import CloseIcon from "@mui/icons-material/Close";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import emailjs from '@emailjs/browser';
+import { updateAd } from "../../api/consumer";
 
 const BoxStyles = {
     paddingTop: "2rem",
@@ -10,6 +14,15 @@ const BoxStyles = {
 
 const Description = ({ ad }) => {
     const { t, i18n } = useTranslation();
+    const [reportDialogOpen, setReportDialogOpen] = useState(false);
+    const [reportForm, setReportForm] = useState({
+        reason: '',
+        description: '',
+        reporterEmail: '',
+        reporterName: ''
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState({ type: '', message: '' });
 
     function toPascalCase(str) {
         if (!str) return '';
@@ -28,7 +41,6 @@ const Description = ({ ad }) => {
 
     const convertDateToArabic = (inputDate) => {
         if (!(inputDate instanceof Date) || isNaN(inputDate)) {
-
             inputDate = new Date(inputDate);
             if (isNaN(inputDate)) {
                 throw new Error('Invalid Date');
@@ -53,6 +65,90 @@ const Description = ({ ad }) => {
         return `${arabicDay} ${arabicMonth} ${arabicYear}`;
     };
 
+    const handleReportClick = () => {
+        setReportDialogOpen(true);
+        setSubmitStatus({ type: '', message: '' });
+    };
+
+    const handleReportClose = () => {
+        setReportDialogOpen(false);
+        setReportForm({
+            reason: '',
+            description: '',
+            reporterEmail: '',
+            reporterName: ''
+        });
+        setSubmitStatus({ type: '', message: '' });
+    };
+
+    const handleReportFormChange = (field, value) => {
+        setReportForm(prev => ({
+            ...prev,
+            [field]: value
+        }));
+    };
+
+    const handleReportSubmit = async () => {
+        if (!reportForm.reason || !reportForm.description || !reportForm.reporterEmail || !reportForm.reporterName) {
+            setSubmitStatus({ type: 'error', message: t('fillAllFields') || 'Please fill all required fields' });
+            return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitStatus({ type: '', message: '' });
+
+        try {
+
+            const templateParams = {
+                from_name: reportForm.reporterName,
+                from_email: reportForm.reporterEmail,
+                to_name: 'Admin',
+                report_reason: reportForm.reason,
+                report_description: reportForm.description,
+                ad_id: ad.id || 'N/A',
+                ad_title: ad.title || 'N/A',
+                ad_location: ad.location || 'N/A',
+                reported_date: new Date().toLocaleDateString(),
+                reply_to: reportForm.reporterEmail
+            };
+
+            await emailjs.send(
+                'service_41f0v98',
+                'template_qb63tsl',
+                templateParams,
+                'DMNvhItaC2rXMKIU4'
+            )
+
+            setSubmitStatus({
+                type: 'success',
+                message: t('reportSubmittedSuccessfully') || 'Report submitted successfully. Thank you for your feedback.'
+            });
+
+            updateAd(ad.id, {...ad, reproted: 1});
+
+            setTimeout(() => {
+                handleReportClose();
+            }, 2000);
+
+        } catch (error) {
+            console.error('Error sending report:', error);
+            setSubmitStatus({
+                type: 'error',
+                message: t('reportSubmissionFailed') || 'Failed to submit report. Please try again later.'
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const reportReasons = [
+        { value: 'inappropriate_content', label: t('inappropriateContent') || 'Inappropriate Content' },
+        { value: 'spam', label: t('spam') || 'Spam' },
+        { value: 'fraud', label: t('fraud') || 'Fraud/Scam' },
+        { value: 'duplicate', label: t('duplicate') || 'Duplicate Listing' },
+        { value: 'incorrect_info', label: t('incorrectInfo') || 'Incorrect Information' },
+        { value: 'other', label: t('other') || 'Other' }
+    ];
 
     return (
         <Box sx={{ ...BoxStyles, direction: i18n.language == "ar" && "rtl" }}>
@@ -152,14 +248,106 @@ const Description = ({ ad }) => {
                 ></Box>
                 <Divider sx={{ my: 2 }} />
                 <Box display="flex" alignItems="center" justifyContent="center">
-                    <IconButton color="error">
+                    <IconButton color="error" onClick={handleReportClick}>
                         <ReportIcon />
                     </IconButton>
-                    <Typography variant="body2" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary" sx={{ cursor: 'pointer' }} onClick={handleReportClick}>
                         {t("reportAd")}
                     </Typography>
                 </Box>
             </Box>
+
+            {/* Report Dialog */}
+            <Dialog
+                open={reportDialogOpen}
+                onClose={handleReportClose}
+                maxWidth="sm"
+                fullWidth
+                sx={{
+                    '& .MuiDialog-paper': {
+                        direction: i18n.language === "ar" ? "rtl" : "ltr"
+                    }
+                }}
+            >
+                <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h6">{t("reportAd") || "Report Advertisement"}</Typography>
+                    <IconButton onClick={handleReportClose} size="small">
+                        <CloseIcon />
+                    </IconButton>
+                </DialogTitle>
+
+                <DialogContent>
+                    {submitStatus.message && (
+                        <Alert
+                            severity={submitStatus.type}
+                            sx={{ mb: 2 }}
+                            onClose={() => setSubmitStatus({ type: '', message: '' })}
+                        >
+                            {submitStatus.message}
+                        </Alert>
+                    )}
+
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
+                        <TextField
+                            label={t("yourName") || "Your Name"}
+                            value={reportForm.reporterName}
+                            onChange={(e) => handleReportFormChange('reporterName', e.target.value)}
+                            fullWidth
+                            required
+                        />
+
+                        <TextField
+                            label={t("yourEmail") || "Your Email"}
+                            type="email"
+                            value={reportForm.reporterEmail}
+                            onChange={(e) => handleReportFormChange('reporterEmail', e.target.value)}
+                            fullWidth
+                            required
+                        />
+
+                        <FormControl fullWidth required>
+                            <InputLabel>{t("reportReason") || "Reason for Report"}</InputLabel>
+                            <Select
+                                value={reportForm.reason}
+                                onChange={(e) => handleReportFormChange('reason', e.target.value)}
+                                label={t("reportReason") || "Reason for Report"}
+                            >
+                                {reportReasons.map((reason) => (
+                                    <MenuItem key={reason.value} value={reason.value}>
+                                        {reason.label}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
+                        <TextField
+                            label={t("additionalDetails") || "Additional Details"}
+                            multiline
+                            rows={4}
+                            value={reportForm.description}
+                            onChange={(e) => handleReportFormChange('description', e.target.value)}
+                            fullWidth
+                            required
+                            placeholder={t("pleaseProvideDetails") || "Please provide more details about why you're reporting this ad..."}
+                        />
+                    </Box>
+                </DialogContent>
+
+                <DialogActions sx={{ p: 2 }}>
+                    <Button onClick={handleReportClose} disabled={isSubmitting} sx={{ color: "black" }}>
+                        {t("cancel") || "Cancel"}
+                    </Button>
+                    <Button
+                        onClick={handleReportSubmit}
+                        variant="contained"
+                        color="error"
+                        disabled={isSubmitting}
+                        startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
+                    >
+                        {isSubmitting ? (t("submitting") || "Submitting...") : (t("submitReport") || "Submit Report")}
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };

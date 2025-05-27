@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://api.carsfinderpro.com";
-const CHAT_BASE_URL = "https://chats.carsfinderpro.com";
-export const NOTIFY_BASE_URL = "https://notification.carsfinderpro.com";
+export const API_BASE_URL = "http://localhost:3000";
+const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
+export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
 
 export const signup = async (userData) => {
     try {
@@ -25,6 +25,23 @@ export const login = async (credentials) => {
     } catch (error) {
         console.error("Login failed:", error.response?.data || error.message);
         throw error;
+    }
+};
+
+export const resetPassword = async (email, password) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/auth/reset`, {email, password}); 
+        return response.data;
+    } 
+    catch (error) {
+        console.log(error)
+        if (error.response) {
+            throw error;
+        } else if (error.request) {
+            throw new Error('Network error. Please check your connection.');
+        } else {
+            throw new Error('An unexpected error occurred.');
+        }
     }
 };
 

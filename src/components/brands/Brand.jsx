@@ -9,6 +9,7 @@ function Brand({ image, name }) {
                 display: "flex",
                 background: "none",
                 flexDirection: "column",
+                cursor: "pointer",
                 boxShadow: 0,
                 alignItems: "center",
                 flex: "1",
@@ -29,6 +30,7 @@ function Brand({ image, name }) {
                     maxWidth: "calc(30% - 20px)",
                 },
             }}
+            onClick={()=> window.location.href = `/ads?make=${name}`}
         >
             <CardContent sx={{ marginTop: "auto" }}>
                 <img src={`/assets/images/${image}.png`} style={{ width: "5rem"}}/>
