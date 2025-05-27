@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_BASE_URL = "http://localhost:3000";
+export const API_BASE_URL = "https://api.carsfinderpro.com";
 const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
 export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
 
