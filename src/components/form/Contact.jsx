@@ -61,7 +61,7 @@ const ContactForm = ({ onNext, onBack, data, handleChange }) => {
               required
               id="phoneNumber"
               name="phone"
-              placeholder={t("contactForm.location")}
+              placeholder={t("contactForm.phoneNumber")}
               fullWidth
               value={data.phone || ''}
               onChange={handlePhoneChange}

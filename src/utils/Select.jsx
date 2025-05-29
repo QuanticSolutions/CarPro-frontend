@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Select", size = "large", slotProps = {}, label = "", value = "", showStartAndorement = true }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(value);
+  const [searchText, setSearchText] = useState("");
+  const [filteredOptions, setFilteredOptions] = useState(options);
   const dropdownRef = useRef(null);
   const containerRef = useRef(null);
   const { i18n } = useTranslation();
@@ -16,14 +18,55 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
 
   const handleSelect = (option) => {
     setSelected(option.name);
-    onChange(option.value)
+    setSearchText(option.name);
+    onChange(option.value);
     setOpen(false);
+  };
+
+  const handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    setSearchText(inputValue);
+    setSelected(inputValue);
+    
+    // Filter options based on input
+    const filtered = options.filter(option =>
+      option.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    setFilteredOptions(filtered);
+    
+    // Open dropdown when typing
+    if (!open && inputValue) {
+      setOpen(true);
+    }
+    
+    // If exact match found, trigger onChange
+    const exactMatch = options.find(option => 
+      option.name.toLowerCase() === inputValue.toLowerCase()
+    );
+    if (exactMatch) {
+      onChange(exactMatch.value);
+    }
   };
 
   const handleClickAway = (event) => {
     if (containerRef.current && !containerRef.current.contains(event.target)) {
       setOpen(false);
+      
+      // Reset to selected value if no exact match
+      const exactMatch = options.find(option => 
+        option.name.toLowerCase() === searchText.toLowerCase()
+      );
+      if (!exactMatch && selected) {
+        setSearchText(selected);
+      }
     }
+  };
+
+  const handleFocus = () => {
+    setOpen(true);
+    // Clear search text on focus to allow typing
+    setSearchText("");
+    setFilteredOptions(options);
   };
 
   useEffect(() => {
@@ -52,10 +95,16 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
       const matchedOption = options.find(opt => opt.value == value);
       if (matchedOption) {
         setSelected(matchedOption.name);
+        setSearchText(matchedOption.name);
         onChange(value);
       }
     }
   }, [value, options]);
+
+  // Update filtered options when options prop changes
+  useEffect(() => {
+    setFilteredOptions(options);
+  }, [options]);
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -65,16 +114,20 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
             fullWidth
             label={label}
             size={size}
-            value={selected}
-            onClick={handleToggle}
+            value={searchText || selected}
+            // onClick={handleToggle}
+            onFocus={handleFocus}
+            onChange={handleInputChange}
             placeholder={placeholder}
             sx={{
-              ...styles.textField, pointerEvents: "auto",
+              ...styles.textField, 
+              pointerEvents: "auto",
               transform: i18n.language == "ar" && "rotateY(180deg)",
               "& .MuiOutlinedInput-root": {
                 display: "flex",
                 transform: i18n.language == "ar" && "rotateY(180deg)",
-                borderRadius: "0", textAlign: i18n.language == "ar" && "rotateY(180deg)"
+                borderRadius: "0", 
+                textAlign: i18n.language == "ar" && "rotateY(180deg)"
               },
               "& .MuiOutlinedInput-input": {
                 textAlign: i18n.language == "ar" && "right",
@@ -83,14 +136,14 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
             InputProps={i18n.language == "ar" && showStartAndorement ?
               {
                 startAdornment: (
-                  <IconButton>
+                  <IconButton onClick={handleToggle}>
                     <ExpandMoreIcon />
                   </IconButton>
                 )
               } :
               {
                 endAdornment: (
-                  <IconButton>
+                  <IconButton onClick={handleToggle}>
                     <ExpandMoreIcon />
                   </IconButton>
                 )
@@ -117,20 +170,30 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
               ...styles.dropdown
             }}
           >
-            {options.map((option, index) => (
-              <Box
-                key={index}
-                onClick={() => handleSelect(option)}
-                sx={{
-                  px: 2,
-                  py: 1,
-                  cursor: "pointer",
-                  "&:hover": { bgcolor: "#B71C1C", color: "#fff" }
-                }}
-              >
-                <Typography sx={{ textAlign: i18n.language == "ar" && "right" }}>{option.name}</Typography>
+            {filteredOptions.length > 0 ? (
+              filteredOptions.map((option, index) => (
+                <Box
+                  key={index}
+                  onClick={() => handleSelect(option)}
+                  sx={{
+                    px: 2,
+                    py: 1,
+                    cursor: "pointer",
+                    "&:hover": { bgcolor: "#B71C1C", color: "#fff" }
+                  }}
+                >
+                  <Typography sx={{ textAlign: i18n.language == "ar" && "right" }}>
+                    {option.name}
+                  </Typography>
+                </Box>
+              ))
+            ) : (
+              <Box sx={{ px: 2, py: 1 }}>
+                <Typography sx={{ textAlign: i18n.language == "ar" && "right", color: "#666" }}>
+                  No options found
+                </Typography>
               </Box>
-            ))}
+            )}
           </Box>
         )}
       </Box>

@@ -78,7 +78,6 @@ const BoxStyles = {
 const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) => {
 
     const { t, i18n } = useTranslation();
-    const [modelOptions, setModelOptions] = useState([]);
     const [brandSearchTerm, setBrandSearchTerm] = useState("");
     const [showAllBrands, setShowAllBrands] = useState(false);
 
@@ -114,14 +113,15 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
 
     const handleCheckboxChange = (event, label) => {
         const { name, checked } = event.target;
+        console.log(name, checked, label)
         setFilters((prevFilters) => {
 
             const currentArray = prevFilters[name] || [];
-
             const updatedArray = checked
-                ? [...currentArray, label]
-                : currentArray.filter((item) => item !== label);
-
+            ? [...currentArray, label]
+            : currentArray.filter((item) => item !== label);
+            
+            console.log(updatedArray)
             return {
                 ...prevFilters,
                 [name]: updatedArray,
@@ -137,21 +137,14 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
         }
     };
 
-    const getFilteredBrands = () => {
-        if (!brandSearchTerm) {
-            return showAllBrands ? modelOptions : modelOptions.slice(0, 5);
-        }
-        return modelOptions.filter(brand =>
-            brand.toLowerCase().includes(brandSearchTerm.toLowerCase())
-        );
-    };
 
     const getBrandAccordionContent = () => {
+        const allBrands = Object.keys(t("models", { returnObjects: true }));
         const filteredBrands = brandSearchTerm
-            ? modelOptions.filter((brand) =>
+            ? allBrands.filter((brand) =>
                 brand.toLowerCase().includes(brandSearchTerm.toLowerCase())
             )
-            : modelOptions;
+            : allBrands;
 
         return (
             <>
@@ -184,21 +177,22 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
                         ),
                     }}
                 />
+
                 <ScrollableFormGroup>
                     <Box display="flex" flexDirection="column">
-                        {filteredBrands.map((option, idx) => (
+                        {filteredBrands.map((brandKey) => (
                             <FormControlLabel
-                                key={idx}
+                                key={brandKey}
                                 control={<Checkbox />}
-                                checked={filters.brand?.includes(option)}
+                                checked={filters.brand?.includes(t(`models.${brandKey}`))}
                                 name="brand"
-                                label={option}
+                                label={t(`models.${brandKey}`)}
                                 sx={{
                                     "& .Mui-checked": {
                                         color: "#B71C1C !important",
                                     },
                                 }}
-                                onChange={(event) => handleCheckboxChange(event, option)}
+                                onChange={(event) => handleCheckboxChange(event, brandKey)}
                             />
                         ))}
                     </Box>
@@ -206,17 +200,6 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
             </>
         );
     };
-
-    useEffect(
-        () => {
-            getModels().then(
-                (response) => {
-                    setModelOptions(response.map(model => (model.make)))
-                }
-            )
-        },
-        []
-    )
 
     return (
         <Box sx={BoxStyles}>

@@ -57,7 +57,7 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }
       if (filters.city.length > 0 && !filters.city.includes(car.city)) {
         return false;
       }
-      if (filters.brand.length > 0 && !filters.brand.includes(car.manufacturer)) {
+      if (filters.brand.length > 0 && !filters.brand.includes(car.model)) {
         return false;
       }
       if (filters.transmission.length > 0 && !filters.transmission.includes(car.transmission)) {
