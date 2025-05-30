@@ -91,11 +91,11 @@ function Favourites() {
 
                     {
                         filterFavs().length > 0 ?
-                            <Grid2 pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 1, "@media(max-width:768px)": {} }}>
+                            <Grid2 pt={2} sx={{ display: "flex", flexWrap: "wrap", gap:1, "@media(max-width:500px)": { justifyContent: "space-between", gap: "5px", flexWrap: "none"}, "@media(max-width:361px)":{justifyContent: "center"} }}>
                                 {
                                     filterFavs().map((fav, index) => (
-                                        <Grid2 item xs={12} sm={8} md={4} lg={4} key={index}>
-                                            <CarCard data={fav[0]} handleFavBtn={handleFavBtn} />
+                                        <Grid2 item xs={12} sm={8} md={4} lg={4} mt={1} key={index}>
+                                            <CarCard data={fav[0]} handleFavBtn={handleFavBtn} isGrid={true}/>
                                         </Grid2>
                                     ))
                                 }

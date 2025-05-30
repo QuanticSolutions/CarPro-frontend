@@ -201,6 +201,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
     handleChange({ target: { name: "model", value: value } });
     getTrimsByModel(value).then(
       (trims) => {
+        trims.push({trim: "Other"})
         setTrimOptions(trims.map(trim => ({ name: trim.trim, value: trim.trim })));
       }
     );

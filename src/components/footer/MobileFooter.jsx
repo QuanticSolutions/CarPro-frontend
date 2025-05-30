@@ -194,8 +194,8 @@ function MobileFooter({ countryCode }) {
                         </Grid2>
                         <Box sx={{ display: "flex", gap: 2, mt: 2, flexDirection: "column" }}>
                             {t("footer.downloadApp")}
-                            <img src="/assets/images/playstore.png" style={{ width: "10rem" }} />
-                            <img src="/assets/images/apple.svg" style={{ width: "10rem" }} />
+                            <img src="/assets/images/playstore.png" style={{ width: "10rem", cursor: "pointer" }}  onClick={()=>{window.location.href="https://play.google.com"}} />
+                            <img src="/assets/images/apple.svg" style={{ width: "10rem", cursor: "pointer" }}  onClick={()=>{window.location.href="https://www.apple.com/store"}} />
                         </Box>
                     </Box>
                 </Box>

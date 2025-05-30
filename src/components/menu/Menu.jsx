@@ -388,7 +388,7 @@ function MainMenu({ notifications, toggleChat }) {
                                 sx={{
                                     position: 'absolute',
                                     top: '2.5rem',
-                                    left: i18n.language != "ar" && "-2.5rem",
+                                    left: i18n.language != "ar" && "-1.5rem",
                                     right: i18n.language == "ar" && "0.5rem",
                                     backgroundColor: 'black',
                                     zIndex: 1000,

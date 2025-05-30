@@ -151,10 +151,10 @@ function Footer({ countryCode }) {
                                 </StyledListItem>
                                 <Box sx={{ display: "flex" }}>
                                     <StyledListItem sx={{ paddingLeft: "0" }}>
-                                        <img src="/assets/images/playstore.png" style={{ width: "10rem" }} />
+                                        <img src="/assets/images/playstore.png" style={{ width: "10rem", cursor: "pointer" }}  onClick={()=>{window.location.href="https://play.google.com"}}/>
                                     </StyledListItem>
                                     <StyledListItem sx={{ paddingLeft: "0" }}>
-                                        <img src="/assets/images/apple.svg" style={{ width: "10rem" }} />
+                                        <img src="/assets/images/apple.svg" style={{ width: "10rem", cursor: "pointer" }}  onClick={()=>{window.location.href="https://www.apple.com/store"}}/>
                                     </StyledListItem>
                                 </Box>
                             </Box>
