@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, MenuItem, Grid2, Container } from '@mui/material'
+import { Box, MenuItem, Grid2, Container, Menu } from '@mui/material'
 import { isAuthenticated } from '../../api/consumer'
 import ToggleBtn from './ToggleBtn'
 import { styled } from "@mui/system"
@@ -29,7 +29,7 @@ const StyledMenu = styled(Box)({
 
 const MenuItems = styled(Grid2)({
     display: "flex",
-    gap: i18n.language == "ar" ? 30 : 20,
+    gap: i18n.language == "ar" ? 12 : 5,
 })
 
 const StyledMenuItem = styled(MenuItem)({
@@ -78,6 +78,11 @@ const ExpandIcon = styled(ExpandMoreIcon)({
     padding: 0
 })
 
+const FlagIcon = styled('span')({
+    fontSize: '16px',
+    marginRight: '4px',
+});
+
 const BoxStyles = {
     display: "flex",
     justifyContent: "space-between",
@@ -87,17 +92,69 @@ const BoxStyles = {
     }
 }
 
+const countries = [
+    {
+        code: "",
+        name: "UAE",
+        arabicName: 'الإمارات العربية المتحدة',
+        flag: "🇦🇪",
+        flagUrl: "https://flagcdn.com/w40/ae.png"
+    },
+    {
+        code: "sa",
+        name: "Saudi Arabia",
+        arabicName: 'المملكة العربية السعودية',
+        flag: "🇸🇦",
+        flagUrl: "https://flagcdn.com/w40/sa.png"
+    },
+    {
+        code: "qtr",
+        name: "Qatar",
+        arabicName: 'قطر',
+        flag: "🇶🇦",
+        flagUrl: "https://flagcdn.com/w40/qa.png"
+    },
+    {
+        code: "eg",
+        name: "Egypt",
+        arabicName: 'مصر',
+        flag: "🇪🇬",
+        flagUrl: "https://flagcdn.com/w40/eg.png"
+    },
+    {
+        code: "syr",
+        name: "Syria",
+        arabicName: 'سوريا',
+        flag: "🇸🇾",
+        flagUrl: "/assets/images/syria-flag.png"
+    },
+    {
+        code: "us",
+        name: "USA",
+        arabicName: "الولايات المتحدة الأمريكية",
+        flag: "🇺🇸",
+        flagUrl: "https://flagcdn.com/w40/us.png"
+    }
+];
+
 function MainMenu({ notifications, toggleChat }) {
 
     const [categoryMenuAnchorEl, setcategoryMenuAnchorEl] = useState(null);
     const [serviceMenuAnchorEl, setserviceMenuAnchorEl] = useState(null);
     const [formAnchorEl, setFormAnchorEl] = useState(null);
+    const [countryAnchorEl, setCountryAnchorEl] = useState(null);
+    const [selectedCountry, setSelectedCountry] = useState(localStorage.getItem("selectedCountry"));
+
     const categoryMenuOpen = Boolean(categoryMenuAnchorEl);
     const serviceMenuOpen = Boolean(serviceMenuAnchorEl);
     const formOpen = Boolean(formAnchorEl);
+    const countryOpen = Boolean(countryAnchorEl);
+
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
     const { t } = useTranslation();
+
+
     let categoryTimer = null;
     let serviceTimer = null;
     let formTimer = null;
@@ -134,6 +191,23 @@ function MainMenu({ notifications, toggleChat }) {
             setFormAnchorEl(null);
         }, 200);
     };
+
+    const handleCountryClick = (event) => {
+        setCountryAnchorEl(event.currentTarget);
+    };
+
+    const handleCountryClose = () => {
+        setCountryAnchorEl(null);
+    };
+
+    const handleCountrySelect = (countryCode) => {
+        setSelectedCountry(countryCode);
+        handleCountryClose();
+        window.location.href = `/${countryCode}`;
+        localStorage.setItem("selectedCountry", countryCode)
+    };
+
+    const selectedCountryData = countries.find(country => country.code === selectedCountry);
 
     return (
         <StyledMenu>
@@ -217,6 +291,91 @@ function MainMenu({ notifications, toggleChat }) {
                             {t("menu.notifications")}
                         </Badge>
                     </StyledMenuItem>
+
+                    {/* Country Dropdown */}
+                    <StyledMenuItem sx={{ position: 'relative', direction: i18n.language == "ar" && "rtl" }}>
+                        <div
+                            onClick={handleCountryClick}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                padding: '4px 6px',
+                                cursor: 'pointer',
+                                backgroundColor: 'transparent',
+                                color: '#fff',
+                                fontSize: '14px',
+                                borderRadius: '4px',
+                                justifyContent: 'center',
+                                WebkitTapHighlightColor: 'transparent',
+                                userSelect: 'none',
+                                transition: 'background-color 0.2s ease',
+                            }}
+                            onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
+                            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                        >
+                            <img
+                                src={selectedCountryData.flagUrl}
+                                alt={selectedCountryData.name}
+                                className="country-flag"
+                                style={{ width: "24px", height: "16px", marginRight: "8px", borderRadius: "2px" }}
+                            />
+                            <ExpandMoreIcon style={{ fontSize: '14px', marginLeft: '2px' }} />
+                        </div>
+
+                        <Menu
+                            anchorEl={countryAnchorEl}
+                            open={countryOpen}
+                            onClose={handleCountryClose}
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: i18n.language === "ar" ? 'right' : 'left',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: i18n.language === "ar" ? 'right' : 'left',
+                            }}
+                            PaperProps={{
+                                style: {
+                                    backgroundColor: 'black',
+                                    color: '#fff',
+                                    marginTop: '8px',
+                                }
+                            }}
+                        >
+                            {countries.map((country) => (
+                                <MenuItem
+                                    key={country.code}
+                                    onClick={() => handleCountrySelect(country.code)}
+                                    sx={{
+                                        padding: '8px 16px',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+                                        },
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        minWidth: '150px',
+                                        direction: i18n.language == "ar" && "rtl"
+                                    }}
+                                >
+                                    <img
+                                        src={country.flagUrl}
+                                        alt={country.name}
+                                        className="country-flag"
+                                        style={{
+                                            width: "24px",
+                                            height: "16px",
+                                            marginRight: "12px",
+                                            borderRadius: "2px",
+                                            objectFit: "cover"
+                                        }}
+                                    />
+                                    &nbsp;
+                                    {i18n.language != "ar" ? country.name : country.arabicName}
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </StyledMenuItem>
+
                     <StyledMenuItem>
                         <ToggleBtn />
                     </StyledMenuItem>
@@ -229,8 +388,8 @@ function MainMenu({ notifications, toggleChat }) {
                                 sx={{
                                     position: 'absolute',
                                     top: '2.5rem',
-                                    left: i18n.language != "ar" && "-3.5rem",
-                                    right: i18n.language == "ar" && "-0.5rem",
+                                    left: i18n.language != "ar" && "-2.5rem",
+                                    right: i18n.language == "ar" && "0.5rem",
                                     backgroundColor: 'black',
                                     zIndex: 1000,
                                     color: '#fff',

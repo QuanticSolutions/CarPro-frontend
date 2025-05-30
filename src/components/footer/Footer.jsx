@@ -145,8 +145,8 @@ function Footer({ countryCode }) {
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/privacy">{t("footer.privacy")}</a>
                             </StyledListItem>
-                            <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 80, right: i18n.language == "ar" && 0 }}>
-                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold", "@media(max-width: 2000px)": { width: "8rem" } }}>
+                            <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 80, right: i18n.language == "ar" && 0, direction: i18n.language == "ar" && "rtl" }}>
+                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold", "@media(max-width: 2000px)": { width: "8rem" }, flexDirection: "row" }}>
                                     {t("footer.downloadApp")}
                                 </StyledListItem>
                                 <Box sx={{ display: "flex" }}>

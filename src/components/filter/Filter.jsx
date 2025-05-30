@@ -233,7 +233,7 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
                     }}
                 />
             </div>
-            <div style={{ display: "flex", padding: "10px", background: "#fff", justifyContent: "center" }}>
+            <div style={{ display: "flex", padding: "10px", background: "#fff", justifyContent: "center", direction: i18n.language == "ar" && "rtl" }}>
                 <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "New" ? "2px solid #B71C1C" : "" }} onClick={() => { if (filters.vehicle_condition != "New") { handleCondition("New") } else { handleCondition("") } }}>
                     <img src={"/assets/images/car-icon.png"} width={80} />
                     <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.New")}</Typography>

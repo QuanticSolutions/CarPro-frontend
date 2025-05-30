@@ -73,11 +73,11 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid=false 
         textAlign: i18n.language == "ar" ? "right" : "left",
         p: 0,
         direction: i18n.language == "ar" && "rtl",
-        "@media(max-width: 700px)": {
-          width: 162,
+        "@media(max-width: 800px)": {
+          width: "45vw",
         },
-        "@media(max-width: 320px)": {
-          width: isGrid ? 300 : 162,
+        "@media(max-width: 361px)": {
+          width: isGrid ? 270 : 162,
         }
       }}
     >

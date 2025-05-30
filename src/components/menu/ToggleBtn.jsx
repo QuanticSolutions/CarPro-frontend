@@ -112,7 +112,7 @@ function ToggleBtn() {
     );
 
     return (
-        <div style={{ padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: window.innerWidth > 800 && "center", gap: "2px", marginLeft: window.innerWidth > 800 ? "-2rem" : 0, flexDirection: window.innerWidth <= 800 && "column-reverse" }}>
+        <div style={{ padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: window.innerWidth > 800 && "center", gap: "2px", marginLeft: window.innerWidth > 800 && i18n.language != "ar" ? "-2rem" : 0, flexDirection: window.innerWidth <= 800 && "column-reverse" }}>
             <LanguageToggleContainer onClick={handleLanguageToggle}>
                 <ToggleSlider isRight={!isArabic} />
                 <ToggleText isArabic={isArabic}>

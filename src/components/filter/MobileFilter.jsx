@@ -151,11 +151,23 @@ const MobileFilterDrawer = ({ showBrands }) => {
     return filters[filterId].length;
   };
 
+  
+  const getBrandAccordionContent = () => {
+    const allBrands = Object.keys(t("models", { returnObjects: true }));
+    const filteredBrands = brandSearchQuery
+      ? allBrands.filter((brand) =>
+        brand.toLowerCase().includes(brandSearchQuery.toLowerCase())
+      )
+      : allBrands;
+
+    return filteredBrands
+  };
+  
+  
   // Filter brands based on search query
   const filteredBrandOptions = modelOptions.filter(option =>
     option.toLowerCase().includes(brandSearchQuery.toLowerCase())
   );
-
   const filterCategories = [
     {
       id: "city",
@@ -303,7 +315,7 @@ const MobileFilterDrawer = ({ showBrands }) => {
                     }}
                   />
                 </StyledBadge>
-                {expandedFilter === "brand"? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                {expandedFilter === "brand" ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </ListItemButton>
             </ListItem>
 
@@ -325,10 +337,10 @@ const MobileFilterDrawer = ({ showBrands }) => {
                     ),
                   }}
                 />
-                
-                <FormGroup sx={{ maxHeight: "300px", overflowY: "scroll"}}>
-                  {filteredBrandOptions.length > 0 ? (
-                    filteredBrandOptions.map((option) => (
+
+                <FormGroup sx={{ maxHeight: "300px", overflowY: "scroll" }}>
+                  {getBrandAccordionContent().length > 0 ? (
+                    getBrandAccordionContent().map((option) => (
                       <FormControlLabel
                         key={option}
                         control={

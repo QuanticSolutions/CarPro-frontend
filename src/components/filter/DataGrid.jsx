@@ -111,6 +111,7 @@ const DataGrid = ({ data, title, type }) => {
                                 MozAppearance: "none"
                             }}
                             onChange={(value) => setSortOption(value)}
+                            showStartAndorement={false}
                             size="small"
                             placeholder={t('select')}
                             options={[
@@ -131,9 +132,9 @@ const DataGrid = ({ data, title, type }) => {
 
             {
                 view == "Grid" ?
-                    <Grid2 item pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 3, "@media(max-width: 800px)": { gap: 1 } }}>
+                    <Grid2 item pt={2} sx={{ display: "flex", flexWrap: "wrap", gap: 3, "@media(max-width: 800px)": { justifyContent: "space-between", gap: 0 }, "@media(max-width: 361px)": { justifyContent: "center", gap: 2 } }}>
                         {displayedCars.map((car, index) => (
-                            <Grid2 item xs={12} sm={6} md={4} lg={3} key={index}>
+                            <Grid2 item xs={12} sm={6} md={4} lg={3} key={index} mt={2}>
                                 <CarCard data={car} type={type} handleFavBtn={handleFavBtn} isGrid={true} />
                             </Grid2>
                         ))}
