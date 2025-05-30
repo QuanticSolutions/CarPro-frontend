@@ -3,7 +3,18 @@ import { TextField, Box, Typography, ClickAwayListener, IconButton } from "@mui/
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
 
-const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Select", size = "large", slotProps = {}, label = "", value = "", showStartAndorement = true }) => {
+const CustomSelect = ({ 
+  options = [], 
+  styles = {}, 
+  onChange, 
+  placeholder = "Select", 
+  size = "large", 
+  slotProps = {}, 
+  label = "", 
+  value = "", 
+  showStartAndorement = true,
+  editable = false // New prop with default value false
+}) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(value);
   const [searchText, setSearchText] = useState("");
@@ -24,22 +35,21 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
   };
 
   const handleInputChange = (event) => {
+    if (!editable) return;
+    
     const inputValue = event.target.value;
     setSearchText(inputValue);
     setSelected(inputValue);
     
-    // Filter options based on input
     const filtered = options.filter(option =>
       option.name.toLowerCase().includes(inputValue.toLowerCase())
     );
     setFilteredOptions(filtered);
     
-    // Open dropdown when typing
     if (!open && inputValue) {
       setOpen(true);
     }
     
-    // If exact match found, trigger onChange
     const exactMatch = options.find(option => 
       option.name.toLowerCase() === inputValue.toLowerCase()
     );
@@ -52,21 +62,29 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
     if (containerRef.current && !containerRef.current.contains(event.target)) {
       setOpen(false);
       
-      // Reset to selected value if no exact match
-      const exactMatch = options.find(option => 
-        option.name.toLowerCase() === searchText.toLowerCase()
-      );
-      if (!exactMatch && selected) {
-        setSearchText(selected);
+      if (editable) {
+        const exactMatch = options.find(option => 
+          option.name.toLowerCase() === searchText.toLowerCase()
+        );
+        if (!exactMatch && selected) {
+          setSearchText(selected);
+        }
       }
     }
   };
 
   const handleFocus = () => {
     setOpen(true);
-    // Clear search text on focus to allow typing
-    setSearchText("");
-    setFilteredOptions(options);
+    if (editable) {
+      setSearchText("");
+      setFilteredOptions(options);
+    }
+  };
+
+  const handleTextFieldClick = () => {
+    if (!editable) {
+      // setOpen(prev => !prev);
+    }
   };
 
   useEffect(() => {
@@ -101,7 +119,6 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
     }
   }, [value, options]);
 
-  // Update filtered options when options prop changes
   useEffect(() => {
     setFilteredOptions(options);
   }, [options]);
@@ -115,10 +132,29 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
             label={label}
             size={size}
             value={searchText || selected}
-            // onClick={handleToggle}
             onFocus={handleFocus}
             onChange={handleInputChange}
+            onClick={handleTextFieldClick}
             placeholder={placeholder}
+            InputProps={{
+              readOnly: !editable,
+              ...(i18n.language == "ar" && showStartAndorement ?
+                {
+                  startAdornment: (
+                    <IconButton onClick={handleToggle}>
+                      <ExpandMoreIcon />
+                    </IconButton>
+                  )
+                } :
+                {
+                  endAdornment: (
+                    <IconButton onClick={handleToggle}>
+                      <ExpandMoreIcon />
+                    </IconButton>
+                  )
+                }
+              )
+            }}
             sx={{
               ...styles.textField, 
               pointerEvents: "auto",
@@ -127,28 +163,14 @@ const CustomSelect = ({ options = [], styles = {}, onChange, placeholder = "Sele
                 display: "flex",
                 transform: i18n.language == "ar" && "rotateY(180deg)",
                 borderRadius: "0", 
-                textAlign: i18n.language == "ar" && "rotateY(180deg)"
+                textAlign: i18n.language == "ar" && "rotateY(180deg)",
+                cursor: !editable ? "pointer" : "text"
               },
               "& .MuiOutlinedInput-input": {
                 textAlign: i18n.language == "ar" && "right",
+                cursor: !editable ? "pointer" : "text"
               }
             }}
-            InputProps={i18n.language == "ar" && showStartAndorement ?
-              {
-                startAdornment: (
-                  <IconButton onClick={handleToggle}>
-                    <ExpandMoreIcon />
-                  </IconButton>
-                )
-              } :
-              {
-                endAdornment: (
-                  <IconButton onClick={handleToggle}>
-                    <ExpandMoreIcon />
-                  </IconButton>
-                )
-              }
-            }
           />
         </Box>
 

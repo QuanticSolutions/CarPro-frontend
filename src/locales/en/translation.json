@@ -755,6 +755,7 @@
         "close": "Close"
     },
     "editProfile": {
+        "changePassword": "Change Password",
         "title": "Edit Profile",
         "profilePicture": "Profile Picture",
         "browseFile": "Browse File",

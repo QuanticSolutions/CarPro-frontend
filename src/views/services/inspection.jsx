@@ -42,9 +42,9 @@ function Inspection() {
         []
     )
     const headerText = t("inspectionPage.headerText")
-    const headerTextStyles = { color: "#B71C1C", fontWeight: "bolder", marginTop: "4rem", textAlign: i18n.language == "ar" ? "right" : "left", }
+    const headerTextStyles = { color: "#B71C1C", fontWeight: "bolder", marginTop: "4rem", textAlign: i18n.language == "ar" ? "left" : "right", fontSize: "5rem" }
     const text = t("inspectionPage.headerSubText")
-    const textStyles = { fontWeight: "bold", fontSize: "22px", textAlign: i18n.language == "ar" ? "right" : "left", }
+    const textStyles = { fontWeight: "bold", fontSize: "22px", textAlign: i18n.language == "ar" ? "left" : "right", fontSize: "2rem"}
 
 
     return (

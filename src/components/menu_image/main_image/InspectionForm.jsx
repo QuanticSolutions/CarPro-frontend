@@ -12,7 +12,7 @@ const Form = styled(Box)({
     width: "25rem",
     borderRadius: "20px",
     position: "absolute",
-    top: "5rem",
+    top: "8rem",
     "@media (max-width: 1100px)": {
         top: "5px"
     },
@@ -200,7 +200,7 @@ function InspectionForm({ leftAdjustment, rightAdjustment, heading, buttonText }
                     helperText={phoneError}
                 />
                 <TextField
-                    placeholder={t("inspection.phone")}
+                    placeholder={t("inspection.email")}
                     name="email"
                     type="email"
                     value={formData.email}

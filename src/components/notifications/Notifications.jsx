@@ -56,7 +56,7 @@ const Notifications = () => {
   };
 
   return (
-    <Box sx={{ p: 2, border: "1px solid gray", borderRadius: "5px", my: 3, minHeight: "20rem", width: "75%", mx: "auto", background: "#fff", "@media(max-width:800px)": { width: "90%" }, direction: i18n.language == "ar" && "rtl" }}>
+    <Box sx={{ p: 2, my: 3, minHeight: "20rem", width: "100%", mx: "auto", background: "#fff", "@media(max-width:800px)": { width: "90%" }, direction: i18n.language == "ar" && "rtl" }}>
       <Typography variant="h6" fontWeight="bold">{t("notifications.title")}</Typography>
       <Tabs
         value={tab}
@@ -100,7 +100,7 @@ const Notifications = () => {
             </Card>
           )) :
           <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <img src="/assets/images/notification-gif.gif" width="350rem" />
+            <img src="/assets/images/notification-gif.gif" width="400rem" />
           </Box>
       }
       <Dialog open={popupOpen} onClose={() => setPopupOpen(false)} fullScreen={true} >

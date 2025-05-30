@@ -253,6 +253,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             <Grid item xs={12} sm={6} md={4}>
               <CustomSelect
                 styles={customSelectStyles}
+                editable={true}
                 options={modelOptions}
                 onChange={handleModelChange}
                 placeholder={t("basicInfo.model")}

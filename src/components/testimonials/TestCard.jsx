@@ -21,6 +21,10 @@ const TestCard = ({ data }) => {
                 maxWidth: "22rem",
                 minHeight: "13rem",
                 maxHeight: "13rem",
+                // "&:hover": {
+                //     transform: "scale(1.03)",
+                //     transition: "1s"
+                // }
 
             }}
         >

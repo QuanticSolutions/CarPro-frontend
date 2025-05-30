@@ -63,9 +63,9 @@ function Insurance() {
         }
     ];
     const headerText = t("insurancePage.headerText")
-    const headerTextStyles = { color: "#B71C1C", fontWeight: "bolder", marginTop: "4rem", textAlign: i18n.language == "ar" ? "right" : "left", }
+    const headerTextStyles = { color: "#B71C1C", fontWeight: "bolder", marginTop: "4rem", textAlign: i18n.language == "ar" ? "right" : "left", fontSize: "5rem" }
     const text = t("insurancePage.text")
-    const textStyles = { fontWeight: "bold", fontSize: "22px", textAlign: i18n.language == "ar" ? "right" : "left", }
+    const textStyles = { fontWeight: "bold", fontSize: "22px", textAlign: i18n.language == "ar" ? "right" : "left", fontSize: "2rem"}
 
     return (
         <>

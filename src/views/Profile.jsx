@@ -13,7 +13,7 @@ import {
     Divider,
     Avatar,
     IconButton,
-    Dialog, DialogContent, DialogActions
+    Dialog, DialogContent, DialogActions, DialogTitle
 } from '@mui/material';
 import { Trash } from 'lucide-react';
 import { getUser, updateUser, deleteUser, uploadImages, getImages, API_BASE_URL, logout, socialLogin } from '../api/consumer';
@@ -35,9 +35,15 @@ export default function EditProfile() {
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
     const years = Array.from({ length: 70 }, (_, i) => new Date().getFullYear() - i);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [passwordPopupOpen, setPasswordPopupOpen] = useState(false);
     const [passwordError, setPasswordError] = useState('');
     const [images, setImages] = useState([]);
     const [imagePreviews, setImagePreviews] = useState([]);
+    const [passwordData, setPasswordData] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+    });
 
     const handleImageUpload = (event) => {
         const files = event.target.files;
@@ -86,14 +92,40 @@ export default function EditProfile() {
         });
     };
 
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPasswordData({
+            ...passwordData,
+            [name]: value
+        });
+    };
+
+    const handlePasswordSubmit = () => {
+        if (passwordData.newPassword !== passwordData.confirmNewPassword) {
+            setPasswordError('كلمات المرور الجديدة غير متطابقة.');
+            return;
+        }
+        
+        updateUser(localStorage.getItem("user_id"), {
+            currentPassword: passwordData.currentPassword,
+            newPassword: passwordData.newPassword
+        }).then((response) => {
+            setPasswordError(response.message);
+            if (response.success) {
+                setPasswordPopupOpen(false);
+                setPasswordData({
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmNewPassword: ''
+                });
+                setPasswordError('');
+            }
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formData.newPassword) {
-            if (formData.newPassword !== formData.confirmNewPassword) {
-                setPasswordError('كلمات المرور الجديدة غير متطابقة.');
-                return;
-            }
-        }
+        
         setFormData(
             prevData => {
                 const updatedData = prevData;
@@ -104,7 +136,7 @@ export default function EditProfile() {
         )
         updateUser(localStorage.getItem("user_id"), formData).then(
             (response) => {
-                setPasswordError(response.message);
+                console.log(response.message);
             }
         )
         if (images.length > 0) {
@@ -131,11 +163,11 @@ export default function EditProfile() {
                             {t("editProfile.profilePicture")}
                         </Typography>
 
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, gap: 2 }}>
                             <Avatar
                                 src={imagePreviews[0] || `${API_BASE_URL}${images[images.length - 1]?.imageUrl}`}
                                 alt="Profile"
-                                sx={{ width: 64, height: 64, mr: 2 }}
+                                sx={{ width: 64, height: 64 }}
                             />
                             <Button
                                 variant="outlined"
@@ -152,6 +184,14 @@ export default function EditProfile() {
                                     multiple
                                     onChange={handleImageUpload}
                                 />
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                color='error'
+                                sx={{ textTransform: 'none' }}
+                                onClick={() => setPasswordPopupOpen(true)}
+                            >
+                                {t("editProfile.changePassword") || "Change Password"}
                             </Button>
                         </Box>
                         <Divider sx={{ my: 3 }} />
@@ -287,65 +327,6 @@ export default function EditProfile() {
                             {t("editProfile.emailNote")}
                         </Typography>
 
-                        <TextField
-                            name="currentPassword"
-                            type={showPassword.current ? 'text' : 'password'}
-                            value={formData.currentPassword || ''}
-                            onChange={handleChange}
-                            fullWidth
-                            placeholder={t("editProfile.currentPassword")}
-                            variant="outlined"
-                            size="small"
-                            sx={{ mb: 2 }}
-                            InputProps={{
-                                endAdornment: (
-                                    <IconButton onClick={() => togglePasswordVisibility('current')} edge="end">
-                                        {showPassword.current ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                )
-                            }}
-                        />
-
-                        <TextField
-                            name="newPassword"
-                            type={showPassword.new ? 'text' : 'password'}
-                            value={formData.newPassword || ''}
-                            onChange={handleChange}
-                            fullWidth
-                            placeholder={t("editProfile.newPassword")}
-                            variant="outlined"
-                            size="small"
-                            sx={{ mb: 2 }}
-                            InputProps={{
-                                endAdornment: (
-                                    <IconButton onClick={() => togglePasswordVisibility('new')} edge="end">
-                                        {showPassword.new ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                )
-                            }}
-                        />
-
-                        <TextField
-                            name="confirmNewPassword"
-                            type={showPassword.confirm ? 'text' : 'password'}
-                            value={formData.confirmNewPassword || ''}
-                            onChange={handleChange}
-                            fullWidth
-                            placeholder={t("editProfile.confirmNewPassword")}
-                            variant="outlined"
-                            error={Boolean(passwordError && formData.confirmNewPassword)}
-                            helperText={passwordError && formData.confirmNewPassword ? passwordError : ''}
-                            size="small"
-                            sx={{ mb: 3 }}
-                            InputProps={{
-                                endAdornment: (
-                                    <IconButton onClick={() => togglePasswordVisibility('confirm')} edge="end">
-                                        {showPassword.confirm ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                )
-                            }}
-                        />
-
                         <Divider sx={{ my: 3 }} />
                         <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
                             {t("editProfile.optionalInfo")}
@@ -380,6 +361,7 @@ export default function EditProfile() {
                                 variant="contained"
                                 color="error"
                                 type="submit"
+                                sx={{textTransform: "none"}}
                                 onClick={(e) => handleSubmit(e)}
                             >
                                 {t("editProfile.saveChanges")}
@@ -396,13 +378,96 @@ export default function EditProfile() {
                         variant="outlined"
                         color="error"
                         startIcon={<Trash size={16} />}
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 2, textTransform: "none" }}
                         onClick={() => setPopupOpen(true)}
                     >
                         {t("editProfile.yesDelete")}
                     </Button>
                 </Paper>
             </Container>
+
+            {/* Change Password Popup */}
+            <Dialog open={passwordPopupOpen} onClose={() => setPasswordPopupOpen(false)} maxWidth="sm" fullWidth>
+                <DialogTitle>
+                    {t("editProfile.changePassword") || "Change Password"}
+                </DialogTitle>
+                <DialogContent>
+                    <Box sx={{ pt: 2 }}>
+                        <TextField
+                            name="currentPassword"
+                            type={showPassword.current ? 'text' : 'password'}
+                            value={passwordData.currentPassword}
+                            onChange={handlePasswordChange}
+                            fullWidth
+                            placeholder={t("editProfile.currentPassword")}
+                            variant="outlined"
+                            size="small"
+                            sx={{ mb: 2 }}
+                            InputProps={{
+                                endAdornment: (
+                                    <IconButton onClick={() => togglePasswordVisibility('current')} edge="end">
+                                        {showPassword.current ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                )
+                            }}
+                        />
+
+                        <TextField
+                            name="newPassword"
+                            type={showPassword.new ? 'text' : 'password'}
+                            value={passwordData.newPassword}
+                            onChange={handlePasswordChange}
+                            fullWidth
+                            placeholder={t("editProfile.newPassword")}
+                            variant="outlined"
+                            size="small"
+                            sx={{ mb: 2 }}
+                            InputProps={{
+                                endAdornment: (
+                                    <IconButton onClick={() => togglePasswordVisibility('new')} edge="end">
+                                        {showPassword.new ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                )
+                            }}
+                        />
+
+                        <TextField
+                            name="confirmNewPassword"
+                            type={showPassword.confirm ? 'text' : 'password'}
+                            value={passwordData.confirmNewPassword}
+                            onChange={handlePasswordChange}
+                            fullWidth
+                            placeholder={t("editProfile.confirmNewPassword")}
+                            variant="outlined"
+                            error={Boolean(passwordError)}
+                            helperText={passwordError}
+                            size="small"
+                            InputProps={{
+                                endAdornment: (
+                                    <IconButton onClick={() => togglePasswordVisibility('confirm')} edge="end">
+                                        {showPassword.confirm ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                )
+                            }}
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setPasswordPopupOpen(false)} sx={{ textTransform: "none", color: "black" }}>
+                        {t("editProfile.cancel")}
+                    </Button>
+                    <Button 
+                        onClick={handlePasswordSubmit} 
+                        variant="contained" 
+                        color="error"
+                        sx={{ textTransform: "none" }}
+                    >
+                        {t("editProfile.saveChanges")}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+
             <Dialog open={popupOpen} onClose={() => setPopupOpen(false)} maxWidth="sm" fullWidth >
                 <DialogContent>
                     {t("editProfile.deleteConfirm")}

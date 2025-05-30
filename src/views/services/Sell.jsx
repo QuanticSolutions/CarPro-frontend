@@ -137,9 +137,9 @@ function Sell() {
         justifyContent="center"
       />
       <Categories title={t("sellPage.vehicleCategories")} contents={categories} />
-      <Container sx={{ mt: '4rem' }}>
+      <Container sx={{ mt: '3rem' }}>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
+          <Typography variant="h5" component="h2" sx={{ mb: 1, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
             {t("sellPage.whySell")}
           </Typography>
 
@@ -174,7 +174,7 @@ function Sell() {
           </Grid>
         </Box>
       </Container>
-      <img src={i18n.language == "en" ? "/assets/images/banner (17).png" : "/assets/images/banner_ar (17).png"} width="100%" style={{ objectFit: "cover", }} />
+      <img src={i18n.language == "en" ? "/assets/images/banner (17).png" : "/assets/images/banner_ar (17).png"} width="100%" style={{ objectFit: "cover", marginTop: "3rem"}} />
       <CardSlider title={t("popularCars")} data={data.filter(obj => obj.category == "cars" && obj.popular)} openTo="popular" category={"cars"} />
       <Banner image="16" />
       <TestimonialSlider />

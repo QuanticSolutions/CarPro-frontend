@@ -771,6 +771,7 @@
         "close": "إغلاق"
     },
     "editProfile": {
+        "changePassword": "تغيير كلمة المرور",
         "title": "تعديل الملف الشخصي",
         "profilePicture": "صورة الملف الشخصي",
         "browseFile": "تصفح الملف",
@@ -805,7 +806,7 @@
     },
     "filters": {
         "filterHeading": "الفلاتر",
-        "showResultsBy": "عرض النتائج حسب:",
+        "showResultsBy": ":عرض النتائج حسب",
         "search": "بحث",
         "Reset": "إعادة تعيين",
         "vehicleCondition": {
