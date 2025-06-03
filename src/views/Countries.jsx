@@ -30,7 +30,7 @@ export default function Country() {
     return (
         <Box
             sx={{
-                backgroundColor: "black",
+                backgroundColor: "#fff",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 width: "100%",
