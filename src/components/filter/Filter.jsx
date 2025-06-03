@@ -16,6 +16,7 @@ import { styled } from "@mui/system"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
+import getFilterOptions from "./filterOptions";
 import { getModels } from '../../api/consumer';
 
 const StyledAccordion = styled(Accordion)({
@@ -75,7 +76,7 @@ const BoxStyles = {
     },
 }
 
-const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) => {
+const FilterSection = ({ filters, setFilters, title, filterData, showBrands, category }) => {
 
     const { t, i18n } = useTranslation();
     const [brandSearchTerm, setBrandSearchTerm] = useState("");
@@ -118,9 +119,9 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
 
             const currentArray = prevFilters[name] || [];
             const updatedArray = checked
-            ? [...currentArray, label]
-            : currentArray.filter((item) => item !== label);
-            
+                ? [...currentArray, label]
+                : currentArray.filter((item) => item !== label);
+
             console.log(updatedArray)
             return {
                 ...prevFilters,
@@ -136,7 +137,6 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
             setShowAllBrands(true);
         }
     };
-
 
     const getBrandAccordionContent = () => {
         const allBrands = Object.keys(t("models", { returnObjects: true }));
@@ -289,10 +289,8 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
                         </StyledAccordion>
                     </React.Fragment>
                 ))}
-
-                {/* Special Brand Accordion with Search */}
                 {
-                    showBrands &&
+                    showBrands &&  category != "plates" && category != "boats" && category != "bikes" &&
                     <StyledAccordion defaultExpanded={false}>
                         <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                             <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Brand")}</Typography>
@@ -303,81 +301,39 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
                     </StyledAccordion>
                 }
 
-                {[
-                    {
-                        title: t("filters.filters.Transmission"),
-                        options: ["Automatic", "Manual"].map(option => t(`filters.options.${option}`)),
-                        field: "transmission"
-                    },
-                    {
-                        title: t("filters.filters.Exterior Color"),
-                        options: ["White", "Black", "Silver", "Blue", "Gold"].map(color => t(`filters.options.${color}`)),
-                        field: "exteriorColor"
-                    },
-                    {
-                        title: t("filters.filters.Body"),
-                        options: [
-                            "Crossover", "SUV", "Sedan", "Coupe", "Hard Top Convertible", "Pick Up Truck"
-                        ].map(body => t(`filters.options.${body}`)),
-                        field: "body"
-                    },
-                    {
-                        title: t("filters.filters.Doors"),
-                        options: ["2", "4", "6"].map(door => t(`filters.options.${door}`)),
-                        field: "doors"
-                    },
-                    {
-                        title: t("filters.filters.Seller Type"),
-                        options: ["Owner", "Dealer"].map(type => t(`filters.options.${type}`)),
-                        field: "sellerType"
-                    },
-                    {
-                        title: t("filters.filters.Seats"),
-                        options: ["2", "4", "5", "6", "7", "8"].map(seat => t(`filters.options.${seat}`)),
-                        field: "seats"
-                    },
-                    {
-                        title: t("filters.filters.Steering Wheel"),
-                        options: ["Right", "Left"].map(sw => t(`filters.options.${sw}`)),
-                        field: "steeringWheel"
-                    },
-                    {
-                        title: t("filters.filters.Fuel Type"),
-                        options: ["Diesel", "Electric", "Gasoline"].map(ft => t(`filters.options.${ft}`)),
-                        field: "fuelType"
-                    }
-                ].map((filter, index) => (
-                    <React.Fragment key={index}>
-                        <StyledAccordion defaultExpanded={false}>
-                            <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
-                                <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{filter.title}</Typography>
-                            </StyledSummary>
-                            <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
-                                <FormGroup>
-                                    {filter.options.map((option, idx) => (
-                                        <FormControlLabel
-                                            key={idx}
-                                            control={<Checkbox />}
-                                            checked={filters[filter.field]?.includes(option)}
-                                            name={filter.field}
-                                            label={option}
-                                            fontFamily='"Franklin Gothic Demi", sans-serif'
-                                            sx={{
-                                                "& .Mui-checked": {
-                                                    color: "#B71C1C !important",
-                                                },
-                                                "&.Mui-checked": {
-                                                    color: "#B71C1C !important",
-                                                },
-                                            }}
-                                            onChange={(event) => handleCheckboxChange(event, option)}
-                                        />
-                                    ))}
-                                </FormGroup>
-                            </StyledDetails>
-                        </StyledAccordion>
-                    </React.Fragment>
-                ))}
+                {
+                    getFilterOptions(category, t).map((filter, index) => (
+                        <React.Fragment key={index}>
+                            <StyledAccordion defaultExpanded={false}>
+                                <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                                    <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{filter.title}</Typography>
+                                </StyledSummary>
+                                <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                                    <FormGroup>
+                                        {filter.options.map((option, idx) => (
+                                            <FormControlLabel
+                                                key={idx}
+                                                control={<Checkbox />}
+                                                checked={filters[filter.field]?.includes(option)}
+                                                name={filter.field}
+                                                label={option}
+                                                fontFamily='"Franklin Gothic Demi", sans-serif'
+                                                sx={{
+                                                    "& .Mui-checked": {
+                                                        color: "#B71C1C !important",
+                                                    },
+                                                    "&.Mui-checked": {
+                                                        color: "#B71C1C !important",
+                                                    },
+                                                }}
+                                                onChange={(event) => handleCheckboxChange(event, option)}
+                                            />
+                                        ))}
+                                    </FormGroup>
+                                </StyledDetails>
+                            </StyledAccordion>
+                        </React.Fragment>
+                    ))}
             </Box>
 
             <StyledAccordion defaultExpanded={false}>
@@ -392,17 +348,36 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands }) =
                 </StyledDetails>
             </StyledAccordion>
             <StyledDivider />
-            <StyledAccordion defaultExpanded={false}>
-                <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
-                    <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Mileage")}</Typography>
-                </StyledSummary>
-                <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
-                    <div style={{ display: "flex", gap: 5 }}>
-                        <TextField variant="outlined" size="small" placeholder={t("filters.from")} name="fromMiles" onChange={handleChange} />
-                        <TextField variant="outlined" size="small" placeholder={t("filters.to")} name="toMiles" onChange={handleChange} />
-                    </div>
-                </StyledDetails>
-            </StyledAccordion>
+            {
+                category == "plates" || category == "boats" ?
+                <StyledAccordion defaultExpanded={false}>
+                    <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                        <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Length")}</Typography>
+                    </StyledSummary>
+                    <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                        <div style={{ display: "flex", gap: 5 }}>
+                            <TextField variant="outlined" size="small" placeholder={t("filters.from")} name="fromLength" onChange={handleChange} />
+                            <TextField variant="outlined" size="small" placeholder={t("filters.to")} name="toLength" onChange={handleChange} />
+                        </div>
+                    </StyledDetails>
+                </StyledAccordion>
+                :
+                <></>
+            }
+            {
+                category != "plates" && category != "boats" &&
+                <StyledAccordion defaultExpanded={false}>
+                    <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                        <Typography fontFamily='"Franklin Gothic Demi", sans-serif'>{t("filters.filters.Mileage")}</Typography>
+                    </StyledSummary>
+                    <StyledDetails sx={{ direction: i18n.language == "ar" && "rtl" }}>
+                        <div style={{ display: "flex", gap: 5 }}>
+                            <TextField variant="outlined" size="small" placeholder={t("filters.from")} name="fromMiles" onChange={handleChange} />
+                            <TextField variant="outlined" size="small" placeholder={t("filters.to")} name="toMiles" onChange={handleChange} />
+                        </div>
+                    </StyledDetails>
+                </StyledAccordion>
+            }
             <StyledDivider />
             <StyledAccordion defaultExpanded={false}>
                 <StyledSummary expandIcon={<ExpandMoreIcon />} sx={{ direction: i18n.language == "ar" && "rtl" }}>

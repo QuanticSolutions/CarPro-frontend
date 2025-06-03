@@ -12,7 +12,7 @@ import RedRect from '../../components/menu_image/main_image/RedRect';
 import { useTranslation } from 'react-i18next'
 
 const BoxStyles = {
-    mt: "4rem",
+    my: 3,
 }
 
 function Inspection() {

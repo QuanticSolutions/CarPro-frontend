@@ -54,7 +54,8 @@
         "rentConstruction": "استئجار معدات إنشاءات",
         "rentPlates": "استئجار لوحات أرقام",
         "rentBoats": "استئجار قوارب",
-        "viewMore": "عرض المزيد"
+        "viewMore": "عرض المزيد",
+        "services": "خدمات البحث عن السيارات"
     },
     "about": {
         "title": "ما هو CarsFinderPro",
@@ -739,7 +740,9 @@
         "seats": "عدد المقاعد",
         "exteriorColor": "لون الخارجي",
         "next": "التالي",
-        "previous": "السابق"
+        "previous": "السابق",
+        "length": "الطول",
+        "wheels": "العجلات"
     },
     "contactForm": {
         "title": "معلومات التواصل",
@@ -974,6 +977,7 @@
             "Hard Top Convertible": "قابلة للكشف (سقف صلب)",
             "Pick Up Truck": "بيك أب",
             "2": "٢",
+            "3": "٣",
             "4": "٤",
             "6": "٦",
             "5": "٥",
@@ -1001,7 +1005,10 @@
             "Mileage": "عدد الكيلومترات (كم)",
             "Year": "السنة",
             "Condition": "الحالة",
-            "Fuel Type": "نوع الوقود"
+            "Fuel Type": "نوع الوقود",
+            "Manufacturer": "الشركة المصنعة",
+            "Length": "الطول",
+            "Wheels": "عجلات"
         },
         "from": "من",
         "to": "إلى"

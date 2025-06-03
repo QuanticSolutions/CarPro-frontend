@@ -2,7 +2,7 @@
     "menu": {
         "allCategories": "All Categories",
         "services": "Services",
-        "sellACar": "Sell a Car",
+        "sellACar": "Find Your ",
         "rentACar": "Rent a Car",
         "carInsurance": "Car Insurance",
         "carInspection": "Car Inspection",
@@ -54,7 +54,8 @@
         "rentConstruction": "Rent Construction Vehicle",
         "rentPlates": "Rent Number Plates",
         "rentBoats": "Rent Boats",
-        "viewMore": "View more"
+        "viewMore": "View more",
+        "services": "Cars Finder Services"
     },
     "filter": {
         "makePlaceholder": "Make or Model",
@@ -723,7 +724,9 @@
         "seats": "Seats",
         "exteriorColor": "Exterior Color",
         "next": "Next",
-        "previous": "Previous"
+        "previous": "Previous",
+        "length": "Length",
+        "wheels": "Wheels"
     },
     "contactForm": {
         "title": "Contact",
@@ -823,6 +826,7 @@
             "Hard Top Convertible": "Hard Top Convertible",
             "Pick Up Truck": "Pick Up Truck",
             "2": "2",
+            "3": "3",
             "4": "4",
             "6": "6",
             "5": "5",
@@ -985,7 +989,10 @@
             "Mileage": "Mileage (KM)",
             "Year": "Year",
             "Condition": "Condition",
-            "Fuel Type": "Fuel Type"
+            "Fuel Type": "Fuel Type",
+            "Manufacturer": "Manufacturer",
+            "Length": "Length",
+            "Wheels": "Wheels"
         },
         "from": "From",
         "to": "To"

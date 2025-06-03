@@ -9,12 +9,12 @@ import {
 const BoxStyles = {
     pt: 4,
     pb: 5,
-    backgroundColor: "#000000",
+    backgroundColor: "#F2F3F3",
     marginTop: "auto",
     width: "100%",
-    color: "#fff",
+    color: "black",
     "& a": {
-        color: "#fff"
+        color: "black"
     }
 }
 

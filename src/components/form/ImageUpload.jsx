@@ -29,8 +29,6 @@ const ImageUploadForm = ({ onNext, onBack, file, handleFileChange, previews, set
     const files = Array.from(event.target.files);
     const currentImageCount = images.length;
     const newImageCount = currentImageCount + files.length;
-
-    // Check if adding new files would exceed maximum limit
     if (newImageCount > MAX_IMAGES) {
       const allowedFiles = MAX_IMAGES - currentImageCount;
       setErrorMessage(
@@ -39,8 +37,7 @@ const ImageUploadForm = ({ onNext, onBack, file, handleFileChange, previews, set
           : `Maximum ${MAX_IMAGES} images allowed. Please remove some images first.`
       );
       setShowError(true);
-      
-      // If some files can still be added, take only the allowed number
+
       if (allowedFiles > 0) {
         const limitedFiles = files.slice(0, allowedFiles);
         const limitedEvent = {
@@ -55,7 +52,6 @@ const ImageUploadForm = ({ onNext, onBack, file, handleFileChange, previews, set
       return;
     }
 
-    // Call the original handleFileChange function
     handleFileChange(event);
     
     if (files.length > 0) {
@@ -193,7 +189,7 @@ const ImageUploadForm = ({ onNext, onBack, file, handleFileChange, previews, set
             textTransform: "none"
           }}
         >
-          {t("imageUploadForm.save")}
+          {t("imageUploadForm.previous")}
         </Button>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
           <Button

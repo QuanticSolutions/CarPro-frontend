@@ -23,7 +23,7 @@ const DataGrid = ({ data, title, type }) => {
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
     const itemsPerPage = window.innerWidth > 800 && view == "Grid" ? 28 : window.innerWidth > 800 && view == "List" ? 7 : window.innerWidth < 800 && view == "list" ? 7 : 6;
-
+    console.log(data)
     const handlePageChange = (value) => {
         setPage(value);
     };

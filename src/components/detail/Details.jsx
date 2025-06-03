@@ -118,8 +118,8 @@ function Details({ id, type = "sell" }) {
 
     useEffect(() => {
         setLoading(true);
-
         getAdById(id).then((data) => {
+            console.log(data)
             setAd(data[0]);
             getUser(data[0].user_id).then((userData) => {
                 setUser(userData);

@@ -73,21 +73,26 @@ function CardSlider({ data, title, openTo = "featured", category }) {
     };
 
     return (
-        <Container sx={{ width: "100%", margin: "auto", position: "relative", marginTop: "4rem" }}>
+
+        <Container sx={{ width: "100%", margin: "auto", position: "relative", my: 3 }}>
             <Box sx={BoxStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
-                <Typography variant="h5" fontWeight="bold" width="50%" textAlign={i18n.language == "ar" ? "right" : "left" }>
+                <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>
                     {title}
                 </Typography>
-                <a style={{...styles, flexDirection: i18n.language == "ar" && "row-reverse"}} href={`/${openTo}/${category}`}>
-                    {t("home.viewMore")} 
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end", mt: 1 }}>
+                <a style={{ ...styles, flexDirection: i18n.language == "ar" && "row-reverse" }} href={`/${openTo}/${category}`}>
+                    {t("home.viewMore")}
                     {
                         i18n.language == "ar" ?
-                        <ChevronLeftIcon sx={{ padding: 0 }} />:
-                        <ChevronRightIcon sx={{ padding: 0 }} />
+                            <ChevronLeftIcon sx={{ padding: 0 }} /> :
+                            <ChevronRightIcon sx={{ padding: 0 }} />
                     }
                 </a>
             </Box>
-            <Slider data={data} Template={CarCard} action={handleFavBtn} responsiveOptions={responsive} />
+            <Box sx={{ mt: 2 }}>
+                <Slider data={data} Template={CarCard} action={handleFavBtn} responsiveOptions={responsive} />
+            </Box>
             <AuthDialog setPopupOpen={setPopupOpen} popupOpen={popupOpen} setPopup1Open={setPopup1Open} popup1Open={popup1Open} />
         </Container>
     );

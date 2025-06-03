@@ -7,7 +7,7 @@ function Banner({ image, link = '/' }) {
   return (
     <Container
       sx={{
-        mt: "4rem",
+        my: 3,
         "@media (max-width: 786px)": {
           width: "100%"
         }

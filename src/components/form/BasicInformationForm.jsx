@@ -12,7 +12,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CustomSelect from '../../utils/Select';
 import { useTranslation } from 'react-i18next';
+import getFields from './fields';
 import { getTrimsByModel, getModels } from '../../api/consumer';
+import { CategoryRounded } from '@mui/icons-material';
 
 const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, category }) => {
   const { t, i18n } = useTranslation();
@@ -58,7 +60,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
   const fuelTyperOptions = [
     { name: t('filters.options.Diesel'), value: 'Diesel' },
     { name: t('filters.options.Electric'), value: 'Electric' },
-    { name: t('filters.filters.options.Gasoline'), value: 'Gasoline' },
+    { name: t('filters.options.Gasoline'), value: 'Gasoline' },
   ];
 
   const yesNoOptions = [
@@ -111,7 +113,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
   ];
 
   const manufacturerOptions = [
-    { name: t('cardValues.AccessMotor'), value: 'AccessMotor' },
+    { name: t('cardValues.AccessMotor'), value: 'Access Motor' },
     { name: t('cardValues.Aprillia'), value: 'Aprillia' },
     { name: t('cardValues.Asiawing'), value: 'Asiawing' },
     { name: t('cardValues.BMW'), value: 'BMW' },
@@ -159,6 +161,12 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
     { name: t('cardValues.12'), value: '12' }
   ];
 
+  const wheelsOptions = [
+    { name: t('cardValues.2'), value: '2' },
+    { name: t('cardValues.3'), value: '3' },
+    { name: t('cardValues.4'), value: '4' },
+  ];
+
   const doorOptions = [
     { name: t('cardValues.2'), value: '2' },
     { name: t('cardValues.4'), value: '4' },
@@ -201,7 +209,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
     handleChange({ target: { name: "model", value: value } });
     getTrimsByModel(value).then(
       (trims) => {
-        trims.push({trim: "Other"})
+        trims.push({ trim: "Other" })
         setTrimOptions(trims.map(trim => ({ name: trim.trim, value: trim.trim })));
       }
     );
@@ -231,25 +239,29 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
           <TextField
             required
             id="carPlate"
-            name="car_plate_number"
+            name="plate_number"
             placeholder={t("basicInfo.carPlate")}
             fullWidth
-            value={data.car_plate_number || ''}
+            value={data.plate_number || ''}
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={interiorColorOptions}
-            onChange={(value) => handleChange({ target: { name: "interior_color", value: value } })}
-            placeholder={t("basicInfo.interiorColor")}
-            value={data.interior_color}
-            showStartAndorement={false}
-          />
-        </Grid>
         {
-          category == "cars" || category == "heavy" ?
+          category != "plates" ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={interiorColorOptions}
+                onChange={(value) => handleChange({ target: { name: "interior_color", value: value } })}
+                placeholder={t("basicInfo.interiorColor")}
+                value={data.interior_color}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("model") ?
             <Grid item xs={12} sm={6} md={4}>
               <CustomSelect
                 styles={customSelectStyles}
@@ -263,27 +275,35 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             </Grid> :
             <></>
         }
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={yesNoOptions}
-            onChange={(value) => handleChange({ target: { name: "warranty", value: value } })}
-            placeholder={t("basicInfo.warranty")}
-            value={data.warranty}
-            showStartAndorement={false}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            required
-            id="engineCapacity"
-            name="engine_capacity"
-            placeholder={t("basicInfo.engineCapacity")}
-            value={data.engine_capacity || ''}
-            onChange={handleChange}
-            fullWidth
-          />
-        </Grid>
+        {
+          category != "plates" ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={yesNoOptions}
+                onChange={(value) => handleChange({ target: { name: "warranty", value: value } })}
+                placeholder={t("basicInfo.warranty")}
+                value={data.warranty}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("engine_capacity") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                required
+                id="engineCapacity"
+                name="engine_capacity"
+                placeholder={t("basicInfo.engineCapacity")}
+                value={data.engine_capacity || ''}
+                onChange={handleChange}
+                fullWidth
+              />
+            </Grid> :
+            <></>
+        }
         {
           type == "sell" &&
           <Grid item xs={12} sm={6} md={4}>
@@ -352,30 +372,36 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             />
           </Grid>
         }
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={steeringWheelOptions}
-            onChange={(value) => handleChange({ target: { name: "steering_wheel", value: value } })}
-            placeholder={t("basicInfo.steeringWheel")}
-            value={data.steering_wheel}
-            showStartAndorement={false}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={transmissionOptions}
-            onChange={(value) => handleChange({ target: { name: "transmission", value: value } })}
-            placeholder={t("basicInfo.transmission")}
-            value={data.transmission}
-            showStartAndorement={false}
-          />
-        </Grid>
         {
-          category == "cars" || category == "heavy" ?
+          getFields(category).includes("steering_wheel") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={steeringWheelOptions}
+                onChange={(value) => handleChange({ target: { name: "steering_wheel", value: value } })}
+                placeholder={t("basicInfo.steeringWheel")}
+                value={data.steering_wheel}
+                showStartAndorement={false}
+              />
+            </Grid>
+            : <></>
+        }
+        {
+          getFields(category).includes("transmission") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={transmissionOptions}
+                onChange={(value) => handleChange({ target: { name: "transmission", value: value } })}
+                placeholder={t("basicInfo.transmission")}
+                value={data.transmission}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("model") ?
             <Grid item xs={12} sm={6} md={4}>
               <CustomSelect
                 styles={customSelectStyles}
@@ -391,7 +417,6 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             </Grid> :
             <></>
         }
-
         <Grid item xs={12} sm={6} md={4}>
           <CustomSelect
             styles={customSelectStyles}
@@ -402,51 +427,63 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             showStartAndorement={false}
           />
         </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            required
-            id="horsePower"
-            name="horse_power"
-            placeholder={t("basicInfo.horsePower")}
-            fullWidth
-            value={data.horse_power || ''}
-            onChange={handleChange}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <TextField
-            required
-            id="kilometers"
-            name="kilometers"
-            placeholder={t("basicInfo.kilometers")}
-            fullWidth
-            value={data.kilometers || ''}
-            onChange={handleChange}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={conditionOptions}
-            onChange={(value) => handleChange({ target: { name: "vehicle_condition", value: value } })}
-            placeholder={t("basicInfo.vehicleCondition")}
-            value={data.vehicle_condition}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={bodyOptions}
-            onChange={(value) => handleChange({ target: { name: "body", value: value } })}
-            placeholder={t("basicInfo.body")}
-            value={data.body}
-            showStartAndorement={false}
-          />
-        </Grid>
+        {
+          getFields(category).includes("horsepower") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                required
+                id="horsePower"
+                name="horsepower"
+                placeholder={t("basicInfo.horsePower")}
+                fullWidth
+                value={data.horsepower || ''}
+                onChange={handleChange}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          category != "plates" && category != "boats" ?
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                required
+                id="kilometers"
+                name="kilometers"
+                placeholder={t("basicInfo.kilometers")}
+                fullWidth
+                value={data.kilometers || ''}
+                onChange={handleChange}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("vehicle_condition") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={conditionOptions}
+                onChange={(value) => handleChange({ target: { name: "vehicle_condition", value: value } })}
+                placeholder={t("basicInfo.vehicleCondition")}
+                value={data.vehicle_condition || data[`${data.category}_vehicle_condition`]}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("body") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={bodyOptions}
+                onChange={(value) => handleChange({ target: { name: "body", value: value } })}
+                placeholder={t("basicInfo.body")}
+                value={data.body}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
 
         <Grid item xs={12} sm={6} md={4}>
           <TextField
@@ -471,19 +508,23 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
           />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={regionalSpecsOptions}
-            onChange={(value) => handleChange({ target: { name: "regional_specs", value: value } })}
-            placeholder={t("basicInfo.regionalSpecs")}
-            value={data.regional_specs}
-            showStartAndorement={false}
-          />
-        </Grid>
+        {
+          getFields(category).includes("regional_specs") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={regionalSpecsOptions}
+                onChange={(value) => handleChange({ target: { name: "regional_specs", value: value } })}
+                placeholder={t("basicInfo.regionalSpecs")}
+                value={data.regional_specs}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
 
         {
-          category == "cars" || category == "heavy" || category == "construction" ?
+          getFields(category).includes("doors") ?
             <Grid item xs={12} sm={6} md={4}>
               <CustomSelect
                 styles={customSelectStyles}
@@ -497,7 +538,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             <></>
         }
         {
-          category == "bikes" ?
+          getFields(category).includes("manufacturer") ?
             <Grid item xs={12} sm={6} md={4}>
               <CustomSelect
                 styles={customSelectStyles}
@@ -510,50 +551,92 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             </Grid> :
             <></>
         }
+        {
+          getFields(category).includes("wheels") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={wheelsOptions}
+                onChange={(value) => handleChange({ target: { name: "wheels", value: value } })}
+                placeholder={t("basicInfo.wheels")}
+                value={data.wheels}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("number_of_cylinder") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={cylindersOptions}
+                onChange={(value) => handleChange({ target: { name: "number_of_cylinders", value: value } })}
+                placeholder={t("basicInfo.cylinders")}
+                value={data.number_of_cylinders}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("seats") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={seatsOptions}
+                onChange={(value) => handleChange({ target: { name: "seats", value: value } })}
+                placeholder={t("basicInfo.seats")}
+                value={data.seats}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("length") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <TextField
+                required
+                id="length"
+                name="length"
+                placeholder={t("basicInfo.length")}
+                fullWidth
+                value={data.length || ''}
+                onChange={handleChange}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          getFields(category).includes("number_of_cylinder") ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={fuelTyperOptions}
+                onChange={(value) => handleChange({ target: { name: "fuel", value: value } })}
+                placeholder={t("filters.filters.Fuel Type")}
+                value={data.seats}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
+        }
+        {
+          category != "plates" ?
+            <Grid item xs={12} sm={6} md={4}>
+              <CustomSelect
+                styles={customSelectStyles}
+                options={exteriorColorOptions}
+                onChange={(value) => handleChange({ target: { name: "exterior_color", value: value } })}
+                placeholder={t("basicInfo.exteriorColor")}
+                value={data.exterior_color}
+                showStartAndorement={false}
+              />
+            </Grid> :
+            <></>
 
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={cylindersOptions}
-            onChange={(value) => handleChange({ target: { name: "number_of_cylinders", value: value } })}
-            placeholder={t("basicInfo.cylinders")}
-            value={data.number_of_cylinders}
-            showStartAndorement={false}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={seatsOptions}
-            onChange={(value) => handleChange({ target: { name: "seats", value: value } })}
-            placeholder={t("basicInfo.seats")}
-            value={data.seats}
-            showStartAndorement={false}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={fuelTyperOptions}
-            onChange={(value) => handleChange({ target: { name: "fuel_type", value: value } })}
-            placeholder={t("filters.filters.Fuel Type")}
-            value={data.seats}
-            showStartAndorement={false}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <CustomSelect
-            styles={customSelectStyles}
-            options={exteriorColorOptions}
-            onChange={(value) => handleChange({ target: { name: "exterior_color", value: value } })}
-            placeholder={t("basicInfo.exteriorColor")}
-            value={data.exterior_color}
-            showStartAndorement={false}
-          />
-        </Grid>
+        }
       </Grid>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>

@@ -14,7 +14,7 @@ const LanguageToggleContainer = styled("div")({
     padding: "3px",
     display: "flex",
     alignItems: "center",
-    border: "2px solid #fff",
+    border: "2px solid black",
     cursor: "pointer",
     position: "relative",
     width: "65px",
@@ -26,7 +26,7 @@ const LanguageToggleContainer = styled("div")({
 });
 
 const ToggleText = styled(Typography)(({ isArabic }) => ({
-    color: "#fff",
+    color: "black",
     fontSize: "14px",
     fontWeight: "500",
     zIndex: 1,
@@ -39,7 +39,7 @@ const ToggleText = styled(Typography)(({ isArabic }) => ({
 const ToggleSlider = styled("div")(({ isRight }) => ({
     width: "18px",
     height: "18px",
-    backgroundColor: "#fff",
+    backgroundColor: "black",
     borderRadius: "50%",
     position: "absolute",
     top: "3px",
@@ -47,7 +47,8 @@ const ToggleSlider = styled("div")(({ isRight }) => ({
     transition: "left 0.3s ease",
     WebkitTapHighlightColor: "transparent !important",
     WebkitUserSelect: "none !important",
-    userSelect: "none !important"
+    userSelect: "none !important",
+
 }));
 
 
@@ -123,32 +124,36 @@ function ToggleBtn() {
                 onMouseEnter={handleUserIconClick}
                 onMouseLeave={handleMenuClose}
                 size="large"
-                sx={{ color: "#fff", direction: i18n.language == "ar" && "rtl", "@media (max-width: 800px)": { justifyContent: i18n.language == "ar" ? "right" : "left", px: 0, } }}
+                sx={{
+                    color: "#fff", direction: i18n.language == "ar" && "rtl", "@media (max-width: 800px)": { justifyContent: i18n.language == "ar" ? "right" : "left", px: 0, }, "&:hover": {
+                        backgroundColor: "transparent", // Changed from "none" to "transparent"
+                    },
+                }}
                 aria-controls={open ? "user-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
             >
                 {
                     !images ?
-                        <AccountCircleIcon fontSize="large" sx={{ "@media (max-width: 800px)": { justifyContent: "left", px: 0, fontSize: "4rem" } }} />
+                        <AccountCircleIcon fontSize="large" sx={{ color: "black", "@media (max-width: 800px)": { justifyContent: "left", px: 0, fontSize: "4rem" } }} />
                         :
                         <Avatar src={`${API_BASE_URL}${images.imageUrl}`} alt="Profile" sx={{ "@media (max-width: 800px)": { width: "4rem", height: "4rem" } }} />
                 }
                 {
                     window.innerWidth > 800 &&
-                    <ExpandMoreIcon  />
+                    <ExpandMoreIcon sx={{ color: "black"}} />
                 }
                 {
                     (window.innerWidth <= 800 && isAuthenticated) ?
-                        <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold" }} onClick={() => window.location.href = "/my/profile"}>
+                        <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold", color: "black" }} onClick={() => window.location.href = "/my/profile"}>
                             {t("auth.myProfile")}
                             {
                                 i18n.language != "ar" ?
-                                <ChevronRight /> :
-                                <ChevronLeft />
+                                    <ChevronRight /> :
+                                    <ChevronLeft />
                             }
                         </MenuItem>
-                        : !isAuthenticated && window.innerWidth <= 800 && <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold" }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
+                        : !isAuthenticated && window.innerWidth <= 800 && <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold", color: "black" }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
                 }
             </IconButton>
             {
@@ -159,10 +164,10 @@ function ToggleBtn() {
                         sx={{
                             position: 'absolute',
                             top: window.innerWidth > 800 ? "2.5rem" : "7rem",
-                            backgroundColor: '#B71C1C',
+                            backgroundColor: '#fff',
                             left: window.innerWidth > 800 ? "4.5rem" : "1rem",
                             zIndex: 1000,
-                            color: '#fff',
+                            color: 'black',
                             borderRadius: 1,
                         }}
                     >

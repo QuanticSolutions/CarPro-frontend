@@ -377,15 +377,15 @@ function MyAds() {
                                                                                         {t("View Ad")}
                                                                                     </MenuItem>
 
-                                                                                    <MenuItem onClick={() => { localStorage.setItem("ad_id", items.id); window.location.href = `/update/sell/${menuAd.category}` }}>
+                                                                                    <MenuItem onClick={() => { localStorage.setItem("ad_id", menuAd.id); window.location.href = `/update/sell/${menuAd.category}` }}>
                                                                                         {t("Edit Ad")}
                                                                                     </MenuItem>
 
                                                                                     {
-                                                                                        menuAd && menuAd.status != "live" &&
+                                                                                        menuAd && menuAd.status != "Live" && menuAd.status != "Pending" &&
                                                                                         <MenuItem onClick={() => {
                                                                                             if (menuAd) {
-                                                                                                updateAd(menuAd.id, { ...menuAd, status: "live" }).then(() => {
+                                                                                                updateAd(menuAd.id, { ...menuAd, status: "Live" }).then(() => {
                                                                                                     retrieveAds();
                                                                                                     handleMenuClose();
                                                                                                 });

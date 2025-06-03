@@ -18,7 +18,7 @@ const FilterBox = styled(Box)({
   },
 });
 
-const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }) => {
+const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands, category }) => {
 
   const [filters, setFilters] = useState({
     type: "",
@@ -26,6 +26,9 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }
     city: [],
     vehicle_condition: "",
     brand: [],
+    manufacturer: [],
+    fromLength: "",
+    toLength: "",
     fromPrice: "",
     toPrice: "",
     fromYear: "",
@@ -42,7 +45,8 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }
     sellerType: [],
     seats: [],
     steeringWheel: [],
-    fuelType: []
+    fuelType: [],
+    wheels: []
   });
   const [filteredData, setFilteredData] = useState([]);
   const { t, i18n } = useTranslation();
@@ -60,7 +64,13 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }
       if (filters.brand.length > 0 && !filters.brand.includes(car.model)) {
         return false;
       }
+      if (filters.manufacturer.length > 0 && !filters.manufacturer.includes(car.manufacturer)) {
+        return false;
+      }
       if (filters.transmission.length > 0 && !filters.transmission.includes(car.transmission)) {
+        return false;
+      }
+      if (filters.wheels.length > 0 && !filters.wheels.includes(car.wheels.toString())) {
         return false;
       }
       if (filters.color.length > 0 && !filters.color.includes(car.color)) {
@@ -82,6 +92,12 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }
         return false;
       }
       if (filters.steeringWheel.length > 0 && !filters.steeringWheel.includes(car.steering_wheel)) {
+        return false;
+      }
+      if (filters.fromLength && car.length < parseFloat(filters.fromLength)) {
+        return false;
+      }
+      if (filters.toLength && car.price > parseFloat(filters.toLength)) {
         return false;
       }
       if (filters.fromPrice && car.price < parseFloat(filters.fromPrice)) {
@@ -165,7 +181,7 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands }
           {
             window.innerWidth < 800 ?
               <MobileFilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} showBrands={showBrands} /> :
-              <FilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} showBrands={showBrands} />
+              <FilterSection filters={filters} setFilters={setFilters} title={title} filterData={() => setFilteredData(filterData(data, filters))} showBrands={showBrands} category={category} />
           }
           <DataGrid data={filteredData} title={title} type={type} />
         </FilterBox>

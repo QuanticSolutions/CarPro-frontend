@@ -14,7 +14,7 @@ import {
 import BasicInformationForm from './BasicInformationForm';
 import ContactForm from './Contact';
 import ImageUploadForm from './ImageUpload';
-import { createAd, createRent, uploadImages, updateAd, updateRent, getAdById } from '../../api/consumer';
+import { createAd, createRent, uploadImages, updateAd, updateRent, getAdById, getImages, API_BASE_URL } from '../../api/consumer';
 import MessagePopup from "../popup/Popup";
 import { useTranslation } from 'react-i18next';
 
@@ -41,6 +41,7 @@ const theme = createTheme({
 });
 
 function AdForm({ title, type, isUpdating = false, category }) {
+
   const [activeStep, setActiveStep] = useState(0);
   const { t, i18n } = useTranslation();
   const steps = [t('adForm.basicInformation'), t('adForm.contact'), t('adForm.imageUpload')];
@@ -48,7 +49,7 @@ function AdForm({ title, type, isUpdating = false, category }) {
   const [formData, setFormData] = useState({
     user_id: "",
     city: "",
-    car_plate_number: "",
+    plate_number: "",
     vehicle_condition: "",
     interior_color: "",
     model: "",
@@ -62,7 +63,7 @@ function AdForm({ title, type, isUpdating = false, category }) {
     transmission: "",
     trim: "",
     seller_type: "",
-    horse_power: "",
+    horsepower: "",
     kilometers: "",
     body: "",
     dealer_name: "",
@@ -79,7 +80,10 @@ function AdForm({ title, type, isUpdating = false, category }) {
     gmail: "",
     location: "",
     title: "",
-    description: ""
+    description: "",
+    length: "",
+    fuel: "",
+    wheels: ""
   });
   const [images, setImages] = useState([]);
   const maxSize = 50 * 1024 * 1024;
@@ -95,9 +99,22 @@ function AdForm({ title, type, isUpdating = false, category }) {
       if (isUpdating) {
         getAdById(localStorage.getItem("ad_id")).then(
           response => {
-            setFormData(response[0])
-          }
-        )
+            setFormData(response)
+            getImages(response.car_plate_number).then(async res => {
+              const imageFiles = await Promise.all(
+                res.map(async (img) => {
+                  const response = await fetch(`${API_BASE_URL}${img.imageUrl}`);
+                  const blob = await response.blob();
+                  const contentType = blob.type || 'image/jpeg';
+                  return new File([blob], img.filename, { type: contentType });
+                })
+              );
+
+              setImages(imageFiles);
+              const previews = res.map(img => `${API_BASE_URL}${img.imageUrl}`);
+              setImagePreviews(previews);
+            });
+          })
       }
     },
     []
@@ -131,8 +148,9 @@ function AdForm({ title, type, isUpdating = false, category }) {
 
         const updatedData = prevData;
         updatedData.user_id = localStorage.getItem("user_id")
-        updatedData.status = "pending"
+        updatedData.status = "Pending"
         updatedData.featured = false;
+        updatedData.reported = 0;
         updatedData.category = path.substring(path.lastIndexOf('/') + 1);
         updatedData.country = countries[localStorage.getItem("selectedCountry")];
         return updatedData;
@@ -143,7 +161,6 @@ function AdForm({ title, type, isUpdating = false, category }) {
         updateAd(localStorage.getItem("ad_id"), formData).then(() => setPopup({ open: true, message: "Ad created Successfully", severity: "success" }))
       }
       else {
-        console.log("here")
         createAd(formData).then(() => setPopup({ open: true, message: "Ad created Successfully", severity: "success" }))
       }
     }
@@ -160,6 +177,8 @@ function AdForm({ title, type, isUpdating = false, category }) {
       images.forEach((image) => {
         imageData.append('images', image);
       });
+      console.log(images)
+      console.log(imageData)
       uploadImages(formData.car_plate_number, imageData)
     }
     setTimeout(

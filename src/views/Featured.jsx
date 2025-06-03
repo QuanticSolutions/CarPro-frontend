@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import FeaturedFilter from '../components/filter/FeaturedFilter';
 import { useParams } from "react-router-dom";
 
-function Featured({ data, title, type, showBrands = true }) {
+function Featured({ data, title, type, showBrands = true, category }) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const loc = searchParams.get("location");
@@ -41,6 +41,7 @@ function Featured({ data, title, type, showBrands = true }) {
         showBrands={showBrands}
         loc={loc || "null"}
         vehicleCondition={vehicleCondition || "null"}
+        category={category}
       />
     </div>
   );

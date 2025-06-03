@@ -24,10 +24,10 @@ const CatCard = styled(Card)(({ theme }) => ({
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
     cursor: "pointer",
     "@media (max-width: 500px)": {
-
         width: "90%"
     }
 }));
+
 
 
 function Services({ title, cards, background, alternateBg, gap = "30px" }) {
@@ -42,7 +42,7 @@ function Services({ title, cards, background, alternateBg, gap = "30px" }) {
     };
 
     return (
-        <Box sx={{ mt: "4rem", direction: i18n.language == "ar" && "rtl" }}>
+        <Box sx={{direction: i18n.language == "ar" && "rtl", my:3 }}>
             <Container>
                 <Box>
                     <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : 'left'}>

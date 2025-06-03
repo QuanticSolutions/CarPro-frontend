@@ -169,7 +169,7 @@ const Description = ({ ad }) => {
                                 <List disablePadding>
                                     <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.body)}`)}</Typography></ListItem>
                                     <ListItem><Typography>{t(`cardValues.${ad.doors}`)} {t("door")}</Typography></ListItem>
-                                    <ListItem><Typography>{i18n.language == "ar" ? convertToArabicNumbers(ad.horse_power) : ad.horse_power}</Typography></ListItem>
+                                    <ListItem><Typography>{i18n.language == "ar" ? convertToArabicNumbers(ad.horsepower) : ad.horsepower}</Typography></ListItem>
                                     <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.transmission)}`)}</Typography></ListItem>
                                     <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.warranty)}`)}</Typography></ListItem>
                                 </List>
@@ -185,8 +185,8 @@ const Description = ({ ad }) => {
                                     <List disablePadding>
                                         <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.exterior_color)}`)}</Typography></ListItem>
                                         <ListItem><Typography>{t(`cardValues.${ad.seats}`)}</Typography></ListItem>
-                                        <ListItem><Typography>{i18n.language == "ar" ? convertToArabicNumbers(ad.engine_capacity) : ad.engine_capacity}</Typography></ListItem>
-                                        <ListItem><Typography>{t(`cardValues.${ad.number_of_cylinders}`)}</Typography></ListItem>
+                                        <ListItem><Typography>{i18n.language == "ar" ? convertToArabicNumbers(ad[`${ad.category}_engine_capacity`]) : ad[`${ad.category}_engine_capacity`]}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${ad[`${ad.category}_number_of_cylinders`]}`)}</Typography></ListItem>
                                         <ListItem><Typography>{t(`cardValues.${ad.seller_type}`)}</Typography></ListItem>
                                     </List>
                                 </Box>
@@ -209,16 +209,16 @@ const Description = ({ ad }) => {
                                 </Box>
                                 <Box>
                                     <List disablePadding>
-                                        <ListItem><Typography>{ad.body}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.doors} {t("door")}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.horse_power} HP</Typography></ListItem>
-                                        <ListItem><Typography>{ad.transmission} {t("transmission")}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.warranty}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.exterior_color}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.seats} {t("seater")}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.engine_capacity} cc</Typography></ListItem>
-                                        <ListItem><Typography>{ad.number_of_cylinders}</Typography></ListItem>
-                                        <ListItem><Typography>{ad.seller_type}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.body)}`)}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${ad.doors}`)} {t("door")}</Typography></ListItem>
+                                        <ListItem><Typography>{i18n.language == "ar" ? convertToArabicNumbers(ad.horsepower) : ad.horsepower} HP</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.transmission)}`)} {t("transmission")}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.warranty)}`)}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${toPascalCase(ad.exterior_color)}`)}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${ad.seats}`)} {t("seater")}</Typography></ListItem>
+                                        <ListItem><Typography>{i18n.language == "ar" ? convertToArabicNumbers(ad[`${ad.category}_engine_capacity`]) : ad[`${ad.category}_engine_capacity`]} cc</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${ad[`${ad.category}_number_of_cylinders`]}`)}</Typography></ListItem>
+                                        <ListItem><Typography>{t(`cardValues.${ad.seller_type}`)}</Typography></ListItem>
                                     </List>
                                 </Box>
                             </Box>

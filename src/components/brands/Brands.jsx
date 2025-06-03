@@ -8,7 +8,6 @@ import { useTheme } from '@mui/material/styles';
 const BrandContainer = styled(Box)({
     background: "#F2F3F3",
     backgroundSize: "cover",
-    marginTop: "4rem",
     paddingBottom: "4rem",
     paddingTop: "4rem",
     width: "100%"
@@ -30,7 +29,7 @@ function Brands() {
     const visibleBrands = isMobile && !showMore ? brands.slice(0, 12) : brands;
 
     return (
-        <BrandContainer sx={{ direction: i18n.language == "ar" && "rtl"}}>
+        <BrandContainer sx={{ direction: i18n.language == "ar" && "rtl", my: 3}}>
             <Container>
                 <Typography variant="h3" fontWeight="bold" textAlign="center" color="black">
                     {t("brands.popular")}

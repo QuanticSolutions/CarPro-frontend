@@ -42,9 +42,9 @@ function Video() {
     }
     const { t, i18n } = useTranslation();
     return (
-        <Box sx={{ width: "100%", margin: "auto", marginTop: "4rem" }}>
+        <Box sx={{ width: "100%", margin: "auto", my: 3 }}>
             <Container>
-                <Box>
+                <Box sx={{ mb: 3}}>
                     <Typography variant="h5" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' textAlign={i18n.language == "ar" ? "right" : "left"}>
                         {t("videoSection.title")}
                     </Typography>

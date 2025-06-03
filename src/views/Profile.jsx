@@ -169,30 +169,32 @@ export default function EditProfile() {
                                 alt="Profile"
                                 sx={{ width: 64, height: 64 }}
                             />
-                            <Button
-                                variant="outlined"
-                                component="label"
-                                color='error'
-                                sx={{ textTransform: 'none' }}
-                            >
-                                {t("editProfile.browseFile")}
-                                <input
-                                    hidden
-                                    accept="image/jpeg,image/png,application/pdf"
-                                    type="file"
-                                    name="images"
-                                    multiple
-                                    onChange={handleImageUpload}
-                                />
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                color='error'
-                                sx={{ textTransform: 'none' }}
-                                onClick={() => setPasswordPopupOpen(true)}
-                            >
-                                {t("editProfile.changePassword") || "Change Password"}
-                            </Button>
+                            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1}}>
+                                <Button
+                                    variant="outlined"
+                                    component="label"
+                                    color='error'
+                                    sx={{ textTransform: 'none' }}
+                                >
+                                    {t("editProfile.browseFile")}
+                                    <input
+                                        hidden
+                                        accept="image/jpeg,image/png,application/pdf"
+                                        type="file"
+                                        name="images"
+                                        multiple
+                                        onChange={handleImageUpload}
+                                    />
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    color='error'
+                                    sx={{ textTransform: 'none' }}
+                                    onClick={() => setPasswordPopupOpen(true)}
+                                >
+                                    {t("editProfile.changePassword") || "Change Password"}
+                                </Button>
+                            </Box>
                         </Box>
                         <Divider sx={{ my: 3 }} />
                         <Grid container spacing={3}>
@@ -354,7 +356,7 @@ export default function EditProfile() {
                         </Grid>
 
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 4 }}>
-                            <Button variant="outlined" sx={{ borderColor: "#B71C1C", color: "#B71C1C" }} onClick={() => window.location.href = "/my/profile"}>
+                            <Button variant="outlined" sx={{ borderColor: "#B71C1C", color: "#B71C1C", textTransform: "none" }} onClick={() => window.location.href = "/my/profile"}>
                                 {t("editProfile.cancel")}
                             </Button>
                             <Button

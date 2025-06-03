@@ -82,7 +82,7 @@ function Insurance() {
             />
             <Services title={t("insurancePage.chooseInsurancePackage")} cards={cards} background="linear-gradient(#B71C1C, black)" gap="45px" />
             <Banner image="16" width="65rem" />
-            <Container sx={{ marginTop: "4rem" }}>
+            <Container sx={{my: 3 }}>
                 <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"} sx={{ "@media (max-width: 786px)": { textAlign: "center" } }} gutterBottom>
                     {t("insurancePage.whyInsuranceEssential")}
                 </Typography>
@@ -111,7 +111,7 @@ function Insurance() {
                     </Grid>
                 </Grid>
             </Container>
-            <Box sx={{ backgroundColor: "#5D0101", py: 6, my: "4rem" }}>
+            <Box sx={{ backgroundColor: "#5D0101", py: 6, my: 3 }}>
                 <Container>
                     <Box sx={{ color: "white", mb: 4 }}>
                         <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>

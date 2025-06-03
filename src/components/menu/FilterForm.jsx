@@ -158,7 +158,7 @@ function FilterForm() {
                 </FilterBtn>
             </FiltersForm>
             <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3 }}>
-                <Button sx={{ border: "3px solid #fff", fontWeight: "bold", color: "#ffff", borderRadius: "5px", width: "12rem", marginTop: "1rem", display: "flex", flexDirection: i18n.language == "ar" && "row-reverse" }} onClick={() => window.location.href = `/ads`}>
+                <Button  sx={{ border: "3px solid #B71C1C", background: "#B71C1C", fontWeight: "bold", color: "#fff", borderRadius: "5px", width: "12rem", marginTop: "1rem", display: "flex", flexDirection: i18n.language == "ar" && "row-reverse" }} onClick={() => window.location.href = `/ads`}>
                     {t("filter.advancedFilter")}
                     {
                         i18n.language == "ar" ?

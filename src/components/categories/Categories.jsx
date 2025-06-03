@@ -9,7 +9,7 @@ const SimpleCard = styled(Box)({
     background: "none",
     gap: "20px",
     marginTop: "1rem",
-    justifyContent: "center",
+    justifyContent: "space-between",
 })
 
 const CatCard = styled(Card)(({ theme }) => ({
@@ -37,7 +37,7 @@ function Categories({ title, contents }) {
     const { i18n } = useTranslation();
 
     return (
-        <Box sx={{ mt: "4rem", direction: i18n.language == "ar" && "rtl" }}>
+        <Box sx={{ direction: i18n.language == "ar" && "rtl", my: 3 }}>
             <Container>
                 <Box>
                     {

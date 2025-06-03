@@ -14,12 +14,12 @@ import { styled } from "@mui/system"
 
 const BoxStyles = {
     pt: 4,
-    backgroundColor: "#000000",
+    backgroundColor: "#F2F3F3",
     marginTop: "auto",
     width: "100%",
-    color: "#fff",
+    color: "black",
     "& a": {
-        color: "#fff"
+        color: "black"
     }
 }
 
@@ -28,7 +28,7 @@ function Footer({ countryCode }) {
     const { t, i18n } = useTranslation();
     const StyledListItem = styled(ListItem)({
         flexDirection: i18n.language == "ar" && "row-reverse",
-        paddingLeft: "0"
+        paddingLeft: "0",
     });
     const countries = {
         "": "UAE",

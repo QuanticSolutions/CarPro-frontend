@@ -25,6 +25,8 @@ import PublicIcon from '@mui/icons-material/Public';
 import AuthDialog from '../auth/Dialog';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+// import { ArrowLeft } from '@mui/icons-material';
+import { ArrowLeft } from 'lucide-react';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import TuneIcon from '@mui/icons-material/Tune';
 import { useTranslation } from 'react-i18next'
@@ -32,13 +34,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { isAuthenticated, logout } from '../../api/consumer';
+import { useLocation } from 'react-router-dom';
 
 const MobileBar = styled(Drawer)({
     display: "none",
     "& .MuiDrawer-paper": {
-        backgroundColor: "#000000",
+        backgroundColor: "#fff",
         width: "100%",
-        color: "#fff",
+        color: "black",
     },
     "& img": {
         width: "8rem",
@@ -49,10 +52,19 @@ const MobileBar = styled(Drawer)({
     }
 })
 
+const BackButton = styled(Button)({
+    color: "black",
+    textTransform: "none",
+    margin: 0,
+    padding: 0,
+    fontSize: "1rem",
+    fontWeight: "normal",
+});
+
 const BottomDrawer = styled(Drawer)({
     "& .MuiDrawer-paper": {
-        backgroundColor: "#000000",
-        color: "#fff",
+        backgroundColor: "#fff",
+        color: "black",
         borderTopLeftRadius: "16px",
         borderTopRightRadius: "16px",
         zIndex: 6000
@@ -61,17 +73,16 @@ const BottomDrawer = styled(Drawer)({
 
 const FilterDrawer = styled(Drawer)({
     "& .MuiDrawer-paper": {
-        backgroundColor: "#000000",
-        color: "#fff",
-        borderTopLeftRadius: "16px",
-        borderTopRightRadius: "16px",
+        backgroundColor: "#fff",
+        color: "black",
+
         zIndex: 6000,
         maxHeight: "100vh"
     }
 });
 
 const FilterOption = styled(FormControlLabel)({
-    color: "#fff",
+    color: "black",
     marginBottom: "8px",
     "& .MuiFormControlLabel-label": {
         fontSize: "1rem"
@@ -109,7 +120,8 @@ const PostAdButton = styled(Button)({
 
 const CustomAppBar = styled(AppBar)({
     display: "none",
-    backgroundColor: "#000000",
+    backgroundColor: "#fff",
+    color: "black",
     paddingRight: "0.5rem",
     paddingLeft: "0",
     "@media(min-width: 600px)": {
@@ -126,8 +138,8 @@ const BottomNavigation = styled(Box)({
     bottom: 0,
     left: 0,
     width: "100%",
-    backgroundColor: "#000000",
-    color: "#ffffff",
+    backgroundColor: "#fff",
+    color: "black",
     zIndex: 5000,
     borderTop: "1px solid #333333",
     "@media(max-width: 1000px)": {
@@ -198,8 +210,8 @@ const FilterBtn = styled(Button)({
 })
 
 const FilterAccordion = styled(Accordion)({
-    backgroundColor: "#121212",
-    color: "#fff",
+    backgroundColor: "#F2F3F3",
+    color: "black",
     marginBottom: "8px",
     boxShadow: "none",
     "&:before": {
@@ -211,10 +223,10 @@ const FilterAccordion = styled(Accordion)({
 });
 
 const FilterAccordionSummary = styled(AccordionSummary)({
-    backgroundColor: "#1E1E1E",
+    // backgroundColor: "#1E1E1E",
     borderRadius: "6px",
     "& .MuiAccordionSummary-expandIconWrapper": {
-        color: "#fff",
+        color: "black",
     }
 });
 
@@ -248,10 +260,15 @@ function MobileMenu({ toggleChat }) {
     const [selectedType, setSelectedType] = useState("");
     const [expandedAccordion, setExpandedAccordion] = useState(false);
     const { t, i18n } = useTranslation();
+    const location = useLocation();
 
     const handleLogoutClick = () => {
         logout();
         handleMenuClose();
+    };
+
+    const handleBackClick = () => {
+        window.history.back();
     };
 
     const countries = {
@@ -392,16 +409,33 @@ function MobileMenu({ toggleChat }) {
     return (
         <>
             <CustomAppBar position="static">
-                <Toolbar sx={{ display: "flex", justifyContent: "space-between", p: 0 }}>
-                    <a href="/">
-                        <img src="/assets/images/logo.png" alt="logo" width="100rem" style={{ marginTop: "1rem", marginLeft: "0.5rem" }} />
+                <Toolbar sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", p: 0, position: "relative" }}>
+                    {location.pathname !== "/" && (
+                        <BackButton
+                            onClick={handleBackClick}
+                            sx={{
+                                flexDirection: i18n.language === "ar" ? "row-reverse" : "row",
+                                "& .MuiSvgIcon-root": {
+                                    marginRight: i18n.language === "ar" ? "0" : "8px",
+                                    marginLeft: i18n.language === "ar" ? "8px" : "0",
+                                    transform: i18n.language === "ar" ? "rotate(180deg)" : "none"
+                                }
+                            }}
+                        >
+                            <ArrowLeft color='black'/>
+                        </BackButton>
+                    )}
+                    {location.pathname === "/" && <div />}
+                    <a href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+                        <img src="/assets/images/logo.png" alt="logo" width="100rem" style={{ marginTop: "1rem" }} />
                     </a>
+
                     <IconButton edge="start" color="inherit" onClick={() => setOpen(!open)} sx={{ display: "flex", justifyContent: "right" }}>
                         {
                             !open ?
-                                <MenuIcon sx={{ fontSize: "1.2rem", color: "#fff" }} />
+                                <MenuIcon sx={{ fontSize: "1.2rem", color: "black" }} />
                                 :
-                                <CloseIcon sx={{ fontSize: "1.2rem", color: "#fff" }} />
+                                <CloseIcon sx={{ fontSize: "1.2rem", color: "black" }} />
                         }
                     </IconButton>
                 </Toolbar>
@@ -469,7 +503,7 @@ function MobileMenu({ toggleChat }) {
                 }}>
                 <List>
                     <IconButton onClick={() => setOpen(false)} sx={{ position: "fixed", right: 1, top: 1 }}>
-                        <CloseIcon sx={{ color: "#fff" }} />
+                        <CloseIcon sx={{ color: "black" }} />
                     </IconButton>
                     <ToggleBtn />
                     <MenuItem button onClick={handleCountryMenu}>
@@ -592,7 +626,7 @@ function MobileMenu({ toggleChat }) {
                 <Box sx={{ p: 3, width: window.innerWidth <= 500 ? '85%' : '93%' }}>
                     <Typography variant="h6">{t("postAd")}</Typography>
                     <IconButton onClick={toggleBottomDrawer}>
-                        <CloseIcon sx={{ color: "#fff", position: "fixed", right: 6, bottom: "8rem" }} />
+                        <CloseIcon sx={{ color: "black", position: "fixed", right: 6, bottom: "8rem" }} />
                     </IconButton>
                     <Box sx={{
                         display: 'flex',
@@ -625,7 +659,7 @@ function MobileMenu({ toggleChat }) {
                         direction: i18n.language === "ar" ? "rtl" : "ltr"
                     }}>
                         <IconButton onClick={toggleFilterDrawer} sx={{ p: 0 }}>
-                            <CloseIcon sx={{ color: "#fff", p: 0 }} />
+                            <CloseIcon sx={{ color: "black", p: 0 }} />
                         </IconButton>
                     </Box>
 
@@ -634,7 +668,7 @@ function MobileMenu({ toggleChat }) {
                             expanded={expandedAccordion === 'cityPanel'}
                             onChange={handleAccordionChange('cityPanel')}
                         >
-                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}>
+                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}>
                                 <Typography sx={{ fontWeight: "bold" }}>
                                     {t("filter.city")}
                                     {selectedCity && `: ${cityOptions.find(c => c.value === selectedCity)?.name}`}
@@ -650,7 +684,7 @@ function MobileMenu({ toggleChat }) {
                                             value={city.value}
                                             control={
                                                 <Radio
-                                                    sx={{ color: "#fff" }}
+                                                    sx={{ color: "black" }}
                                                     checked={selectedCity === city.value}
                                                     onClick={() => handleOptionSelect(city.value, setSelectedCity, selectedCity)}
                                                 />

@@ -13,20 +13,19 @@ const getConditionColor = (condition) => {
   switch (condition?.toLowerCase()) {
     case 'new':
       return '#4CAF50';
-    case 'pre-owned':
+    case 'Pre':
       return '#2196F3';
-    case 'used':
+    case 'Used':
       return '#FF9800';
     default:
       return '#757575';
   }
 };
 
-function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid=false }) {
+function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = false }) {
   const [isFav, setIsFav] = useState(false);
   const [images, setImages] = useState([]);
   const { t, i18n } = useTranslation();
-
   function toPascalCase(str) {
     if (!str) return '';
     const words = str.split(' ');
@@ -115,7 +114,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid=false 
         {
           window.innerWidth <= 700 &&
           <Chip
-            label={t(`${data.vehicle_condition}`)}
+            label={t(data.vehicle_condition)}
             sx={{
               backgroundColor: getConditionColor(data.vehicle_condition),
               color: 'white',
@@ -202,11 +201,11 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid=false 
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {data.vehicle_condition && window.innerWidth >= 1000 && (
+          {data[`${data.category}_vehicle_condition`] && window.innerWidth >= 1000 && (
             <Chip
-              label={t(`${data.vehicle_condition}`)}
+              label={t(data[`${data.category}_vehicle_condition`])}
               sx={{
-                backgroundColor: getConditionColor(data.vehicle_condition),
+                backgroundColor: getConditionColor(t(data[`${data.category}_vehicle_condition`])),
                 color: 'white',
                 fontWeight: 'bold',
                 fontSize: '0.75rem',

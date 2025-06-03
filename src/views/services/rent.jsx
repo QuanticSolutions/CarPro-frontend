@@ -66,11 +66,6 @@ function Rent() {
       image: "SellBikes"
     },
     {
-      name: "Rent Number Plates",
-      link: "/plates/rent",
-      image: "SellPlates"
-    },
-    {
       name: "Rent Construction",
       link: "/construction/rent",
       image: "SellConstruction"
@@ -86,20 +81,20 @@ function Rent() {
     <div style={{ marginTop: "2.1rem" }}>
       <Main showForm={false}
         showText={false}
-        image={i18n.language == "en" ? "rent" : "rent_ar"}
+        image={i18n.language != "ar" ? "rent" : "rent_ar"}
       />
       <Categories title={t("rentPage.vehicleCategories")} contents={categories} />
-      <Banner image="18" />
+      {/* <Banner image="18" /> */}
       <Container>
         <Box sx={{ mt: "4rem" }}>
           <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
-            {t("rentPage.vehicleCategories")}
+            {t("rentPage.steps")}
           </Typography>
         </Box>
       </Container>
-      <img src={i18n.language == "en" ? "/assets/images/banner (17).png" : "/assets/images/banner_ar (17).png"} width="100%" style={{ objectFit: "cover", }} />
+      <img src={i18n.language != "ar" ? "/assets/images/banner (17).png" : "/assets/images/banner_ar (17).png"} width="100%" style={{ objectFit: "cover", }} />
       <CardSlider title={t("popularCars")} data={data.filter(obj => obj.category == "cars" && obj.popular)} openTo="popular" category={"cars"} />
-      <Box minWidth="100%" backgroundColor="#fff" marginTop="4rem">
+      <Box minWidth="100%" backgroundColor="#fff" my={3}>
         <Container sx={{ py: 4 }}>
           <Paper elevation={0} className="mb-8">
             <Box display="flex" justifyContent="center" gap={2} sx={{ "@media (max-width: 768px)": { flexDirection: "column", alignItems: "center" } }}>

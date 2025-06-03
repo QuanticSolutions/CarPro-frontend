@@ -11,14 +11,15 @@ import { useTranslation } from 'react-i18next'
 import i18n from '../../i18n'
 
 const StyledMenu = styled(Box)({
-    background: "#000000",
+    background: "#fff",
     backgroundSize: "cover",
     position: "absolute",
     width: "100%",
     paddingTop: "0.5rem",
+    paddingBottom: "0.5rem",
     margin: "0",
     zIndex: 1000,
-    color: "#fff",
+    color: "black",
     "& img": {
         width: "8rem"
     },
@@ -46,7 +47,7 @@ const StyledMenuItem = styled(MenuItem)({
         boxShadow: "none",
     },
     "&:hover": {
-        backgroundColor: "rgba(183, 28, 28, 0.08)",
+        backgroundColor: "transparent", // Changed from "none" to "transparent"
     },
     "&.Mui-selected": {
         backgroundColor: "rgba(183, 28, 28, 0.12)",
@@ -68,7 +69,7 @@ const DropMenuItem = styled(MenuItem)({
     p: 1,
     marginRight: 0,
     "&:hover": {
-        backgroundColor: "rgba(0, 0, 0, 0.2)"
+        backgroundColor: "rgba(0, 0, 0, 0.1)"
     }
 })
 
@@ -218,7 +219,7 @@ function MainMenu({ notifications, toggleChat }) {
                 <MenuItems flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
                     <StyledMenuItem onMouseEnter={handleCategoryMenuOpen} onMouseLeave={handleCategorySubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                         {t("menu.allCategories")}
-                        <ExpandIcon />
+                        <ExpandIcon sx={{ color: "black" }} />
                         {categoryMenuOpen && (
                             <Box
                                 onMouseEnter={handleCategoryMenuOpen}
@@ -227,9 +228,9 @@ function MainMenu({ notifications, toggleChat }) {
                                     position: 'absolute',
                                     top: '2.5rem',
                                     left: 0,
-                                    backgroundColor: '#B71C1C',
+                                    backgroundColor: '#FFF',
                                     zIndex: 1000,
-                                    color: '#fff',
+                                    color: 'black',
                                     borderRadius: 1,
                                     textAlign: i18n.language === 'ar' ? 'right' : 'left',
                                     direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
@@ -246,7 +247,7 @@ function MainMenu({ notifications, toggleChat }) {
                     </StyledMenuItem>
                     <StyledMenuItem onMouseEnter={handleServiceSubMenuOpen} onMouseLeave={handleServiceSubMenuClose} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                         {t("menu.services")}
-                        <ExpandIcon />
+                        <ExpandIcon sx={{ color: "black" }} />
                         {serviceMenuOpen && (
                             <Box
                                 onMouseEnter={handleServiceSubMenuOpen}
@@ -255,9 +256,9 @@ function MainMenu({ notifications, toggleChat }) {
                                     position: 'absolute',
                                     top: '2.5rem',
                                     left: 0,
-                                    backgroundColor: '#B71C1C',
+                                    backgroundColor: '#FFF',
                                     zIndex: 1000,
-                                    color: '#fff',
+                                    color: 'black',
                                     borderRadius: 1,
                                     textAlign: i18n.language === 'ar' ? 'right' : 'left',
                                     direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
@@ -319,7 +320,7 @@ function MainMenu({ notifications, toggleChat }) {
                                 className="country-flag"
                                 style={{ width: "24px", height: "16px", marginRight: "8px", borderRadius: "2px" }}
                             />
-                            <ExpandMoreIcon style={{ fontSize: '14px', marginLeft: '2px' }} />
+                            <ExpandMoreIcon style={{ fontSize: '14px', marginLeft: '2px', color: "black" }} />
                         </div>
 
                         <Menu
@@ -336,8 +337,8 @@ function MainMenu({ notifications, toggleChat }) {
                             }}
                             PaperProps={{
                                 style: {
-                                    backgroundColor: 'black',
-                                    color: '#fff',
+                                    backgroundColor: '#fff',
+                                    color: 'black',
                                     marginTop: '8px',
                                 }
                             }}
@@ -390,9 +391,9 @@ function MainMenu({ notifications, toggleChat }) {
                                     top: '2.5rem',
                                     left: i18n.language != "ar" && "-1.5rem",
                                     right: i18n.language == "ar" && "0.5rem",
-                                    backgroundColor: 'black',
+                                    backgroundColor: '#fff',
                                     zIndex: 1000,
-                                    color: '#fff',
+                                    color: 'black',
                                     borderRadius: 1,
                                     minWidth: "7rem",
                                     textAlign: i18n.language === 'ar' ? 'right' : 'left',
