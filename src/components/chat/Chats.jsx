@@ -15,6 +15,7 @@ import { SearchIndex } from "emoji-mart";
 import { getUser, isAuthenticated, createNotification, getStreamImages } from '../../api/consumer';
 import { ArrowLeft } from '@mui/icons-material';
 import { ArrowRight } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import './layout.css'
 import moment from 'moment';
 import { Avatar } from '@mui/material';
@@ -45,7 +46,7 @@ const ChannelListHeader = ({ onBackClick, isMobileView }) => {
                         fontSize: "18px"
                     }}
                 >
-                    <ArrowLeft />
+                    <Close />
                 </button>
             }
         </div>

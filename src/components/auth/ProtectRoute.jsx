@@ -8,12 +8,10 @@ const ProtectRoute = ({ children }) => {
 
     useEffect(() => {
         const checkAuth = async () => {
-            const authenticated = isAuthenticated;
-            if (!authenticated) {
+            if (! isAuthenticated) {
                 setPopupOpen(true);
             }
         };
-
         checkAuth();
     }, []);
 

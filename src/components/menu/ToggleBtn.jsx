@@ -165,6 +165,7 @@ function ToggleBtn() {
                             position: 'absolute',
                             top: window.innerWidth > 800 ? "2.5rem" : "7rem",
                             backgroundColor: '#fff',
+                            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                             left: window.innerWidth > 800 ? "4.5rem" : "1rem",
                             zIndex: 1000,
                             color: 'black',

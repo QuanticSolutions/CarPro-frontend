@@ -203,50 +203,52 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands, cat
 
     return (
         <Box sx={BoxStyles}>
-            <div
-                style={{
-                    background: "#fff",
-                    color: "#B71C1C",
-                    padding: "20px",
-                    fontWeight: "bold",
-                    borderTopRightRadius: "8px",
-                    borderTopLeftRadius: "8px",
-                    textAlign: i18n.language == "ar" && "right"
-                }}
-            >
-                {t("showResultsBy")}
-            </div>
-            <div style={{ display: "flex", paddingLeft: "20px", paddingRight: "20px", background: "#fff" }}>
-                <TextField
-                    variant="outlined"
-                    placeholder={t("filters.search")}
-                    size="small"
-                    fullWidth
-                    name="search"
-                    onChange={handleChange}
-                    sx={{
-                        transform: i18n.language == "ar" && "rotateY(180deg)",
-                        "& .MuiOutlinedInput-root": { transform: i18n.language == "ar" && "rotateY(180deg)" },
-                        "& .MuiOutlinedInput-input": {
-                            textAlign: i18n.language == "ar" && "right",
-                        }
+            <Box sx={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" }}>
+                <div
+                    style={{
+                        background: "#fff",
+                        color: "#B71C1C",
+                        padding: "20px",
+                        fontWeight: "bold",
+                        borderTopRightRadius: "8px",
+                        borderTopLeftRadius: "8px",
+                        textAlign: i18n.language == "ar" && "right"
                     }}
-                />
-            </div>
-            <div style={{ display: "flex", padding: "10px", background: "#fff", justifyContent: "center", direction: i18n.language == "ar" && "rtl" }}>
-                <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "New" ? "2px solid #B71C1C" : "" }} onClick={() => { if (filters.vehicle_condition != "New") { handleCondition("New") } else { handleCondition("") } }}>
-                    <img src={"/assets/images/car-icon.png"} width={80} />
-                    <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.New")}</Typography>
+                >
+                    {t("showResultsBy")}
                 </div>
-                <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "Used" && "2px solid #B71C1C" }} onClick={() => { if (filters.vehicle_condition != "Used") { handleCondition("Used") } else { handleCondition("") } }}>
-                    <img src={"/assets/images/car-icon.png"} width={80} />
-                    <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.Used")}</Typography>
+                <div style={{ display: "flex", paddingLeft: "20px", paddingRight: "20px", background: "#fff" }}>
+                    <TextField
+                        variant="outlined"
+                        placeholder={t("filters.search")}
+                        size="small"
+                        fullWidth
+                        name="search"
+                        onChange={handleChange}
+                        sx={{
+                            transform: i18n.language == "ar" && "rotateY(180deg)",
+                            "& .MuiOutlinedInput-root": { transform: i18n.language == "ar" && "rotateY(180deg)" },
+                            "& .MuiOutlinedInput-input": {
+                                textAlign: i18n.language == "ar" && "right",
+                            }
+                        }}
+                    />
                 </div>
-                <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "Pre" && "2px solid #B71C1C" }} onClick={() => { if (filters.vehicle_condition != "Pre") { handleCondition("Pre") } else { handleCondition("") } }}>
-                    <img src={"/assets/images/car-icon.png"} width={80} />
-                    <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.Pre")}</Typography>
+                <div style={{ display: "flex", padding: "10px", background: "#fff", justifyContent: "center", direction: i18n.language == "ar" && "rtl" }}>
+                    <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "New" ? "2px solid #B71C1C" : "" }} onClick={() => { if (filters.vehicle_condition != "New") { handleCondition("New") } else { handleCondition("") } }}>
+                        <img src={"/assets/images/car-icon.png"} width={80} />
+                        <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.New")}</Typography>
+                    </div>
+                    <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "Used" && "2px solid #B71C1C" }} onClick={() => { if (filters.vehicle_condition != "Used") { handleCondition("Used") } else { handleCondition("") } }}>
+                        <img src={"/assets/images/car-icon.png"} width={80} />
+                        <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.Used")}</Typography>
+                    </div>
+                    <div style={{ cursor: "pointer", borderBottom: filters.vehicle_condition == "Pre" && "2px solid #B71C1C" }} onClick={() => { if (filters.vehicle_condition != "Pre") { handleCondition("Pre") } else { handleCondition("") } }}>
+                        <img src={"/assets/images/car-icon.png"} width={80} />
+                        <Typography variant="body1" textAlign={"center"}>{t("filters.vehicleCondition.Pre")}</Typography>
+                    </div>
                 </div>
-            </div>
+            </Box>
             <StyledDivider />
             <Box>
                 {[

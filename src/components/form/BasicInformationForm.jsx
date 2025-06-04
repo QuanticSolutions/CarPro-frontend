@@ -190,7 +190,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
 
   const customSelectStyles = {
     textField: {
-      width: "23rem",
+      width: "100%",
       fontSize: "1rem",
       borderRadius: "4px",
       backgroundColor: "transparent",

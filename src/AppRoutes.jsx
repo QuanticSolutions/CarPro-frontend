@@ -30,7 +30,7 @@ const AppRoutes = ({ data, rent, notifications, setNotifications }) => {
   return (
     <Routes>
       <Route path="/:countryCode" element={<Layout />}>
-        <Route index element={<Home data={data} />} />
+        <Route index element={<Home data={data} rent={rent} />} />
         <Route
           path='notifications'
           element={
@@ -192,7 +192,7 @@ const AppRoutes = ({ data, rent, notifications, setNotifications }) => {
       </Route>
 
       {/* Routes without country code (fallback/legacy routes) */}
-      <Route path='/' element={<Home data={data} />} />
+      <Route path='/' element={<Home data={data} rent={rent} />} />
       <Route path="/auth-handler" element={<AuthHandler />} />
       <Route
         path='/notifications'

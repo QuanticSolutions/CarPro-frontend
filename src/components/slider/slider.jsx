@@ -10,7 +10,6 @@ function CustomLeftArrow({ onClick }) {
       sx={{
         position: "absolute",
         left: "-3rem",
-        top: "40%",
         zIndex: 2,
       }}
     >
@@ -25,8 +24,7 @@ function CustomRightArrow({ onClick }) {
       onClick={onClick}
       sx={{
         position: "absolute",
-        right: -2,
-        top: "40%",
+        right: "-3rem",
         zIndex: 100,
         color: "#fff",
       }}
@@ -77,7 +75,7 @@ function Slider({ data, Template, toShow=4, action, responsiveOptions, carouselC
       showDots={false}
       responsive={responsiveOptions || responsive}
       ssr={true}
-      infinite={window.innerWidth <= 700}
+      infinite={false}
       arrows={false}
       autoPlaySpeed={3000}
       keyBoardControl={true}

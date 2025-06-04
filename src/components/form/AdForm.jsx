@@ -161,12 +161,12 @@ function AdForm({ title, type, isUpdating = false, category }) {
         updateAd(localStorage.getItem("ad_id"), formData).then(() => setPopup({ open: true, message: "Ad created Successfully", severity: "success" }))
       }
       else {
-        createAd(formData).then(() => setPopup({ open: true, message: "Ad created Successfully", severity: "success" }))
+        createAd(formData).then(() => setPopup({ open: true, message: "Ad updated Successfully", severity: "success" }))
       }
     }
     else {
       if (isUpdating) {
-        updateRent(localStorage.getItem("ad_id"), formData).then(() => () => setPopup({ open: true, message: "Ad created Successfully", severity: "success" }))
+        updateRent(localStorage.getItem("ad_id"), formData).then(() => () => setPopup({ open: true, message: "Ad updated Successfully", severity: "success" }))
       }
       else {
         createRent(formData).then(() => setPopup({ open: true, message: "Ad created Successfully", severity: "success" }))

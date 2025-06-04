@@ -52,7 +52,7 @@ function Video() {
                         {t("videoSection.description")}
                     </Typography>
                 </Box>
-                <Box sx={{ position: "relative" }}>
+                <Box sx={{ position: "relative", m:0, p:0 }}>
                     <Slider data={videos} Template={VideoCard} toShow={3} carouselClass='test-carousel-item' />
                 </Box>
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "center", py: "2rem" }}>

@@ -23,7 +23,7 @@ const StyledBtn = styled(Button)({
 function JwtLogin({ backBtnHandler }) {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [identifier, setIdentifier] = useState(""); // Can be email or phone
+    const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
     const [popup, setPopup] = useState({
         open: false,
@@ -31,7 +31,6 @@ function JwtLogin({ backBtnHandler }) {
         severity: "success",
     });
 
-    // Function to detect if input is email or phone
     const isEmail = (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(input);
@@ -49,8 +48,6 @@ function JwtLogin({ backBtnHandler }) {
             password: password,
             firebaseToken: localStorage.getItem("FCM Token")
         };
-
-        // Determine if identifier is email or phone and add to loginData
         if (isEmail(identifier)) {
             loginData.email = identifier;
         } else if (isPhone(identifier)) {
@@ -68,7 +65,7 @@ function JwtLogin({ backBtnHandler }) {
                         () => {
                             window.location.href = "/";
                         },
-                        2000
+                        1000
                     )
                 }
             )

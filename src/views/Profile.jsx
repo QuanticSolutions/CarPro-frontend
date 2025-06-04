@@ -224,7 +224,7 @@ export default function EditProfile() {
                                             onChange={handleChange}
                                             displayEmpty
                                         >
-                                            <MenuItem value="" disabled>يوم</MenuItem>
+                                            <MenuItem value="" disabled>{t('editProfile.day')}</MenuItem>
                                             {days.map(day => (
                                                 <MenuItem key={day} value={day}>{day}</MenuItem>
                                             ))}
@@ -238,7 +238,7 @@ export default function EditProfile() {
                                             onChange={handleChange}
                                             displayEmpty
                                         >
-                                            <MenuItem value="" disabled>شهر</MenuItem>
+                                            <MenuItem value="" disabled>{t('editProfile.month')}</MenuItem>
                                             {months.map(month => (
                                                 <MenuItem key={month} value={month}>{month}</MenuItem>
                                             ))}
@@ -252,7 +252,7 @@ export default function EditProfile() {
                                             onChange={handleChange}
                                             displayEmpty
                                         >
-                                            <MenuItem value="" disabled>سنة</MenuItem>
+                                            <MenuItem value="" disabled>{t('editProfile.year')}</MenuItem>
                                             {years.map(year => (
                                                 <MenuItem key={year} value={year}>{year}</MenuItem>
                                             ))}

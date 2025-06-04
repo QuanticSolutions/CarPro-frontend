@@ -73,28 +73,40 @@ function CardSlider({ data, title, openTo = "featured", category }) {
     };
 
     return (
-
-        <Container sx={{ width: "100%", margin: "auto", position: "relative", my: 3 }}>
-            <Box sx={BoxStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
-                <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>
-                    {title}
-                </Typography>
-            </Box>
-            <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end", mt: 1 }}>
-                <a style={{ ...styles, flexDirection: i18n.language == "ar" && "row-reverse" }} href={`/${openTo}/${category}`}>
-                    {t("home.viewMore")}
-                    {
-                        i18n.language == "ar" ?
-                            <ChevronLeftIcon sx={{ padding: 0 }} /> :
-                            <ChevronRightIcon sx={{ padding: 0 }} />
-                    }
-                </a>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-                <Slider data={data} Template={CarCard} action={handleFavBtn} responsiveOptions={responsive} />
-            </Box>
-            <AuthDialog setPopupOpen={setPopupOpen} popupOpen={popupOpen} setPopup1Open={setPopup1Open} popup1Open={popup1Open} />
-        </Container>
+        <>
+            <Container sx={{ width: "100%", margin: "auto", position: "relative", my: 3 }}>
+                <Box sx={BoxStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
+                    <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>
+                        {title}
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end", mt: 1 }}>
+                    <a style={{ ...styles, flexDirection: i18n.language == "ar" && "row-reverse" }} href={`/${openTo}/${category}`}>
+                        {t("home.viewMore")}
+                        {
+                            i18n.language == "ar" ?
+                                <ChevronLeftIcon sx={{ padding: 0 }} /> :
+                                <ChevronRightIcon sx={{ padding: 0 }} />
+                        }
+                    </a>
+                </Box>
+                {
+                    window.innerWidth > 900 &&
+                    <Box sx={{ mt: 2, position: "relative", }}>
+                        <Slider data={data} Template={CarCard} action={handleFavBtn} responsiveOptions={responsive} />
+                    </Box>
+                }
+            </Container>
+            {
+                window.innerWidth <= 900 &&
+                <Box sx={{ mt: 2, position: "relative", "@media (max-width: 900px)": { width: "100vw" } }}>
+                    <Slider data={data} Template={CarCard} action={handleFavBtn} responsiveOptions={responsive} />
+                </Box>
+            }
+            <Container sx={{ width: "100%", margin: "auto", position: "relative", my: 3 }}>
+                <AuthDialog setPopupOpen={setPopupOpen} popupOpen={popupOpen} setPopup1Open={setPopup1Open} popup1Open={popup1Open} />
+            </Container>
+        </>
     );
 }
 

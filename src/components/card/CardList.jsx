@@ -17,7 +17,7 @@ import EventIcon from "@mui/icons-material/Event";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import SpeedIcon from "@mui/icons-material/Speed";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { Timelapse } from "@mui/icons-material";
+import { Category, Timelapse } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 
 const getDaysDifference = (date1, date2) => {
@@ -29,9 +29,9 @@ const getConditionColor = (condition) => {
   switch (condition?.toLowerCase()) {
     case 'new':
       return '#4CAF50';
-    case 'pre-owned':
+    case 'Pre':
       return '#2196F3';
-    case 'used':
+    case 'Used':
       return '#FF9800';
     default:
       return '#757575';
@@ -107,7 +107,7 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
             mt: 1
           }}
         >
-          <IconButton
+          {/* <IconButton
             sx={{
               backgroundColor: "#fff",
               width: 36,
@@ -115,7 +115,7 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
             }}
           >
             <ShareIcon fontSize="small" />
-          </IconButton>
+          </IconButton> */}
           <IconButton
             sx={{
               backgroundColor: isFav ? "#B71C1C" : "white",
@@ -146,9 +146,12 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
         }}
         onClick={() => (window.location = `/ad/${type}?id=${data.id}`)}
       >
-        <Typography variant="h6" fontWeight="bold" gutterBottom>
-          AED {data.price}
-        </Typography>
+        {
+          type != "rent" &&
+          <Typography variant="h6" fontWeight="bold" gutterBottom>
+            AED {data.price}
+          </Typography>
+        }
         <Typography variant="h6" fontWeight="bolder" sx={{ mb: 1 }}>
           {data.title}
         </Typography>
@@ -186,6 +189,35 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
         </Box>
         {
           type == "rent" &&
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <Box sx={{ background: "#bdc2c2", p:1, color: "black", borderRadius: 1 }}>
+              <Typography  variant="body1" fontWeight="bold" gutterBottom>
+                Daily Rent
+              </Typography>
+              <Typography  variant="body2" fontWeight="bold" gutterBottom>
+                AED {data.daily_rent}
+              </Typography>
+            </Box>
+            <Box sx={{ background: "#bdc2c2", p:1, color: "black", borderRadius: 1 }}>
+              <Typography  variant="body1" fontWeight="bold" gutterBottom>
+                Weekly Rent
+              </Typography>
+              <Typography  variant="body2" fontWeight="bold" gutterBottom>
+                AED {data.weekly_rent}
+              </Typography>
+            </Box>
+            <Box sx={{ background: "#bdc2c2", p:1, color: "black", borderRadius: 1 }}>
+              <Typography  variant="body1" fontWeight="bold" gutterBottom>
+                Monthly Rent
+              </Typography>
+              <Typography  variant="body2" fontWeight="bold" gutterBottom>
+                AED {data.monthly_rent}
+              </Typography>
+            </Box>
+          </Box>
+        }
+        {/* {
+          type == "rent" &&
           <Box sx={{ display: "flex", gap: 3, mb: 1 }}>
             {data.additionalInfo.map((info, index) => (
               <Box
@@ -205,7 +237,7 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
               </Box>
             ))}
           </Box>
-        }
+        } */}
         <Box sx={{ display: "flex", alignItems: "center", mt: 1, gap: 2 }}>
           <LocationOnIcon sx={{ fontSize: 16, color: "text.secondary" }} />
           <Typography variant="body2" color="text.secondary">
@@ -223,7 +255,7 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
             Day Ago
           </Typography>
         </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center", position: "absolute", top: 10, right: 10}}>
           {data.vehicle_condition && (
             <Chip
               label={data.vehicle_condition}

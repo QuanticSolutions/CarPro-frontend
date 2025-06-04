@@ -210,7 +210,7 @@ const FilterBtn = styled(Button)({
 })
 
 const FilterAccordion = styled(Accordion)({
-    backgroundColor: "#F2F3F3",
+    backgroundColor: "rgb(247, 250, 250)",
     color: "black",
     marginBottom: "8px",
     boxShadow: "none",
@@ -708,7 +708,7 @@ function MobileMenu({ toggleChat }) {
                             expanded={expandedAccordion === 'vehiclePanel'}
                             onChange={handleAccordionChange('vehiclePanel')}
                         >
-                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}>
+                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}>
                                 <Typography sx={{ fontWeight: "bold" }}>
                                     {t("filter.vehicle") || "Vehicle Type"}
                                     {selectedVehicle && `: ${vehicleOptions.find(v => v.value === selectedVehicle)?.name}`}
@@ -724,7 +724,7 @@ function MobileMenu({ toggleChat }) {
                                             value={vehicle.value}
                                             control={
                                                 <Radio
-                                                    sx={{ color: "#fff" }}
+                                                    sx={{ color: "black" }}
                                                     checked={selectedVehicle === vehicle.value}
                                                     onClick={() => handleOptionSelect(vehicle.value, setSelectedVehicle, selectedVehicle)}
                                                 />
@@ -748,7 +748,7 @@ function MobileMenu({ toggleChat }) {
                             expanded={expandedAccordion === 'typePanel'}
                             onChange={handleAccordionChange('typePanel')}
                         >
-                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "#fff" }} />}>
+                            <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}>
                                 <Typography sx={{ fontWeight: "bold" }}>
                                     {t("filter.type") || "Item Condition"}
                                     {selectedType && `: ${typeOptions.find(t => t.value === selectedType)?.name}`}
@@ -764,7 +764,7 @@ function MobileMenu({ toggleChat }) {
                                             value={type.value}
                                             control={
                                                 <Radio
-                                                    sx={{ color: "#fff" }}
+                                                    sx={{ color: "black" }}
                                                     checked={selectedType === type.value}
                                                     onClick={() => handleOptionSelect(type.value, setSelectedType, selectedType)}
                                                 />

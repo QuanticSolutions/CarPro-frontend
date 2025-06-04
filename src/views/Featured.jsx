@@ -33,7 +33,7 @@ function Featured({ data, title, type, showBrands = true, category }) {
 
   }
   return (
-    <div style={{ background: "#F2F3F3" }}>
+    <div style={{ background: "#FFF" }}>
       <FeaturedFilter
         data={filterData()}
         title={title || `${brand} Ads`}

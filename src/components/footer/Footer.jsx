@@ -10,7 +10,7 @@ import {
     GitHub
 } from '@mui/icons-material';
 import { useTranslation } from "react-i18next";
-import { styled } from "@mui/system"
+import { styled, textTransform } from "@mui/system"
 
 const BoxStyles = {
     pt: 4,
@@ -20,6 +20,9 @@ const BoxStyles = {
     color: "black",
     "& a": {
         color: "black"
+    },
+    "& a:hover": {
+        textDecoration: "underline"
     }
 }
 

@@ -72,11 +72,8 @@
   .carousel-button-group {
     position: absolute;
     width: 100%;
-    top: 50%
-  }
-
-  .carousel-container {
-    padding: 3px;
+    top: 45%;
+    bottom: 50%;
   }
 
   .special {
@@ -90,30 +87,33 @@
     text-transform: uppercase;
   }
 
+  .test-carousel-item {
+    display: flex;
+    justify-content: center;
+  }
+
   @media screen and (max-width: 900px) {
-    .carousel-item {
-      padding-right: 2px;
+    .carousel-container {
       width: 100%;
+    }
+
+    .carousel-item {
+      width: 104%;
       display: flex;
       justify-content: center;
     }
-}
+  }
 
 
   @media screen and (max-width: 768px) {
-    .carousel-item {
-      padding-right: 2px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    
+
     .test-carousel-item {
       padding-right: 0;
       width: 90%;
       display: flex;
       justify-content: center;
     }
+
     ::-webkit-scrollbar {
       display: none;
 
@@ -121,12 +121,9 @@
   }
 
   @media screen and (max-width: 350px) {
-    .carousel-item {
+    /* .carousel-item {
       padding-right: 6px;
-      width: 90%;
-      display: flex;
-      justify-content: center;
-    }
+    } */
 
     .test-carousel-item {
       padding-right: 0;

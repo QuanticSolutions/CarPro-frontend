@@ -40,7 +40,7 @@ export default function Country() {
                 overflow: "hidden",
             }}
         >
-            <Box sx={{ width: "100%", backgroundColor: "black", display: "flex", alignItems: 'center', justifyContent: "center", py: '1rem' }}>
+            <Box sx={{ width: "100%", backgroundColor: "#fff", display: "flex", alignItems: 'center', justifyContent: "center", py: '1rem' }}>
                 <img src={'/assets/images/logo.png'} style={{ width: "8rem" }} />
             </Box>
             <Grid container sx={{ width: "100%", "@media(max-width: 800px)": { display: "flex" } }}>

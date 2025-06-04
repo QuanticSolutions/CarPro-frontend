@@ -13,6 +13,7 @@ import i18n from '../../i18n'
 const StyledMenu = styled(Box)({
     background: "#fff",
     backgroundSize: "cover",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
     position: "absolute",
     width: "100%",
     paddingTop: "0.5rem",
@@ -47,7 +48,7 @@ const StyledMenuItem = styled(MenuItem)({
         boxShadow: "none",
     },
     "&:hover": {
-        backgroundColor: "transparent", // Changed from "none" to "transparent"
+        backgroundColor: "transparent",
     },
     "&.Mui-selected": {
         backgroundColor: "rgba(183, 28, 28, 0.12)",
@@ -69,7 +70,7 @@ const DropMenuItem = styled(MenuItem)({
     p: 1,
     marginRight: 0,
     "&:hover": {
-        backgroundColor: "rgba(0, 0, 0, 0.1)"
+        backgroundColor: "rgba(0, 0, 0, 0.05)"
     }
 })
 
@@ -229,6 +230,7 @@ function MainMenu({ notifications, toggleChat }) {
                                     top: '2.5rem',
                                     left: 0,
                                     backgroundColor: '#FFF',
+                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" ,
                                     zIndex: 1000,
                                     color: 'black',
                                     borderRadius: 1,
@@ -259,6 +261,7 @@ function MainMenu({ notifications, toggleChat }) {
                                     backgroundColor: '#FFF',
                                     zIndex: 1000,
                                     color: 'black',
+                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" ,
                                     borderRadius: 1,
                                     textAlign: i18n.language === 'ar' ? 'right' : 'left',
                                     direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
@@ -292,8 +295,6 @@ function MainMenu({ notifications, toggleChat }) {
                             {t("menu.notifications")}
                         </Badge>
                     </StyledMenuItem>
-
-                    {/* Country Dropdown */}
                     <StyledMenuItem sx={{ position: 'relative', direction: i18n.language == "ar" && "rtl" }}>
                         <div
                             onClick={handleCountryClick}
@@ -394,6 +395,7 @@ function MainMenu({ notifications, toggleChat }) {
                                     backgroundColor: '#fff',
                                     zIndex: 1000,
                                     color: 'black',
+                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                                     borderRadius: 1,
                                     minWidth: "7rem",
                                     textAlign: i18n.language === 'ar' ? 'right' : 'left',

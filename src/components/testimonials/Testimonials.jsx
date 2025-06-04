@@ -1,4 +1,4 @@
-import { Typography, Container } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import TestCard from "./TestCard";
 import Slider from "../slider/slider";
 import { useTranslation } from 'react-i18next'
@@ -64,7 +64,9 @@ const TestimonialSlider = () => {
       <Typography variant="h4" fontWeight="bold" sx={{ mb: 5, textAlign: i18n.language == "ar" ? "right" : "left" }}>
         {t("reviews")}
       </Typography>
-      <Slider data={testimonials} Template={TestCard} toShow={3} carouselClass="test-carousel-item" />
+      <Box sx={{ position: "relative" }}>
+        <Slider data={testimonials} Template={TestCard} toShow={3} carouselClass="test-carousel-item" />
+      </Box>
     </Container>
   );
 };

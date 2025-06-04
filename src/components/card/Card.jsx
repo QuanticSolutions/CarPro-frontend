@@ -154,9 +154,18 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
         </IconButton>
       </Box>
       <CardContent onClick={() => (window.location = `/ad/${type}?id=${data.id}`)}>
-        <Typography variant="subtitle1" fontWeight="bolder" color="#B71C1C">
-          {t("AED")} {i18n.language == "ar" ? convertToArabicNumbers(data.price) : data.price}
-        </Typography>
+        {
+          type != "rent" && 
+          <Typography variant="subtitle1" fontWeight="bolder" color="#B71C1C">
+            {t("AED")} {i18n.language == "ar" ? convertToArabicNumbers(data.price) : data.price}
+          </Typography>
+        }
+        {
+          type == "rent" && 
+          <Typography variant="subtitle1" fontWeight="bolder" color="#B71C1C">
+            {t("AED")} {i18n.language == "ar" ? convertToArabicNumbers(data.daily_rent) : data.daily_rent}
+          </Typography>
+        }
         {
           window.innerWidth >= 700 &&
           <Typography
@@ -201,11 +210,11 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {data[`${data.category}_vehicle_condition`] && window.innerWidth >= 1000 && (
+          {data.vehicle_condition && window.innerWidth >= 1000 && (
             <Chip
-              label={t(data[`${data.category}_vehicle_condition`])}
+              label={t(data.vehicle_condition)}
               sx={{
-                backgroundColor: getConditionColor(t(data[`${data.category}_vehicle_condition`])),
+                backgroundColor: getConditionColor(t(data.vehicle_condition)),
                 color: 'white',
                 fontWeight: 'bold',
                 fontSize: '0.75rem',
