@@ -15,13 +15,13 @@ export const signup = async (userData) => {
     }
 };
 
-const headersTemp = document.cookie.split(';');
+// const headersTemp = document.cookie.split(';');
 
-const finalHeaders = {};
-headersTemp.forEach((header) => {
-    const headerTemp = header.split('=');
-    finalHeaders[headerTemp[0].trim()] = headerTemp[1].trim()
-})
+// const finalHeaders = {};
+// headersTemp.forEach((header) => {
+//     const headerTemp = header.split('=');
+//     finalHeaders[headerTemp[0].trim()] = headerTemp[1].trim()
+// })
 
 export const checkUser = async (token) => {
     try {
@@ -37,10 +37,11 @@ export const login = async (credentials) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/auth/login`, credentials);
         document.cookie = `AUTH_API=${response.data.token}`
+        localStorage.setItem("token", response.data.token)
         localStorage.setItem("user_id", response.data.user.id)
         localStorage.setItem("stream_token", response.data.stream_token)
         localStorage.setItem("stream_id", response.data.stream_id)
-        checkUser(response.data.token);
+        // checkUser(response.data.token);
         return response.data;
     } catch (error) {
         console.error("Login failed:", error.response?.data || error.message);
@@ -50,7 +51,7 @@ export const login = async (credentials) => {
 
 
 
-export const isAuthenticated = localStorage.getItem("loggedIn") == "true"
+export const isAuthenticated = localStorage.getItem("token") !== undefined
 
 export const logout = async (countryCode) => {
     try {
