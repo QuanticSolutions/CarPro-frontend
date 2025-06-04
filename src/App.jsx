@@ -103,9 +103,9 @@ function App() {
           setData(ads.filter(ad => ad.country == countries[countryCode]))
         }
       );
-      getAllRents().then(
+      getAllAds().then(
         rent => {
-          setRent(rent.filter(ad => ad.status.includes("Live") && ad.country == countries[countryCode]))
+          setRent(rent.filter(ad => ad.status.includes("live") && ad.country == countries[countryCode]))
         }
       )
     },

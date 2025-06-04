@@ -105,20 +105,20 @@ function Home({ data, rent }) {
       <Services title={t("home.services")} cards={cards} background="linear-gradient(#B71C1C, black)" />
       <Brands />
       <Banner image="1" link="/featured/Cars" />
-      <CardSlider data={data.filter(obj => obj.category == "cars" && obj.status == "Live")} title={t("home.featuredCars")} category={"cars"} />
-      <CardSlider data={rent.filter(obj => obj.category == "cars" && obj.status == "Live")} title={t("home.rentCars")} openTo='cars' category={"rent"} />
-      <CardSlider data={data.filter(obj => obj.category == "heavy" && obj.status == "Live")} title={t("home.featuredHeavyCars")} category={"heavy"} />
-      <CardSlider data={rent.filter(obj => obj.category == "heavy" && obj.status == "Live")} title={t("home.rentHeavy")} openTo='heavy' category={"rent"} />
+      <CardSlider data={data.filter(obj => obj.category == "cars" && obj.status == "live")} title={t("home.featuredCars")} category={"cars"} />
+      <CardSlider data={rent.filter(obj => obj.category == "cars" && obj.status == "live")} title={t("home.rentCars")} openTo='cars' category={"rent"} />
+      <CardSlider data={data.filter(obj => obj.category == "heavy" && obj.status == "live")} title={t("home.featuredHeavyCars")} category={"heavy"} />
+      <CardSlider data={rent.filter(obj => obj.category == "heavy" && obj.status == "live")} title={t("home.rentHeavy")} openTo='heavy' category={"rent"} />
       <Banner image="2" link="/featured/Bikes" />
-      <CardSlider data={data.filter(obj => obj.category == "bikes" && obj.status == "Live")} title={t("home.featuredBikes")} category={"bikes"} />
-      <CardSlider data={rent.filter(obj => obj.category == "bikes" && obj.status == "Live")} title={t("home.rentBikes")} openTo='bikes' category={"rent"} />
-      <CardSlider data={data.filter(obj => obj.category == "plates" && obj.status == "Live")} title={t("home.featuredPlates")} category={"plates"} />
-      <CardSlider data={rent.filter(obj => obj.category == "plates" && obj.status == "Live")} title={t("home.rentPlates")} openTo='plates' category={"rent"} />
+      <CardSlider data={data.filter(obj => obj.category == "bikes" && obj.status == "live")} title={t("home.featuredBikes")} category={"bikes"} />
+      <CardSlider data={rent.filter(obj => obj.category == "bikes" && obj.status == "live")} title={t("home.rentBikes")} openTo='bikes' category={"rent"} />
+      <CardSlider data={data.filter(obj => obj.category == "plates" && obj.status == "live")} title={t("home.featuredPlates")} category={"plates"} />
+      <CardSlider data={rent.filter(obj => obj.category == "plates" && obj.status == "live")} title={t("home.rentPlates")} openTo='plates' category={"rent"} />
       <Banner image="3" link="/featured/Boats" />
-      <CardSlider data={data.filter(obj => obj.category == "construction" && obj.status == "Live")} title={t("home.featuredConstruction")} category={"construction"} />
-      <CardSlider data={rent.filter(obj => obj.category == "construction" && obj.status == "Live")} title={t("home.rentConstruction")} openTo='construction' category={"rent"} />
-      <CardSlider data={data.filter(obj => obj.category == "boats" && obj.status == "Live")} title={t("home.featuredBoats")} category={"boats"} />
-      <CardSlider data={rent.filter(obj => obj.category == "boats" && obj.status == "Live")} title={t("home.rentBoats")} openTo='boats' category={"rent"} />
+      <CardSlider data={data.filter(obj => obj.category == "construction" && obj.status == "live")} title={t("home.featuredConstruction")} category={"construction"} />
+      <CardSlider data={rent.filter(obj => obj.category == "construction" && obj.status == "live")} title={t("home.rentConstruction")} openTo='construction' category={"rent"} />
+      <CardSlider data={data.filter(obj => obj.category == "boats" && obj.status == "live")} title={t("home.featuredBoats")} category={"boats"} />
+      <CardSlider data={rent.filter(obj => obj.category == "boats" && obj.status == "live")} title={t("home.rentBoats")} openTo='boats' category={"rent"} />
       <Video />
     </>
   )
