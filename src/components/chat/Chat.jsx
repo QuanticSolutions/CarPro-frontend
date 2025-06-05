@@ -14,6 +14,7 @@ import { EmojiPicker } from "stream-chat-react/emojis";
 import { SearchIndex } from "emoji-mart";
 import { getUser, isAuthenticated, createNotification } from '../../api/consumer';
 import { ArrowRight } from '@mui/icons-material';
+import { Close } from '@mui/icons-material';
 import './layout.css'
 import { Avatar } from '@mui/material';
 import moment from 'moment';
@@ -44,7 +45,7 @@ const ChannelListHeader = ({ onBackClick, isMobileView }) => {
                         fontSize: "18px"
                     }}
                 >
-                    ✕
+                    <Close />
                 </button>
             }
         </div>

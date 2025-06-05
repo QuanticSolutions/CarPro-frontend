@@ -65,16 +65,19 @@ const Description = ({ ad }) => {
         return `${arabicDay} ${arabicMonth} ${arabicYear}`;
     };
 
-    // Helper function to safely get and display field value
-    const getFieldValue = (fieldName, defaultValue = 'N/A') => {
-        const value = ad[fieldName];
-        if (value === null || value === undefined || value === '') return defaultValue;
-        return value;
+    // Helper function to check if field has a valid value
+    const hasValidValue = (value) => {
+        return value !== null && value !== undefined && value !== '' && value !== 0;
+    };
+
+    // Helper function to get field value
+    const getFieldValue = (fieldName) => {
+        return ad[fieldName];
     };
 
     // Helper function to format price
     const formatPrice = (price) => {
-        if (!price) return 'N/A';
+        if (!hasValidValue(price)) return null;
         const numPrice = parseFloat(price);
         if (isNaN(numPrice)) return price;
         return i18n.language === "ar" ? convertToArabicNumbers(numPrice.toLocaleString()) : numPrice.toLocaleString();
@@ -166,317 +169,214 @@ const Description = ({ ad }) => {
 
     return (
         <Box sx={{ ...BoxStyles, direction: i18n.language == "ar" && "rtl" }}>
-            {/* Basic Vehicle Information */}
             <Box sx={{ mb: 2 }}>
-                <Typography variant="h6" fontWeight="bold">{"Basic Information"}</Typography>
+                <Typography variant="h6" fontWeight="bold">{t("basic_info")}</Typography>
                 <Divider sx={{ mb: 1 }} />
-                <Box>
-                    {window.innerWidth > 800 ? (
-                        <Box display={"flex"} gap={6}>
-                            <Box flex={1}>
-                                <List disablePadding>
-                                    {getFieldValue('manufacturer') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("manufacturer") || "Manufacturer"}:</strong> {getFieldValue('manufacturer')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('model') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("model") || "Model"}:</strong> {getFieldValue('model')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('year') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("year") || "Year"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('year')) : getFieldValue('year')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('trim') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("trim") || "Trim"}:</strong> {getFieldValue('trim')}</Typography>
-                                        </ListItem>
-                                    )}
-                                </List>
-                            </Box>
-                            <Box flex={1}>
-                                <List disablePadding>
-                                    {(getFieldValue('price') !== 'N/A' || getFieldValue('daily_rent') !== 'N/A' || getFieldValue('weekly_rent') !== 'N/A' || getFieldValue('monthly_rent') !== 'N/A') && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("price") || "Price"}:</strong> 
-                                                {getFieldValue('price') !== 'N/A' && ` ${formatPrice(getFieldValue('price'))} "AED`}
-                                                {getFieldValue('daily_rent') !== 'N/A' && ` ${formatPrice(getFieldValue('daily_rent'))} ${"AED"}/${"day"}`}
-                                                {getFieldValue('weekly_rent') !== 'N/A' && ` ${formatPrice(getFieldValue('weekly_rent'))} ${"AED"}/${"week"}`}
-                                                {getFieldValue('monthly_rent') !== 'N/A' && ` ${formatPrice(getFieldValue('monthly_rent'))} ${"AED"}/${"month"}`}
-                                            </Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('kilometers') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("kilometers") || "Kilometers"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('kilometers')) : getFieldValue('kilometers')} km</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('car_plate_number') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("plateNumber") || "Plate Number"}:</strong> {getFieldValue('car_plate_number')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('regional_specs') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("regionalSpecs") || "Regional Specs"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('regional_specs'))}`) || getFieldValue('regional_specs')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('country') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("country") || "Country"}:</strong> {getFieldValue('country')}</Typography>
-                                        </ListItem>
-                                    )}
-                                </List>
-                            </Box>
-                        </Box>
-                    ) : (
+                <Box display={"flex"} gap={6} flexDirection={window.innerWidth > 800 ? "row" : "column"}>
+                    <Box flex={1}>
                         <List disablePadding>
-                            {getFieldValue('manufacturer') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('manufacturer')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("manufacturer") || "Manufacturer"}:</strong> {getFieldValue('manufacturer')}</Typography>
+                                    <Typography><strong>{t("manufacturer") || "Manufacturer"}:</strong> {t(`cardValues.${getFieldValue('manufacturer')}`)}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('model') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('model')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("model") || "Model"}:</strong> {getFieldValue('model')}</Typography>
+                                    <Typography><strong>{t("model") || "Model"}:</strong> {t(`models.${getFieldValue('model')}`)}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('year') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('year')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("year") || "Year"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('year')) : getFieldValue('year')}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('trim') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('trim')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("trim") || "Trim"}:</strong> {getFieldValue('trim')}</Typography>
                                 </ListItem>
                             )}
-                            {(getFieldValue('price') !== 'N/A' || getFieldValue('daily_rent') !== 'N/A' || getFieldValue('weekly_rent') !== 'N/A' || getFieldValue('monthly_rent') !== 'N/A') && (
+                            {hasValidValue(getFieldValue('regional_specs')) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("regional_specs") || "Regional Specs"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('regional_specs'))}`) || getFieldValue('regional_specs')}</Typography>
+                                </ListItem>
+                            )}
+                            {hasValidValue(getFieldValue('country')) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("country") || "Country"}:</strong> {t(`countries.${getFieldValue('country')}`)}</Typography>
+                                </ListItem>
+                            )}
+                        </List>
+                    </Box>
+                    <Box flex={1}>
+                        <List disablePadding>
+                            {(hasValidValue(getFieldValue('price')) || hasValidValue(getFieldValue('daily_rent')) || hasValidValue(getFieldValue('weekly_rent')) || hasValidValue(getFieldValue('monthly_rent'))) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("price") || "Price"}:</strong> 
-                                        {getFieldValue('price') !== 'N/A' && ` ${formatPrice(getFieldValue('price'))} ${"AED"}`}
-                                        {getFieldValue('daily_rent') !== 'N/A' && ` ${formatPrice(getFieldValue('daily_rent'))} ${"AED"}/${"day"}`}
-                                        {getFieldValue('weekly_rent') !== 'N/A' && ` ${formatPrice(getFieldValue('weekly_rent'))} ${"AED"}/${"week"}`}
-                                        {getFieldValue('monthly_rent') !== 'N/A' && ` ${formatPrice(getFieldValue('monthly_rent'))} ${"AED"}/${"month"}`}
+                                        {hasValidValue(getFieldValue('price')) && ` ${formatPrice(getFieldValue('price'))} AED`}
+                                        {hasValidValue(getFieldValue('daily_rent')) && ` ${formatPrice(getFieldValue('daily_rent'))} ${"AED"}/${"day"}`}
+                                        {hasValidValue(getFieldValue('weekly_rent')) && ` ${formatPrice(getFieldValue('weekly_rent'))} ${"AED"}/${"week"}`}
+                                        {hasValidValue(getFieldValue('monthly_rent')) && ` ${formatPrice(getFieldValue('monthly_rent'))} ${"AED"}/${"month"}`}
                                     </Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('kilometers') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('kilometers')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("kilometers") || "Kilometers"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('kilometers')) : getFieldValue('kilometers')} km</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('car_plate_number') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('car_plate_number')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("plateNumber") || "Plate Number"}:</strong> {getFieldValue('car_plate_number')}</Typography>
+                                    <Typography><strong>{t("number_plate") || "Plate Number"}:</strong> {getFieldValue('car_plate_number')}</Typography>
                                 </ListItem>
                             )}
                         </List>
-                    )}
+                    </Box>
                 </Box>
             </Box>
 
-            {/* Vehicle Specifications */}
             <Box sx={{ mb: 2 }}>
                 <Typography variant="h6" fontWeight="bold">{t("carOverview") || "Vehicle Specifications"}</Typography>
                 <Divider sx={{ mb: 1 }} />
-                <Box>
-                    {window.innerWidth > 800 ? (
-                        <Box display={"flex"} gap={6}>
-                            <Box flex={1}>
-                                <List disablePadding>
-                                    {getFieldValue('body') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("bodyType") || "Body Type"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('body'))}`) || getFieldValue('body')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('doors') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("doors") || "Doors"}:</strong> {getFieldValue('doors')} {t("door") || "door"}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('seats') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("seatingCapacity") || "Seating Capacity"}:</strong> {getFieldValue('seats')} {t("seater") || "seater"}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('transmission') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("transmissionType") || "Transmission"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('transmission'))}`) || getFieldValue('transmission')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('fuel_type') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("fuelType") || "Fuel Type"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('fuel_type'))}`) || getFieldValue('fuel_type')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('steering_wheel') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("steeringWheel") || "Steering Wheel"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('steering_wheel'))}`) || getFieldValue('steering_wheel')}</Typography>
-                                        </ListItem>
-                                    )}
-                                </List>
-                            </Box>
-                            <Box flex={1}>
-                                <List disablePadding>
-                                    {(getFieldValue('horsepower') !== 'N/A' || getFieldValue('horse_power') !== 'N/A') && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("horsepower") || "Horsepower"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('horsepower') || getFieldValue('horse_power')) : (getFieldValue('horsepower') || getFieldValue('horse_power'))} HP</Typography>
-                                        </ListItem>
-                                    )}
-                                    {(getFieldValue('engine_capacity') !== 'N/A' || getFieldValue(`${ad.category}_engine_capacity`) !== 'N/A') && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("engineCapacity") || "Engine Capacity"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('engine_capacity') || getFieldValue(`${ad.category}_engine_capacity`)) : (getFieldValue('engine_capacity') || getFieldValue(`${ad.category}_engine_capacity`))} cc</Typography>
-                                        </ListItem>
-                                    )}
-                                    {(getFieldValue('number_of_cylinders') !== 'N/A' || getFieldValue(`${ad.category}_number_of_cylinders`) !== 'N/A') && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("cylinders") || "Cylinders"}:</strong> {getFieldValue('number_of_cylinders') || getFieldValue(`${ad.category}_number_of_cylinders`)}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('exterior_color') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("exteriorColor") || "Exterior Color"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('exterior_color'))}`) || getFieldValue('exterior_color')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('interior_color') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("interiorColor") || "Interior Color"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('interior_color'))}`) || getFieldValue('interior_color')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('wheels') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("wheels") || "Wheels"}:</strong> {getFieldValue('wheels')}</Typography>
-                                        </ListItem>
-                                    )}
-                                    {getFieldValue('length') !== 'N/A' && (
-                                        <ListItem sx={{ paddingLeft: "0" }}>
-                                            <Typography><strong>{t("length") || "Length"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('length')) : getFieldValue('length')} m</Typography>
-                                        </ListItem>
-                                    )}
-                                </List>
-                            </Box>
-                        </Box>
-                    ) : (
+                <Box display={"flex"} gap={6} flexDirection={window.innerWidth > 800 ? "row" : "column"}>
+                    <Box flex={1}>
                         <List disablePadding>
-                            {getFieldValue('body') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('body')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("bodyType") || "Body Type"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('body'))}`) || getFieldValue('body')}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('doors') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('doors')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("doors") || "Doors"}:</strong> {getFieldValue('doors')} {t("door") || "door"}</Typography>
+                                    <Typography><strong>{t("doors") || "Doors"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('doors')) : getFieldValue('doors')} {t("door") || "door"}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('seats') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('seats')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("seatingCapacity") || "Seating Capacity"}:</strong> {getFieldValue('seats')} {t("seater") || "seater"}</Typography>
+                                    <Typography><strong>{t("seatingCapacity") || "Seating Capacity"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('seats')) : getFieldValue('seats')} {t("seater") || "seater"}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('transmission') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('transmission')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("transmissionType") || "Transmission"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('transmission'))}`) || getFieldValue('transmission')}</Typography>
                                 </ListItem>
                             )}
-                            {(getFieldValue('horsepower') !== 'N/A' || getFieldValue('horse_power') !== 'N/A') && (
+                            {hasValidValue(getFieldValue('fuel_type')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("horsepower") || "Horsepower"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('horsepower') || getFieldValue('horse_power')) : (getFieldValue('horsepower') || getFieldValue('horse_power'))} HP</Typography>
+                                    <Typography><strong>{t("fuel_type") || "Fuel Type"}:</strong> {t(`filters.options.${getFieldValue('fuel_type')}`) || getFieldValue('fuel_type')}</Typography>
                                 </ListItem>
                             )}
-                            {(getFieldValue('engine_capacity') !== 'N/A' || getFieldValue(`${ad.category}_engine_capacity`) !== 'N/A') && (
+                            {hasValidValue(getFieldValue('steering_wheel')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
-                                    <Typography><strong>{t("engineCapacity") || "Engine Capacity"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('engine_capacity') || getFieldValue(`${ad.category}_engine_capacity`)) : (getFieldValue('engine_capacity') || getFieldValue(`${ad.category}_engine_capacity`))} cc</Typography>
+                                    <Typography><strong>{t("steeringWheel") || "Steering Wheel"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('steering_wheel'))}`) || getFieldValue('steering_wheel')}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('exterior_color') !== 'N/A' && (
+                            {hasValidValue(getFieldValue('exterior_color')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("exteriorColor") || "Exterior Color"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('exterior_color'))}`) || getFieldValue('exterior_color')}</Typography>
                                 </ListItem>
                             )}
-                            {getFieldValue('interior_color') !== 'N/A' && (
+                        </List>
+                    </Box>
+                    <Box flex={1}>
+                        <List disablePadding>
+                            {(hasValidValue(getFieldValue('horsepower')) || hasValidValue(getFieldValue('horse_power'))) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("horsepower") || "Horsepower"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('horsepower') || getFieldValue('horse_power')) : (getFieldValue('horsepower') || getFieldValue('horse_power'))} HP</Typography>
+                                </ListItem>
+                            )}
+                            {hasValidValue(getFieldValue('engine_capacity')) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("engineCapacity") || "Engine Capacity"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('engine_capacity')) : getFieldValue('engine_capacity')} cc</Typography>
+                                </ListItem>
+                            )}
+                            {hasValidValue(getFieldValue('number_of_cylinders')) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("cylinders") || "Cylinders"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('number_of_cylinders')) : getFieldValue('number_of_cylinders')}</Typography>
+                                </ListItem>
+                            )}
+                            {hasValidValue(getFieldValue('interior_color')) && (
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <Typography><strong>{t("interiorColor") || "Interior Color"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('interior_color'))}`) || getFieldValue('interior_color')}</Typography>
                                 </ListItem>
                             )}
+                            {hasValidValue(getFieldValue('wheels')) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("wheels") || "Wheels"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('wheels')) : getFieldValue('wheels')}</Typography>
+                                </ListItem>
+                            )}
+                            {hasValidValue(getFieldValue('length')) && (
+                                <ListItem sx={{ paddingLeft: "0" }}>
+                                    <Typography><strong>{t("length") || "Length"}:</strong> {i18n.language === "ar" ? convertToArabicNumbers(getFieldValue('length')) : getFieldValue('length')}</Typography>
+                                </ListItem>
+                            )}
                         </List>
-                    )}
+                    </Box>
                 </Box>
             </Box>
 
-            {/* Seller Information */}
-            {(getFieldValue('seller_type') !== 'N/A' || getFieldValue('dealer_name') !== 'N/A' || getFieldValue('name') !== 'N/A') && (
+            {(hasValidValue(getFieldValue('seller_type')) || hasValidValue(getFieldValue('dealer_name')) || hasValidValue(getFieldValue('name'))) && (
                 <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" fontWeight="bold">{"Seller Information"}</Typography>
+                    <Typography variant="h6" fontWeight="bold">{t("seller_info")}</Typography>
                     <Divider sx={{ mb: 1 }} />
                     <List disablePadding>
-                        {getFieldValue('seller_type') !== 'N/A' && (
+                        {hasValidValue(getFieldValue('seller_type')) && (
                             <ListItem sx={{ paddingLeft: "0" }}>
-                                <Typography><strong>{t("sellerType") || "Seller Type"}:</strong> {t(`cardValues.${getFieldValue('seller_type')}`) || getFieldValue('seller_type')}</Typography>
+                                <Typography><strong>{t("sellerType")}:</strong> {t(`cardValues.${getFieldValue('seller_type')}`) || getFieldValue('seller_type')}</Typography>
                             </ListItem>
                         )}
-                        {getFieldValue('dealer_name') !== 'N/A' && (
+                        {hasValidValue(getFieldValue('dealer_name')) && (
                             <ListItem sx={{ paddingLeft: "0" }}>
-                                <Typography><strong>{"Dealer Name"}:</strong> {getFieldValue('dealer_name')}</Typography>
+                                <Typography><strong>{t("dealer_name")}:</strong> {getFieldValue('dealer_name')}</Typography>
                             </ListItem>
                         )}
-                        {getFieldValue('name') !== 'N/A' && (
+                        {hasValidValue(getFieldValue('name')) && (
                             <ListItem sx={{ paddingLeft: "0" }}>
-                                <Typography><strong>{"Contact Name"}:</strong> {getFieldValue('name')}</Typography>
+                                <Typography><strong>{t("name")}:</strong> {getFieldValue('name')}</Typography>
                             </ListItem>
                         )}
-                        {getFieldValue('phone') !== 'N/A' && (
+                        {hasValidValue(getFieldValue('phone')) && (
                             <ListItem sx={{ paddingLeft: "0" }}>
-                                <Typography><strong>{t("phone") || "Phone"}:</strong> {getFieldValue('phone')}</Typography>
+                                <Typography><strong>{t("phone")}:</strong> {getFieldValue('phone')}</Typography>
                             </ListItem>
                         )}
-                        {getFieldValue('gmail') !== 'N/A' && (
+                        {hasValidValue(getFieldValue('gmail')) && (
                             <ListItem sx={{ paddingLeft: "0" }}>
-                                <Typography><strong>{"Email"}:</strong> {getFieldValue('gmail')}</Typography>
+                                <Typography><strong>{t("gmail")}:</strong> {getFieldValue('gmail')}</Typography>
                             </ListItem>
                         )}
                     </List>
                 </Box>
             )}
 
-            {/* Additional Features */}
-            {(getFieldValue('warranty') !== 'N/A' || getFieldValue('featured') !== 'N/A' || getFieldValue('status') !== 'N/A') && (
+            {hasValidValue(getFieldValue('warranty')) && (
                 <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" fontWeight="bold">{"Additional Features"}</Typography>
+                    <Typography variant="h6" fontWeight="bold">{t("additional_info")}</Typography>
                     <Divider sx={{ mb: 1 }} />
                     <List disablePadding>
-                        {getFieldValue('warranty') !== 'N/A' && (
-                            <ListItem sx={{ paddingLeft: "0" }}>
-                                <Typography><strong>{t("warranty") || "Warranty"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('warranty'))}`) || getFieldValue('warranty')}</Typography>
-                            </ListItem>
-                        )}
+                        <ListItem sx={{ paddingLeft: "0" }}>
+                            <Typography><strong>{t("warranty") || "Warranty"}:</strong> {t(`cardValues.${toPascalCase(getFieldValue('warranty'))}`) || getFieldValue('warranty')}</Typography>
+                        </ListItem>
                     </List>
                 </Box>
             )}
 
-            {/* Description */}
             <Box sx={{ mb: 2 }}>
                 <Typography variant="h6" fontWeight="bold">{t("description") || "Description"}</Typography>
                 <Divider sx={{ mb: 1 }} />
-                <Typography>{getFieldValue('description', t("noDescriptionAvailable") || "No description available")}</Typography>
+                <Typography>{hasValidValue(getFieldValue('description')) ? getFieldValue('description') : (t("noDescriptionAvailable") || "No description available")}</Typography>
                 <Typography fontWeight="bold" mt={1}>
                     {t("postedOn") || "Posted On"}: {i18n.language == "ar" ? convertDateToArabic(moment(ad.date).format("DD MMMM YYYY")) : moment(ad.date).format("DD MMMM YYYY")}
                 </Typography>
             </Box>
 
-            {/* Location and Map */}
             <Box sx={{ padding: 2, borderRadius: 2 }}>
                 <Typography variant="body1" gutterBottom>
-                    {getFieldValue('location', t("locationNotAvailable") || "Location not available")}
-                    {getFieldValue('city') !== 'N/A' && `, ${getFieldValue('city')}`}
+                    {hasValidValue(getFieldValue('location')) ? getFieldValue('location') : (t("locationNotAvailable") || "Location not available")}
                 </Typography>
-                {getFieldValue('location') !== 'N/A' && (
+                {hasValidValue(getFieldValue('location')) && (
                     <Box
                         component="iframe"
-                        src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.326228936158!2d55.343010375929965!3d25.178505831713213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5db80c6c8be7%3A0xaaf706d6ff9cd6df!2s${encodeURIComponent(ad.location)}!5e0!3m2!1sen!2sae!4v1711567305941!5m2!1sen!2sae`}
+                        src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.326228936158!2d55.343010375929965!3d25.178505831713213!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5db80c6c8be7%3A0xaaf706d6ff9cd6df!2s${encodeURIComponent(ad.location)}!5e0!3m2!1sen!2sae!4v1711567305941!5m2!1sen!2sae`}
                         width="100%"
                         height="500px"
                         style={{ border: 0, borderRadius: 5 }}
@@ -494,8 +394,6 @@ const Description = ({ ad }) => {
                     </Typography>
                 </Box>
             </Box>
-
-            {/* Report Dialog */}
             <Dialog
                 open={reportDialogOpen}
                 onClose={handleReportClose}

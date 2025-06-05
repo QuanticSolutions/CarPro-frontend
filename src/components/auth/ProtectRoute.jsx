@@ -7,8 +7,10 @@ const ProtectRoute = ({ children }) => {
     const [popup1Open, setPopup1Open] = useState(false);
 
     useEffect(() => {
+        console.log(document.cookie)
+        console.log(isAuthenticated)
         const checkAuth = async () => {
-            if (! isAuthenticated) {
+            if (!isAuthenticated) {
                 setPopupOpen(true);
             }
         };

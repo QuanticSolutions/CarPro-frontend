@@ -15,18 +15,17 @@ export const signup = async (userData) => {
     }
 };
 
-// const headersTemp = document.cookie.split(';');
-
-// const finalHeaders = {};
-// headersTemp.forEach((header) => {
-//     const headerTemp = header.split('=');
-//     finalHeaders[headerTemp[0].trim()] = headerTemp[1].trim()
-// })
+const finalHeaders = {};
 
 export const checkUser = async (token) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/check`, { withCredentials: true, headers: { 'x-auth-token': token } })
-        localStorage.setItem("loggedIn", response.data.loggedIn)
+        const headersTemp = document.cookie.split(';');
+        headersTemp.forEach((header) => {
+            const headerTemp = header.split('=');
+            finalHeaders[headerTemp[0].trim()] = headerTemp[1].trim()
+        })
+        console.log(finalHeaders['AUTH_API'])
     }
     catch (error) {
         console.log(error)
@@ -36,7 +35,7 @@ export const checkUser = async (token) => {
 export const login = async (credentials) => {
     try {
         const response = await axios.post(`${API_BASE_URL}/auth/login`, credentials);
-        document.cookie = `AUTH_API=${response.data.token}`
+        // document.cookie = `AUTH_API=${response.data.token}`
         localStorage.setItem("token", response.data.token)
         localStorage.setItem("user_id", response.data.user.id)
         localStorage.setItem("stream_token", response.data.stream_token)
@@ -49,22 +48,21 @@ export const login = async (credentials) => {
     }
 };
 
-
-
-export const isAuthenticated = localStorage.getItem("token") !== undefined
+export const isAuthenticated = localStorage.getItem("token")
 
 export const logout = async (countryCode) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/logout`, { withCredentials: true, headers: { 'x-auth-token': finalHeaders['AUTH_API'] } })
-        document.cookie = "AUTH_API=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-        localStorage.clear();
+        // const response = await axios.post(`${API_BASE_URL}/auth/logout`, { withCredentials: true, headers: { 'x-auth-token': finalHeaders['AUTH_API'] } })
+        localStorage.removeItem("token")
+        localStorage.removeItem("user_id")
+        localStorage.removeItem("stream_token")
+        localStorage.removeItem("stream_id")
         window.location.href = `/${countryCode}`;
     }
     catch (error) {
         console.log(error)
     }
 }
-
 
 export const resetPassword = async (email, password) => {
     try {
