@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Typography, Button, Menu, MenuItem, IconButton, Avatar, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import { isAuthenticated, logout, getImages, getUser, API_BASE_URL } from '../../api/consumer';
+import { checkUser, logout, getImages, getUser, API_BASE_URL } from '../../api/consumer';
 import AuthDialog from '../auth/Dialog';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
@@ -60,6 +60,7 @@ function ToggleBtn() {
     const [popup1Open, setPopup1Open] = useState(false);
     const [images, setImages] = useState(null);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const open = Boolean(anchorEl);
     let menuTimer = null;
 
@@ -101,16 +102,21 @@ function ToggleBtn() {
 
     useEffect(
         () => {
-            if (isAuthenticated) {
-                getImages(localStorage.getItem('user_id')).then(data => {
-                    if (data && data.length > 0) {
-                        setImages(data[data.length - 1]);
-                    }
-                });
+            const checkAuth = async () => {
+                setIsAuthenticated(await checkUser());
+                if (await checkUser()) {
+                    getImages(localStorage.getItem('user_id')).then(data => {
+                        if (data && data.length > 0) {
+                            setImages(data[data.length - 1]);
+                        }
+                    });
+                }
             }
+            checkAuth();
         },
         []
-    );
+    )
+
 
     return (
         <div style={{ padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: window.innerWidth > 800 && "center", gap: "2px", marginLeft: window.innerWidth > 800 && i18n.language != "ar" ? "-2rem" : 0, flexDirection: window.innerWidth <= 800 && "column-reverse" }}>
@@ -141,7 +147,7 @@ function ToggleBtn() {
                 }
                 {
                     window.innerWidth > 800 &&
-                    <ExpandMoreIcon sx={{ color: "black"}} />
+                    <ExpandMoreIcon sx={{ color: "black" }} />
                 }
                 {
                     (window.innerWidth <= 800 && isAuthenticated) ?

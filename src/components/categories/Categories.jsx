@@ -28,7 +28,7 @@ const CatCard = styled(Card)(({ theme }) => ({
     },
     [theme.breakpoints.down("sm")]: {
         flex: "1 1 calc(50% - 20px)",
-        maxWidth: "calc(50% - 20px)",
+        maxWidth: "calc(55% - 20px)",
     },
 }));
 
@@ -51,7 +51,7 @@ function Categories({ title, contents }) {
                         contents.map(
                             (content, index) => (
                                 <CatCard onClick={() => window.location.href = content.link}>
-                                    <img src={`/assets/images/${content.image}.png`} style={{ marginTop: "auto" }} width="100rem" />
+                                    <img src={`/assets/images/${content.image}.png`} style={{ marginTop: "auto", transform: i18n.language == "ar" && "rotateY(180deg)" }} width="100rem" />
                                     <Typography variant="body" fontWeight="bold" textAlign="center" marginTop="auto">
                                         {content.name}
                                     </Typography>

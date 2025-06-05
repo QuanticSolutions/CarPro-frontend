@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { isAuthenticated } from "../../api/consumer";
+import { checkUser } from "../../api/consumer";
 import AuthDialog from "./Dialog";
 
 const ProtectRoute = ({ children }) => {
@@ -7,10 +7,10 @@ const ProtectRoute = ({ children }) => {
     const [popup1Open, setPopup1Open] = useState(false);
 
     useEffect(() => {
-        console.log(document.cookie)
-        console.log(isAuthenticated)
         const checkAuth = async () => {
-            if (!isAuthenticated) {
+            console.log(await checkUser())
+
+            if (!await checkUser()) {
                 setPopupOpen(true);
             }
         };

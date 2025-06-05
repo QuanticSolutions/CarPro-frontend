@@ -10,7 +10,7 @@ import CarCard from "../card/Card";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
 import CardList from "../card/CardList";
-import { isAuthenticated, deleteFav, createFavs } from "../../api/consumer";
+import { checkUser, deleteFav, createFavs } from "../../api/consumer";
 import CustomSelect from "../../utils/Select";
 import AuthDialog from "../auth/Dialog";
 import { useTranslation } from 'react-i18next';
@@ -22,10 +22,10 @@ const DataGrid = ({ data, title, type }) => {
     const [sortOption, setSortOption] = useState("");
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
-    
-    const itemsPerPage = window.innerWidth > 800 && view === "Grid" ? 28 : 
-                        window.innerWidth > 800 && view === "List" ? 7 : 
-                        window.innerWidth < 800 && view === "List" ? 7 : 6;
+
+    const itemsPerPage = window.innerWidth > 800 && view === "Grid" ? 28 :
+        window.innerWidth > 800 && view === "List" ? 7 :
+            window.innerWidth < 800 && view === "List" ? 7 : 6;
 
 
     const handlePageChange = (event, value) => {
@@ -33,19 +33,23 @@ const DataGrid = ({ data, title, type }) => {
     };
 
     const handleFavBtn = (isFav, data) => {
-        if (isAuthenticated) {
-            if (isFav) {
-                deleteFav(data.id);
+        checkUser().then(
+            res => {
+                if (res) {
+                    if (isFav) {
+                        deleteFav(data.id);
+                    }
+                    else {
+                        createFavs({ user_id: localStorage.getItem("user_id"), ad_id: data.id });
+                    }
+                    return true;
+                }
+                else {
+                    setPopupOpen(true);
+                    return false;
+                }
             }
-            else {
-                createFavs({ user_id: localStorage.getItem("user_id"), ad_id: data.id });
-            }
-            return true;
-        }
-        else {
-            setPopupOpen(true);
-            return false;
-        }
+        )
     };
 
     const sortedData = [...data].sort((a, b) => {
@@ -76,6 +80,12 @@ const DataGrid = ({ data, title, type }) => {
         page * itemsPerPage
     );
 
+    const convertToArabicNumbers = (number) => {
+        const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        return number.toString().split('').map(digit => arabicDigits[parseInt(digit)] || digit).join('');
+    };
+
+
     return (
         <div style={{ width: "100%", direction: i18n.language === "ar" && "rtl" }}>
             <Grid2 display="flex" justifyContent="space-between" flexWrap="wrap" alignItems={"center"}>
@@ -86,14 +96,14 @@ const DataGrid = ({ data, title, type }) => {
                             {view === "Grid" ? t("grid") : t("list")} {t('view')}
                         </Typography>
                         <Box>
-                            <Button 
-                                onClick={() => setView("List")} 
+                            <Button
+                                onClick={() => setView("List")}
                                 sx={{ minWidth: "0", background: view === "List" && "#B71C1C" }}
                             >
                                 <ViewListIcon sx={{ color: view === "List" ? "#fff" : "#B71C1C" }} />
                             </Button>
-                            <Button 
-                                onClick={() => setView("Grid")} 
+                            <Button
+                                onClick={() => setView("Grid")}
                                 sx={{ minWidth: "0", background: view === "Grid" && "#B71C1C" }}
                             >
                                 <GridViewIcon sx={{ color: view === "Grid" ? "#fff" : "#B71C1C" }} />
@@ -143,12 +153,12 @@ const DataGrid = ({ data, title, type }) => {
             </Grid2>
 
             {view === "Grid" ? (
-                <Grid2 item pt={2} sx={{ 
-                    display: "flex", 
-                    flexWrap: "wrap", 
-                    gap: 3, 
-                    "@media(max-width: 800px)": { justifyContent: "space-between", gap: 0 }, 
-                    "@media(max-width: 361px)": { justifyContent: "center", gap: 2 } 
+                <Grid2 item pt={2} sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 3,
+                    "@media(max-width: 800px)": { justifyContent: "space-between", gap: 0 },
+                    "@media(max-width: 361px)": { justifyContent: "center", gap: 2 }
                 }}>
                     {displayedCars.map((car, index) => (
                         <Grid2 item xs={12} sm={6} md={4} lg={3} key={index} mt={2}>
@@ -171,10 +181,11 @@ const DataGrid = ({ data, title, type }) => {
                 page={page}
                 onChange={handlePageChange}
                 color="primary"
-                sx={{ 
-                    display: "flex", 
-                    justifyContent: "center", 
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
                     mt: 3,
+                    direction: i18n.language === "ar" ? "rtl" : "ltr",
                     '& .MuiPaginationItem-root': {
                         color: '#B71C1C',
                         '&.Mui-selected': {
@@ -183,16 +194,19 @@ const DataGrid = ({ data, title, type }) => {
                         },
                         '&:hover': {
                             backgroundColor: 'rgba(183,28,28,0.1)',
-                        }
-                    }
+                        },
+                    },
+                    '& .MuiPaginationItem-icon': {
+                        transform: i18n.language === "ar" ? 'scaleX(-1)' : 'none',
+                    },
                 }}
             />
 
-            <AuthDialog 
-                popupOpen={popupOpen} 
-                setPopupOpen={setPopupOpen} 
-                popup1Open={popup1Open} 
-                setPopup1Open={setPopup1Open} 
+            <AuthDialog
+                popupOpen={popupOpen}
+                setPopupOpen={setPopupOpen}
+                popup1Open={popup1Open}
+                setPopup1Open={setPopup1Open}
             />
         </div>
     );

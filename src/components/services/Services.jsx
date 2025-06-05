@@ -57,7 +57,7 @@ function Services({ title, cards, background, alternateBg, gap = "30px" }) {
                                     (card, index) => (
                                         <CatCard sx={{ background: index % 2 == 0 ? background : alternateBg ? alternateBg : background, boxShadow: "none", flex: 1 }} onClick={() => { if (card.link) window.location.href = card.link }}>
                                             <CardMedia>
-                                                <img src={`/assets/images/${card.img}.png`} />
+                                                <img src={`/assets/images/${card.img}.png`} style={{ transform: i18n.language == "ar" && "rotateY(180deg)" }} />
                                             </CardMedia>
                                             <Typography variant="h6" fontWeight="bold" textAlign="center">
                                                 {card.title}
@@ -93,7 +93,7 @@ function Services({ title, cards, background, alternateBg, gap = "30px" }) {
                                     (card, index) => (
                                         <CatCard sx={{ background: index % 2 == 0 ? background : alternateBg ? alternateBg : background, boxShadow: "none", minHeight: "14rem", justifyContent: "center" }} onClick={() => { if (card.link) window.location.href = card.link }}>
                                             <CardMedia>
-                                                <img src={`/assets/images/${card.img}.png`} />
+                                                <img src={`/assets/images/${card.img}.png`} style={{ transform: i18n.language == "ar" && "rotateY(180deg)" }}/>
                                             </CardMedia>
                                             <Typography variant="h6" fontWeight="bold" textAlign="center">
                                                 {card.title}

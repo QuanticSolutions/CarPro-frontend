@@ -12,8 +12,9 @@ import {
 } from "stream-chat-react";
 import { EmojiPicker } from "stream-chat-react/emojis";
 import { SearchIndex } from "emoji-mart";
-import { getUser, isAuthenticated, createNotification } from '../../api/consumer';
-import { ArrowRight } from '@mui/icons-material';
+import { getUser, checkUser, createNotification, getStreamImages, API_BASE_URL } from '../../api/consumer';
+import { ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { Close } from '@mui/icons-material';
 import './layout.css'
 import { Avatar } from '@mui/material';
@@ -34,7 +35,7 @@ const ChannelListHeader = ({ onBackClick, isMobileView }) => {
             justifyContent: "space-between",
         }}>
             <h3 style={{ margin: 0 }}>Chat</h3>
-            {
+            {/* {
                 isMobileView &&
                 <button
                     onClick={onBackClick}
@@ -45,9 +46,9 @@ const ChannelListHeader = ({ onBackClick, isMobileView }) => {
                         fontSize: "18px"
                     }}
                 >
-                    <Close />
+                    <ArrowRight />
                 </button>
-            }
+            } */}
         </div>
     );
 };
@@ -61,6 +62,7 @@ const CustomChannelPreview = ({
 }) => {
     const [otherMember, setOtherMember] = useState({ name: "Unknown User", image: null });
     const [lastMessage, setLastMessage] = useState({ text: "", created_at: null });
+    const [userImages, setUserImages] = useState([])
     const currentUserId = localStorage.getItem("stream_id");
 
     useEffect(() => {
@@ -73,6 +75,7 @@ const CustomChannelPreview = ({
                     image: other.user.image
                 });
             }
+            getStreamImages(other.user.id).then(setUserImages)
         };
 
         const getLastMessage = () => {
@@ -112,7 +115,7 @@ const CustomChannelPreview = ({
             }}
         >
             <Avatar
-                src={otherMember.image}
+                src={userImages.length > 0 ? `${API_BASE_URL}${userImages[0].imageUrl}` : otherMember.image}
                 alt={otherMember.name}
                 sx={{
                     width: "32px",
@@ -138,6 +141,7 @@ const CustomChannelPreview = ({
 const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
     const { channel } = useChannelStateContext();
     const [receiverInfo, setReceiverInfo] = useState({ name: title, image: null });
+    const [userImages, setUserImages] = useState([])
     const currentUserId = localStorage.getItem("stream_id");
 
     useEffect(() => {
@@ -151,6 +155,7 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                         image: otherMember.user.image
                     });
                 }
+                getStreamImages(otherMember.user.id).then(setUserImages)
             }
         };
 
@@ -160,7 +165,7 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
     return (
         <>
             <div className="str-chat__header-livestream" style={{ padding: "10px", display: "flex", alignItems: "center" }}>
-                {isMobileView && (
+                {/* {isMobileView && (
                     <button
                         onClick={onBackClick}
                         style={{
@@ -170,9 +175,9 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                             marginRight: "10px"
                         }}
                     >
-                        <ArrowRight />
+                        <ArrowLeft />
                     </button>
-                )}
+                )} */}
 
                 <Avatar
                     src={receiverInfo.image}
@@ -198,10 +203,14 @@ const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
     const { channel } = useChannelStateContext();
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            window.location.href = "/";
+        const checkAuth = async () => {
+            if (!await checkUser()) {
+                window.location.href = "/";
+            }
         }
+        checkAuth();
     }, []);
+
 
     useEffect(() => {
         if (!channel) return;

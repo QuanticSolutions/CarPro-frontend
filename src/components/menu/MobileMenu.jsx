@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     AppBar, Toolbar, IconButton, Drawer, List, MenuItem, ListItemText,
     Box, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel,
@@ -25,7 +25,6 @@ import PublicIcon from '@mui/icons-material/Public';
 import AuthDialog from '../auth/Dialog';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
-// import { ArrowLeft } from '@mui/icons-material';
 import { ArrowLeft } from 'lucide-react';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import TuneIcon from '@mui/icons-material/Tune';
@@ -33,8 +32,9 @@ import { useTranslation } from 'react-i18next'
 import HomeIcon from '@mui/icons-material/Home';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { isAuthenticated, logout } from '../../api/consumer';
+import { checkUser, logout } from '../../api/consumer';
 import { useLocation } from 'react-router-dom';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const MobileBar = styled(Drawer)({
     display: "none",
@@ -223,7 +223,6 @@ const FilterAccordion = styled(Accordion)({
 });
 
 const FilterAccordionSummary = styled(AccordionSummary)({
-    // backgroundColor: "#1E1E1E",
     borderRadius: "6px",
     "& .MuiAccordionSummary-expandIconWrapper": {
         color: "black",
@@ -249,6 +248,7 @@ function MobileMenu({ toggleChat }) {
     const [categoryMenu, setCategoryMenu] = useState(false);
     const [model, setModel] = useState("");
     const [serviceMenu, setServiceMenu] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [postAdMenu, setPostAdMenu] = useState(false);
     const [countryMenu, setCountryMenu] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
@@ -406,6 +406,16 @@ function MobileMenu({ toggleChat }) {
         toggleFilterDrawer();
     };
 
+    useEffect(
+        () => {
+            const checkAuth = async () => {
+                setIsAuthenticated(await checkUser);
+            }
+            checkAuth();
+        },
+        []
+    )
+
     return (
         <>
             <CustomAppBar position="static">
@@ -422,7 +432,7 @@ function MobileMenu({ toggleChat }) {
                                 }
                             }}
                         >
-                            <ArrowLeft color='black'/>
+                            <ArrowLeft color='black' />
                         </BackButton>
                     )}
                     {location.pathname === "/" && <div />}
@@ -624,10 +634,19 @@ function MobileMenu({ toggleChat }) {
                 }}
             >
                 <Box sx={{ p: 3, width: window.innerWidth <= 500 ? '85%' : '93%' }}>
+                    <Box sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        p: 0,
+                        m: 0,
+                        mb: 1,
+                        direction: i18n.language === "ar" ? "rtl" : "ltr"
+                    }}>
+                        <IconButton onClick={toggleBottomDrawer} sx={{ p: 0 }}>
+                            <KeyboardDoubleArrowDownIcon sx={{ color: "#B71C1C", fontSize: 25 }} />
+                        </IconButton>
+                    </Box>
                     <Typography variant="h6">{t("postAd")}</Typography>
-                    <IconButton onClick={toggleBottomDrawer}>
-                        <CloseIcon sx={{ color: "black", position: "fixed", right: 6, bottom: "8rem" }} />
-                    </IconButton>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -654,12 +673,12 @@ function MobileMenu({ toggleChat }) {
                 <Box sx={{ p: 3, width: window.innerWidth <= 500 ? '85%' : '93%' }}>
                     <Box sx={{
                         display: 'flex',
-                        justifyContent: 'right',
+                        justifyContent: 'center',
                         mb: 2,
                         direction: i18n.language === "ar" ? "rtl" : "ltr"
                     }}>
                         <IconButton onClick={toggleFilterDrawer} sx={{ p: 0 }}>
-                            <CloseIcon sx={{ color: "black", p: 0 }} />
+                            <KeyboardDoubleArrowDownIcon sx={{ color: "#B71C1C", fontSize: 25 }} />
                         </IconButton>
                     </Box>
 
@@ -812,7 +831,7 @@ function MobileMenu({ toggleChat }) {
                     <NotesIcon />
                     <Typography variant="caption">{t("menu.myAds")}</Typography>
                 </NavItem>
-                <NavItem onClick={() => { if (isAuthenticated) { toggleChat() } else { setPopupOpen(true) } }}>
+                <NavItem onClick={async () => { if (await checkUser()) { toggleChat() } else { setPopupOpen(true) } }}>
                     <ChatIcon />
                     <Typography variant="caption">{t("menu.chats")}</Typography>
                 </NavItem>

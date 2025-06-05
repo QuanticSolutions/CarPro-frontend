@@ -29,9 +29,9 @@ const getConditionColor = (condition) => {
   switch (condition?.toLowerCase()) {
     case 'new':
       return '#4CAF50';
-    case 'Pre':
+    case 'pre':
       return '#2196F3';
-    case 'Used':
+    case 'used':
       return '#FF9800';
     default:
       return '#757575';

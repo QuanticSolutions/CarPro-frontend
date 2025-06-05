@@ -13,9 +13,9 @@ const getConditionColor = (condition) => {
   switch (condition?.toLowerCase()) {
     case 'new':
       return '#4CAF50';
-    case 'Pre':
+    case 'pre':
       return '#2196F3';
-    case 'Used':
+    case 'used':
       return '#FF9800';
     default:
       return '#757575';
@@ -196,7 +196,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
               width: "100%"
             }}
           >
-            {toPascalCase(data.model)} . {i18n.language === "ar" ? convertToArabicNumbers(data.kilometers) : data.kilometers} . {t(`cardValues.${data.transmission}`)}
+            {data.category != "bikes" ? t(`models.${data.model}`) : t(`cardValues.${data.manufacturer}`)} . {i18n.language === "ar" ? convertToArabicNumbers(data.kilometers) : data.kilometers} . {t(`cardValues.${data.transmission}`)}
           </Typography>
         )}
 
@@ -214,7 +214,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
             <Chip
               label={t(data.vehicle_condition)}
               sx={{
-                backgroundColor: getConditionColor(t(data.vehicle_condition)),
+                backgroundColor: getConditionColor(data.vehicle_condition),
                 color: 'white',
                 fontWeight: 'bold',
                 fontSize: '0.75rem',

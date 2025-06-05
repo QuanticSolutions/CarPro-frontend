@@ -10,7 +10,7 @@ import {
     TwitterIcon,
 } from 'react-share';
 import { Galleria } from 'primereact/galleria';
-import { getAdById, getUser, isAuthenticated, getImages, getFavsByAd, createFavs, deleteFav, API_BASE_URL } from '../../api/consumer';
+import { getAdById, getUser, checkUser, getImages, getFavsByAd, createFavs, deleteFav, API_BASE_URL } from '../../api/consumer';
 import Chat from '../chat/Chat'
 import Description from './Description';
 import ChatIcon from "@mui/icons-material/Chat";
@@ -65,7 +65,7 @@ function Details({ id, type = "sell" }) {
     const [sharePopup, setSharePopup] = useState(false);
     const [images, setImages] = useState([]);
     const [isFav, setIsFav] = useState(false);
-    const currentUrl = window.location.href;
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const shareUrl = `${API_BASE_URL}/ads/preview/${id}`;
     const title = ad.title;
     const { t, i18n } = useTranslation();
@@ -85,6 +85,10 @@ function Details({ id, type = "sell" }) {
 
     useEffect(
         () => {
+            const checkAuth = async () => {
+                setIsAuthenticated(await checkUser());
+            }
+            checkAuth();
             getFavsByAd(ad.id).then(
                 (data) => {
                     data.map(
@@ -100,8 +104,8 @@ function Details({ id, type = "sell" }) {
         , []
     )
 
-    const handleFavBtn = () => {
-        if (isAuthenticated) {
+    const handleFavBtn = async () => {
+        if (await checkUser()) {
             if (isFav) {
                 deleteFav(ad.id)
                 setIsFav(false)
@@ -135,7 +139,7 @@ function Details({ id, type = "sell" }) {
     if (loading) {
         return <div>Loading...</div>;
     }
-    
+
     return (
         <Box sx={{ ...BoxStyles, direction: i18n.language == "ar" && "rtl" }}>
             {
@@ -514,18 +518,24 @@ function Details({ id, type = "sell" }) {
                         }
                         {
                             isAuthenticated && localStorage.getItem("user_id") != ad.user_id &&
-                            <Button variant='filled' sx={{ backgroundColor: "black", color: "#fff", width: "100%", marginRight: i18n.language == "ar" && "2rem"  }}><PhoneIcon />&nbsp; {t('phone')}</Button>
+                            <Button variant='filled' sx={{ backgroundColor: "black", color: "#fff", width: "100%", marginRight: i18n.language == "ar" && "2rem" }}><PhoneIcon />&nbsp; {t('phone')}</Button>
                         }
                         {
                             isAuthenticated && localStorage.getItem("user_id") != ad.user_id &&
-                            <Button variant='outlined' color="black" sx={{ borderColor: "black", color: "black", width: "100%", marginRight: i18n.language == "ar" && "2rem"  }} onClick={() => { localStorage.setItem("reciever_id", user.id); setPopupOpen(true) }}><ChatIcon />&nbsp; {t('chat')}</Button>
+                            <Button variant='outlined' color="black" sx={{ borderColor: "black", color: "black", width: "100%", marginRight: i18n.language == "ar" && "2rem" }} onClick={() => { localStorage.setItem("reciever_id", user.id); setPopupOpen(true) }}><ChatIcon />&nbsp; {t('chat')}</Button>
                         }
                     </Box>
                 </Grid2>
                 <Description ad={ad} />
-                <Dialog open={popupOpen} onClose={() => setPopupOpen(false)} fullScreen={true}>
+                <Dialog
+                    open={popupOpen}
+                    onClose={() => setPopupOpen(false)} fullScreen={true}
+                    sx={{
+                        zIndex: 6000
+                    }}
+                >
                     <Chat />
-                    <CloseIcon onClick={() => setPopupOpen(false)} sx={{ color: "#B71C1C", cursor: "pointer", position: "fixed", top: 3, right: 3 }} />
+                    <CloseIcon onClick={() => setPopupOpen(false)} sx={{ color: "#B71C1C", cursor: "pointer", position: "fixed", top: 20, right: 20 }} />
                 </Dialog>
                 <Dialog open={imagePopupOpen} onClose={() => setImagePopupOpen(false)} fullScreen>
                     <Box

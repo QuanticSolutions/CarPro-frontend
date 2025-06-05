@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Typography, Container } from "@mui/material";
 import AuthDialog from "../auth/Dialog";
 import CarCard from "./Card";
-import { createFavs, isAuthenticated, deleteFav } from "../../api/consumer";
+import { createFavs, checkUser, deleteFav } from "../../api/consumer";
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Slider from "../slider/slider";
@@ -34,19 +34,23 @@ function CardSlider({ data, title, openTo = "featured", category }) {
     const [popup1Open, setPopup1Open] = useState(false);
     const { t, i18n } = useTranslation();
     const handleFavBtn = (isFav, data) => {
-        if (isAuthenticated) {
-            if (isFav) {
-                deleteFav(data.id)
+        checkUser.then(
+            res=>{
+                if (res) {
+                    if (isFav) {
+                        deleteFav(data.id)
+                    }
+                    else {
+                        createFavs({ user_id: localStorage.getItem("user_id"), ad_id: data.id })
+                    }
+                    return true;
+                }
+                else {
+                    setPopupOpen(true);
+                    return false;
+                }
             }
-            else {
-                createFavs({ user_id: localStorage.getItem("user_id"), ad_id: data.id })
-            }
-            return true;
-        }
-        else {
-            setPopupOpen(true);
-            return false;
-        }
+        )
     }
 
     const responsive = {
@@ -80,7 +84,7 @@ function CardSlider({ data, title, openTo = "featured", category }) {
                         {title}
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end", mt: 1 }}>
+                <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end"}}>
                     <a style={{ ...styles, flexDirection: i18n.language == "ar" && "row-reverse" }} href={`/${openTo}/${category}`}>
                         {t("home.viewMore")}
                         {
@@ -92,7 +96,7 @@ function CardSlider({ data, title, openTo = "featured", category }) {
                 </Box>
                 {
                     window.innerWidth > 900 &&
-                    <Box sx={{ mt: 2, position: "relative", }}>
+                    <Box sx={{ mt: 1, position: "relative", }}>
                         <Slider data={data} Template={CarCard} action={handleFavBtn} responsiveOptions={responsive} />
                     </Box>
                 }

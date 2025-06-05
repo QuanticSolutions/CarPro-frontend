@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography, Tabs, Tab, Container, Grid2 } from "@mui/material"
 import CarCard from '../components/card/Card';
-import { getFavsByUser, getAdById, isAuthenticated, deleteFav, createFavs } from '../api/consumer';
+import { getFavsByUser, getAdById, checkUser, deleteFav, createFavs } from '../api/consumer';
 import { useTranslation } from 'react-i18next';
 
 function Favourites() {
@@ -22,8 +22,8 @@ function Favourites() {
         setFavs(favAds);
     };
 
-    const handleFavBtn = (isFav, data) => {
-        if (isAuthenticated) {
+    const handleFavBtn = async (isFav, data) => {
+        if (await checkUser()) {
             if (isFav) {
                 deleteFav(data.id)
             }

@@ -12,9 +12,9 @@ import {
 } from "stream-chat-react";
 import { EmojiPicker } from "stream-chat-react/emojis";
 import { SearchIndex } from "emoji-mart";
-import { getUser, isAuthenticated, createNotification, getStreamImages } from '../../api/consumer';
-import { ArrowLeft } from '@mui/icons-material';
-import { ArrowRight } from '@mui/icons-material';
+import { getUser, checkUser, createNotification, getStreamImages, API_BASE_URL } from '../../api/consumer';
+import { ArrowLeft } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Close } from '@mui/icons-material';
 import './layout.css'
 import moment from 'moment';
@@ -46,7 +46,7 @@ const ChannelListHeader = ({ onBackClick, isMobileView }) => {
                         fontSize: "18px"
                     }}
                 >
-                    <Close />
+                    <ArrowRight />
                 </button>
             }
         </div>
@@ -119,9 +119,8 @@ const CustomChannelPreview = ({
                 }
             }}
         >
-
             <Avatar
-                src={otherMember.image}
+                src={userImages.length > 0 ? `${API_BASE_URL}${userImages[0].imageUrl}` : otherMember.image}
                 alt={otherMember.name}
                 sx={{
                     width: "32px",
@@ -148,6 +147,7 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
     const { channel } = useChannelStateContext();
     const [receiverInfo, setReceiverInfo] = useState({ name: title, image: null });
     const currentUserId = localStorage.getItem("stream_id");
+    const [userImages, setUserImages] = useState([])
 
     useEffect(() => {
         const getReceiverInfo = async () => {
@@ -160,9 +160,9 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                         image: otherMember.user.image
                     });
                 }
+                getStreamImages(otherMember.user.id).then(setUserImages)
             }
         };
-
         getReceiverInfo();
     }, [channel, currentUserId]);
 
@@ -179,12 +179,12 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                             marginRight: "10px"
                         }}
                     >
-                        <ArrowRight />
+                        <ArrowLeft />
                     </button>
                 )}
 
                 <Avatar
-                    src={receiverInfo.image}
+                    src={userImages.length > 0 ? `${API_BASE_URL}${userImages[0].imageUrl}` : receiverInfo.image}
                     alt={receiverInfo.name}
                     sx={{
                         width: "32px",
@@ -208,9 +208,12 @@ const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
     const { channel } = useChannelStateContext();
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            window.location.href = "/";
+        const checkAuth = async () => {
+            if (!await checkUser()) {
+                window.location.href = "/";
+            }
         }
+        checkAuth();
     }, []);
 
     useEffect(() => {

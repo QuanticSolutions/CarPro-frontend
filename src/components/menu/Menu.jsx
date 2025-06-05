@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Box, MenuItem, Grid2, Container, Menu } from '@mui/material'
-import { isAuthenticated } from '../../api/consumer'
+import { checkUser } from '../../api/consumer'
 import ToggleBtn from './ToggleBtn'
 import { styled } from "@mui/system"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
@@ -274,7 +274,7 @@ function MainMenu({ notifications, toggleChat }) {
                             </Box>
                         )}
                     </StyledMenuItem>
-                    <StyledMenuItem onClick={() => { if (isAuthenticated) { toggleChat() } else { setPopupOpen(true) } }}>
+                    <StyledMenuItem onClick={async () => { if (await checkUser()) { toggleChat() } else { setPopupOpen(true) } }}>
                         {t("menu.chats")}
                     </StyledMenuItem>
 

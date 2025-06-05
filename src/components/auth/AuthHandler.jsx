@@ -17,7 +17,7 @@ const AuthHandler = () => {
       localStorage.setItem('stream_id', stream_id);
       localStorage.setItem('stream_token', stream_token);
       console.log(user_id, stream_id)
-      window.location.href = "/";
+      window.location.reload();
     } else {
       navigate("/auth/signin");
     }

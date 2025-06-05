@@ -15,32 +15,24 @@ export const signup = async (userData) => {
     }
 };
 
-const finalHeaders = {};
-
-export const checkUser = async (token) => {
+export const checkUser = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/auth/check`, { withCredentials: true, headers: { 'x-auth-token': token } })
-        const headersTemp = document.cookie.split(';');
-        headersTemp.forEach((header) => {
-            const headerTemp = header.split('=');
-            finalHeaders[headerTemp[0].trim()] = headerTemp[1].trim()
-        })
-        console.log(finalHeaders['AUTH_API'])
+        const response = await axios.get(`${API_BASE_URL}/auth/check`, { withCredentials: true })
+        return response.data.loggedIn;
     }
     catch (error) {
         console.log(error)
     }
 }
 
+export const isAuthenticated = checkUser();
+
 export const login = async (credentials) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/login`, credentials);
-        // document.cookie = `AUTH_API=${response.data.token}`
-        localStorage.setItem("token", response.data.token)
+        const response = await axios.post(`${API_BASE_URL}/auth/login`, credentials, { withCredentials: true });
         localStorage.setItem("user_id", response.data.user.id)
         localStorage.setItem("stream_token", response.data.stream_token)
         localStorage.setItem("stream_id", response.data.stream_id)
-        // checkUser(response.data.token);
         return response.data;
     } catch (error) {
         console.error("Login failed:", error.response?.data || error.message);
@@ -48,15 +40,12 @@ export const login = async (credentials) => {
     }
 };
 
-export const isAuthenticated = localStorage.getItem("token")
-
 export const logout = async (countryCode) => {
     try {
-        // const response = await axios.post(`${API_BASE_URL}/auth/logout`, { withCredentials: true, headers: { 'x-auth-token': finalHeaders['AUTH_API'] } })
-        localStorage.removeItem("token")
-        localStorage.removeItem("user_id")
-        localStorage.removeItem("stream_token")
-        localStorage.removeItem("stream_id")
+        const response = await axios.post(`${API_BASE_URL}/auth/logout`, { withCredentials: true })
+        localStorage.removeItem("user_id");
+        localStorage.removeItem("stream_token");
+        localStorage.removeItem("stream_id");
         window.location.href = `/${countryCode}`;
     }
     catch (error) {
@@ -87,7 +76,7 @@ export const socialLogin = (provider) => {
 
 export const getUser = async (userId) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/auth/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/auth/${userId}`, { withCredentials: true });
         return response.data.user;
     } catch (error) {
         console.error("Error fetching user:", error.response?.data || error.message);
@@ -97,7 +86,7 @@ export const getUser = async (userId) => {
 
 export const updateUser = async (userId, formData) => {
     try {
-        const response = await axios.put(`${API_BASE_URL}/auth/${userId}`, formData);
+        const response = await axios.put(`${API_BASE_URL}/auth/${userId}`, formData, { withCredentials: true });
         console.log(response)
         return response.data.user;
     } catch (error) {
@@ -108,7 +97,7 @@ export const updateUser = async (userId, formData) => {
 
 export const deleteUser = async (userId) => {
     try {
-        const response = await axios.delete(`${API_BASE_URL}/auth/${userId}`);
+        const response = await axios.delete(`${API_BASE_URL}/auth/${userId}`, { withCredentials: true });
         return response.data.user;
     } catch (error) {
         console.error("Error deleting user:", error.response?.data || error.message);
@@ -119,7 +108,7 @@ export const deleteUser = async (userId) => {
 
 export const createAd = async (adData) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/ads`, adData);
+        const response = await axios.post(`${API_BASE_URL}/ads`, adData, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error creating ad:", error.response?.data || error.message);
@@ -129,7 +118,7 @@ export const createAd = async (adData) => {
 
 export const getAllAds = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/ads`);
+        const response = await axios.get(`${API_BASE_URL}/ads`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching ads:", error.response?.data || error.message);
@@ -139,7 +128,7 @@ export const getAllAds = async () => {
 
 export const getAdById = async (adId) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/ads/${adId}`);
+        const response = await axios.get(`${API_BASE_URL}/ads/${adId}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching ad:", error.response?.data || error.message);
@@ -149,7 +138,7 @@ export const getAdById = async (adId) => {
 
 export const getAdByUser = async (id) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/ads/user/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/ads/user/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching ad:", error.response?.data || error.message);
@@ -159,7 +148,7 @@ export const getAdByUser = async (id) => {
 
 export const getRentByUser = async (id) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/rent/user/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/rent/user/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching ad:", error.response?.data || error.message);
@@ -169,7 +158,7 @@ export const getRentByUser = async (id) => {
 
 export const updateAd = async (adId, updatedData) => {
     try {
-        const response = await axios.put(`${API_BASE_URL}/ads/${adId}`, updatedData);
+        const response = await axios.put(`${API_BASE_URL}/ads/${adId}`, updatedData, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error updating ad:", error.response?.data || error.message);
@@ -179,7 +168,7 @@ export const updateAd = async (adId, updatedData) => {
 
 export const deleteAd = async (adId) => {
     try {
-        const response = await axios.delete(`${API_BASE_URL}/ads/${adId}`);
+        const response = await axios.delete(`${API_BASE_URL}/ads/${adId}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error deleting ad:", error.response?.data || error.message);
@@ -189,7 +178,7 @@ export const deleteAd = async (adId) => {
 
 export const createRent = async (adData) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/rent`, adData);
+        const response = await axios.post(`${API_BASE_URL}/rent`, adData, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error creating ad:", error.response?.data || error.message);
@@ -199,7 +188,7 @@ export const createRent = async (adData) => {
 
 export const getAllRents = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/rent`);
+        const response = await axios.get(`${API_BASE_URL}/rent`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching rent:", error.response?.data || error.message);
@@ -209,7 +198,7 @@ export const getAllRents = async () => {
 
 export const getRentById = async (adId) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/rent/${adId}`);
+        const response = await axios.get(`${API_BASE_URL}/rent/${adId}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching ad:", error.response?.data || error.message);
@@ -219,7 +208,7 @@ export const getRentById = async (adId) => {
 
 export const updateRent = async (adId, updatedData) => {
     try {
-        const response = await axios.put(`${API_BASE_URL}/rent/${adId}`, updatedData);
+        const response = await axios.put(`${API_BASE_URL}/rent/${adId}`, updatedData, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error updating ad:", error.response?.data || error.message);
@@ -229,7 +218,7 @@ export const updateRent = async (adId, updatedData) => {
 
 export const deleteRent = async (adId) => {
     try {
-        const response = await axios.delete(`${API_BASE_URL}/rent/${adId}`);
+        const response = await axios.delete(`${API_BASE_URL}/rent/${adId}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error deleting ad:", error.response?.data || error.message);
@@ -239,7 +228,7 @@ export const deleteRent = async (adId) => {
 
 export const createNotification = async (data) => {
     try {
-        const response = await axios.post(`${NOTIFY_BASE_URL}/notifications`, data);
+        const response = await axios.post(`${NOTIFY_BASE_URL}/notifications`, data, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error creating notification:", error.response?.data || error.message);
@@ -249,7 +238,7 @@ export const createNotification = async (data) => {
 
 export const updateNotification = async (id) => {
     try {
-        const response = await axios.put(`${NOTIFY_BASE_URL}/notifications/${id}`);
+        const response = await axios.put(`${NOTIFY_BASE_URL}/notifications/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error creating notification:", error.response?.data || error.message);
@@ -259,7 +248,7 @@ export const updateNotification = async (id) => {
 
 export const getAllNotifications = async (id) => {
     try {
-        const response = await axios.get(`${NOTIFY_BASE_URL}/notifications/${id}`);
+        const response = await axios.get(`${NOTIFY_BASE_URL}/notifications/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching notifications:", error.response?.data || error.message);
@@ -270,7 +259,7 @@ export const getAllNotifications = async (id) => {
 export const createChat = async (userId, receiverId) => {
 
     try {
-        const response = await axios.post(`${CHAT_BASE_URL}/create-channel`, { userId, receiverId });
+        const response = await axios.post(`${CHAT_BASE_URL}/create-channel`, { userId, receiverId }, { withCredentials: true });
         return response.json();
     }
     catch (error) {
@@ -281,7 +270,7 @@ export const createChat = async (userId, receiverId) => {
 
 export const uploadImage = async (id, file) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/files/upload/${id}`, { file });
+        const response = await axios.post(`${API_BASE_URL}/files/upload/${id}`, { file }, { withCredentials: true });
         return response.json();
     }
     catch (error) {
@@ -298,7 +287,8 @@ export const uploadImages = async (id, files) => {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
-            }
+            },
+            { withCredentials: true }
         );
         return response;
     }
@@ -310,18 +300,17 @@ export const uploadImages = async (id, files) => {
 
 export const getImages = async (id) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/files/uploads/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/files/uploads/${id}`, { withCredentials: true });
         return response.data.images
     }
     catch (error) {
-        // console.log("Error Fetching Image:", error.response?.data || error.message);
         return error.response?.data || error.message
     }
 }
 
 export const getStreamImages = async (id) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/files/uploads/stream/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/files/uploads/stream/${id}`, { withCredentials: true });
         return response.data.images
     }
     catch (error) {
@@ -333,7 +322,7 @@ export const getStreamImages = async (id) => {
 
 export const createFavs = async (data) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/favs`, data);
+        const response = await axios.post(`${API_BASE_URL}/favs`, data, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error creating fav:", error.response?.data || error.message);
@@ -343,7 +332,7 @@ export const createFavs = async (data) => {
 
 export const getFavsByUser = async (id) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/favs/user/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/favs/user/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetching favs:", error.response?.data || error.message);
@@ -353,7 +342,7 @@ export const getFavsByUser = async (id) => {
 
 export const getFavsByAd = async (id) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/favs/ad/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/favs/ad/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         console.error("Error fetchingfavs:", error.response?.data || error.message);
@@ -363,7 +352,7 @@ export const getFavsByAd = async (id) => {
 
 export const deleteFav = async (id) => {
     try {
-        const response = await axios.delete(`${API_BASE_URL}/favs/${id}`);
+        const response = await axios.delete(`${API_BASE_URL}/favs/${id}`, { withCredentials: true });
         return response.data;
     }
     catch (error) {
@@ -385,7 +374,7 @@ export const verifyOtp = async (email, otp) => {
 export const getModels = async () => {
 
     try {
-        const response = await axios.get(`${API_BASE_URL}/data/models`)
+        const response = await axios.get(`${API_BASE_URL}/data/models`, { withCredentials: true })
         return response.data
     }
     catch (error) {
@@ -396,7 +385,7 @@ export const getModels = async () => {
 
 export const getTrimsByModel = async (modelName) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/data/trims/${modelName}`,)
+        const response = await axios.get(`${API_BASE_URL}/data/trims/${modelName}`, { withCredentials: true })
         return response.data;
     }
     catch (error) {

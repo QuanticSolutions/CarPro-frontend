@@ -1,5 +1,5 @@
 import { Box, Grid2, Typography, Container, useMediaQuery } from '@mui/material'
-import { styled } from "@mui/system"
+import { borderRadius, styled } from "@mui/system"
 import { useTranslation } from 'react-i18next';
 
 const ImageContainer = styled(Box)(({ theme }) => ({
@@ -46,7 +46,7 @@ const Text = styled(Typography)({
 })
 
 
-function Main({ showForm, form, image, showText, headerText, headerTextStyles, text, textStyles, redRect, inspectionForm, flexDirection, justifyContent }) {
+function Main({ showForm, form, image, showText, headerText, headerTextStyles, text, textStyles, redRect, inspectionForm, flexDirection, justifyContent, overlay=false }) {
 
     const isMobile = useMediaQuery("(max-width:768px)");
     const { i18n } = useTranslation();
@@ -56,7 +56,6 @@ function Main({ showForm, form, image, showText, headerText, headerTextStyles, t
         display: "flex",
         justifyContent: justifyContent,
         flexDirection: flexDirection,
-        height: "100%",
         width: "100%",
         "@media (max-width: 768px)": {
             flexWrap: "wrap",
@@ -77,6 +76,19 @@ function Main({ showForm, form, image, showText, headerText, headerTextStyles, t
                 mt: 3
             }}
         >
+            {
+                overlay &&
+                <Box sx={{
+                    position: "absolute",
+                    top: "55%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    background: "rgba(0, 0, 0, 0.4)",
+                    height: "80%",
+                    width: "75%",
+                    borderRadius: 5,
+                }} />
+            }
             <Container sx={BoxStyles}>
                 {showText && (
                     <Grid>

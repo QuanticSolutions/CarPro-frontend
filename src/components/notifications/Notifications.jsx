@@ -62,16 +62,19 @@ const Notifications = () => {
         value={tab}
         onChange={(e, newValue) => setTab(newValue)}
         sx={{
-          my: 2,
+          my: 1,
           "& .MuiTab-root": {
             color: "black",
             border: "1px solid black",
-            borderRadius: "25px",
-            mr: 1,
-            p: 1,
+            borderRadius: "20px",
+            mr: 0.5,
+            py: 0.5,
+            px: 1,
+            minWidth: "32px",
+            minHeight: "32px",
             fontWeight: "bold",
             textTransform: "none",
-            fontSize: "16px",
+            fontSize: { xs: "12px", sm: "14px", md: "16px" },
             transition: "0.3s",
           },
           "& .MuiTab-root.Mui-selected": {

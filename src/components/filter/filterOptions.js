@@ -68,11 +68,6 @@ function getFilterOptions(category, t) {
                     field: "exteriorColor"
                 },
                 {
-                    title: t("filters.filters.Doors"),
-                    options: ["2", "4", "6"].map(door => t(`filters.options.${door}`)),
-                    field: "doors"
-                },
-                {
                     title: t("filters.filters.Seller Type"),
                     options: ["Owner", "Dealer"].map(type => t(`filters.options.${type}`)),
                     field: "sellerType"
