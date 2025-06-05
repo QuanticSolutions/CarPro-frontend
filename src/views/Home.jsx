@@ -100,7 +100,7 @@ function Home({ data, rent }) {
 
   return (
     <>
-      <Main image={"red-bg4"} showForm={true} showText={true} form={<FilterForm />} headerText={headertext} headerTextStyles={headerTextStyles} text={text} textStyles={textStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"} overlay={true} />
+      <Main image={"red-bg4"} showForm={true} showText={true} form={<FilterForm />} headerText={headertext} headerTextStyles={headerTextStyles} text={text} textStyles={textStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"} overlay={false} />
       <Categories title={t("menu.allCategories")} contents={categories} />
       <Services title={t("home.services")} cards={cards} background="linear-gradient(#B71C1C, black)" />
       <Brands />
