@@ -43,7 +43,7 @@ function Signin() {
                             {t("signin.continueWithEmail")}
                         </StyledBtn>
                     </Box>
-                    <Typography variant="h6" color="black" textAlign="center" padding="0.5rem">
+                    <Typography variant="body1" color="black" textAlign="center" padding="0.5rem" fontWeight={"bold"}>
                         {t("signin.terms")}
                     </Typography>
                 </Container>

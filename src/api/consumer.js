@@ -2,8 +2,8 @@ import axios from "axios";
 
 // export const API_BASE_URL = "http://localhost:3000";
 export const API_BASE_URL = "https://api.carsfinderpro.com";
-const CHAT_BASE_URL = "https://chat.carpro.quanticsols.com";
-export const NOTIFY_BASE_URL = "https://notification.carpro.quanticsols.com";
+const CHAT_BASE_URL = "https://chat.carsfinderpro.com";
+export const NOTIFY_BASE_URL = "https://notification.carsfinderpro.com";
 
 export const signup = async (userData) => {
     try {
@@ -18,6 +18,7 @@ export const signup = async (userData) => {
 export const checkUser = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/auth/check`, { withCredentials: true })
+        console.log(response)
         return response.data.loggedIn;
     }
     catch (error) {
@@ -42,7 +43,7 @@ export const login = async (credentials) => {
 
 export const logout = async (countryCode) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/auth/logout`, { withCredentials: true })
+        const response = await axios.post(`${API_BASE_URL}/auth/logout`, {}, { withCredentials: true })
         localStorage.removeItem("user_id");
         localStorage.removeItem("stream_token");
         localStorage.removeItem("stream_id");
@@ -251,7 +252,7 @@ export const getAllNotifications = async (id) => {
         const response = await axios.get(`${NOTIFY_BASE_URL}/notifications/${id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
-        console.error("Error fetching notifications:", error.response?.data || error.message);
+        console.error("Error fetching notifications:", error);
         throw error;
     }
 };
@@ -368,6 +369,7 @@ export const sendOtp = async (email) => {
 
 export const verifyOtp = async (email, otp) => {
     const response = await axios.post(`${API_BASE_URL}/auth/verify-otp`, { email, otp });
+    console.log(response)
     return response;
 }
 

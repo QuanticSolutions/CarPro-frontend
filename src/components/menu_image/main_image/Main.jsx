@@ -67,13 +67,9 @@ function Main({ showForm, form, image, showText, headerText, headerTextStyles, t
         <ImageContainer
             sx={{
                 backgroundImage: `url(/assets/images/${image}.png)`,
-                height: {
-                    xs: "50vh",
-                    md: "110vh",
-                    lg: "90vh"
-                },
+                height: "45rem",
                 backgroundColor: "#F2F3F3",
-                mt: 3
+                mt: 7
             }}
         >
             {

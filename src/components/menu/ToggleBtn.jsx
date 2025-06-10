@@ -132,7 +132,7 @@ function ToggleBtn() {
                 size="large"
                 sx={{
                     color: "#fff", direction: i18n.language == "ar" && "rtl", "@media (max-width: 800px)": { justifyContent: i18n.language == "ar" ? "right" : "left", px: 0, }, "&:hover": {
-                        backgroundColor: "transparent", // Changed from "none" to "transparent"
+                        backgroundColor: "transparent",
                     },
                 }}
                 aria-controls={open ? "user-menu" : undefined}
@@ -179,16 +179,38 @@ function ToggleBtn() {
                         }}
                     >
                         {isAuthenticated && (
-                            <MenuItem sx={{ padding: 1, "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.2)" } }} onClick={() => window.location.href = "/my/profile"}>{t("auth.myProfile")}</MenuItem>
+                            <MenuItem sx={{
+                                padding: 1, "&:hover": {
+                                    color: "#fff",
+                                    backgroundColor: "#B71C1C"
+                                }
+                            }}
+                                onClick={() => window.location.href = "/my/profile"}>{t("auth.myProfile")}
+                            </MenuItem>
                         )}
                         {!isAuthenticated && (
-                            <MenuItem sx={{ padding: 1, "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.2)" } }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
+                            <MenuItem sx={{
+                                padding: 1, "&:hover": {
+                                    color: "#fff",
+                                    backgroundColor: "#B71C1C"
+                                }
+                            }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
                         )}
                         {!isAuthenticated && (
-                            <MenuItem sx={{ padding: 1, "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.2)" } }} onClick={handleRegisterClick}>{t("auth.register")}</MenuItem>
+                            <MenuItem sx={{
+                                padding: 1, "&:hover": {
+                                    color: "#fff",
+                                    backgroundColor: "#B71C1C"
+                                }
+                            }} onClick={handleRegisterClick}>{t("auth.register")}</MenuItem>
                         )}
                         {isAuthenticated && (
-                            <MenuItem sx={{ padding: 1, "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.2)" } }} onClick={handleLogoutClick}>{t("auth.logout")}</MenuItem>
+                            <MenuItem sx={{
+                                padding: 1, "&:hover": {
+                                    color: "#fff",
+                                    backgroundColor: "#B71C1C"
+                                }
+                            }} onClick={handleLogoutClick}>{t("auth.logout")}</MenuItem>
                         )}
                     </Box>
                 )

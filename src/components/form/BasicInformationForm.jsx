@@ -239,10 +239,10 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
           <TextField
             required
             id="carPlate"
-            name="plate_number"
+            name="car_plate_number"
             placeholder={t("basicInfo.carPlate")}
             fullWidth
-            value={data.plate_number || ''}
+            value={data.car_plate_number || ''}
             onChange={handleChange}
           />
         </Grid>

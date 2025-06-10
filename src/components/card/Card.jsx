@@ -128,6 +128,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
             }}
           />
         }
+
         <IconButton
           sx={{
             position: "absolute",
@@ -139,8 +140,11 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
               backgroundColor: isFav ? "#B71C1C" : "white",
             },
           }}
-          onClick={() => {
-            if (handleFavBtn(isFav, data)) setIsFav(!isFav);
+          onClick={async () => {
+            const success = await handleFavBtn(isFav, data); // Only 2 parameters
+            if (success) {
+              setIsFav(!isFav);
+            }
           }}
         >
           <FavoriteBorderIcon
@@ -155,13 +159,13 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
       </Box>
       <CardContent onClick={() => (window.location = `/ad/${type}?id=${data.id}`)}>
         {
-          type != "rent" && 
+          type != "rent" &&
           <Typography variant="subtitle1" fontWeight="bolder" color="#B71C1C">
             {t("AED")} {i18n.language == "ar" ? convertToArabicNumbers(data.price) : data.price}
           </Typography>
         }
         {
-          type == "rent" && 
+          type == "rent" &&
           <Typography variant="subtitle1" fontWeight="bolder" color="#B71C1C">
             {t("AED")} {i18n.language == "ar" ? convertToArabicNumbers(data.daily_rent) : data.daily_rent}
           </Typography>

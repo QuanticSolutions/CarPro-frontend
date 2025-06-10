@@ -6,6 +6,8 @@ import {
     Channel,
     ChannelList,
     MessageInput,
+    useMessageInputContext,
+    MessageInputFlat,
     MessageList,
     Thread,
     Window,
@@ -204,8 +206,23 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
     );
 };
 
+const CustomInput = (props) => {
+  const { handleSubmit } = useMessageInputContext();
+
+  const onKeyDown = (event) => {
+    console.log(event.key)
+    if (event.key == 'Enter') {
+      event.preventDefault();
+      handleSubmit();
+    }
+  };
+
+  return <MessageInputFlat {...props} onKeyDown={onKeyDown} />;
+};
+
 const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
     const { channel } = useChannelStateContext();
+    const shouldSubmit = (event) => (event.key === 'Enter' && event.shiftKey) || event.key === '9' || event.key === '0';
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -233,6 +250,8 @@ const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
                 });
             }
         };
+
+
         channel.on("message.new", handleNewMessage);
         return () => {
             channel.off("message.new", handleNewMessage);
@@ -248,7 +267,7 @@ const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
                     isMobileView={isMobileView}
                 />
                 <MessageList />
-                <MessageInput />
+                <MessageInput Input={CustomInput} shouldSubmit={shouldSubmit}/>
             </Window>
             <Thread />
         </>

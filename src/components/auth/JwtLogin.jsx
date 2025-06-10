@@ -63,7 +63,7 @@ function JwtLogin({ backBtnHandler }) {
                     setPopup({ open: true, message: "Signin Successful!", severity: "success" });
                     setTimeout(
                         () => {
-                            window.location.href = "/";
+                            window.location.reload();
                         },
                         1000
                     )
@@ -78,7 +78,7 @@ function JwtLogin({ backBtnHandler }) {
     }
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="90%">
             <Typography variant="h5" fontWeight="bold" color="black" textAlign="center">Login To Your Account</Typography>
             <Container>
                 <Box sx={{ width: window.innerWidth > 800 ? 400 : "auto", mx: "auto", mt: 5 }}>

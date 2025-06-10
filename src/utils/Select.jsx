@@ -13,7 +13,7 @@ const CustomSelect = ({
   label = "", 
   value = "", 
   showStartAndorement = true,
-  editable = false // New prop with default value false
+  editable = false
 }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(value);
@@ -181,7 +181,7 @@ const CustomSelect = ({
               position: "fixed",
               top: containerRef.current?.getBoundingClientRect().bottom + window.scrollY,
               left: containerRef.current?.getBoundingClientRect().left + window.scrollX,
-              width: styles.textField?.width || containerRef.current?.offsetWidth,
+              width: containerRef.current?.getBoundingClientRect().width, // Use the actual rendered width
               bgcolor: "#fff",
               color: "black",
               boxShadow: 3,

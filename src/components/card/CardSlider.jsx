@@ -33,25 +33,26 @@ function CardSlider({ data, title, openTo = "featured", category }) {
     const [popupOpen, setPopupOpen] = useState(false);
     const [popup1Open, setPopup1Open] = useState(false);
     const { t, i18n } = useTranslation();
-    const handleFavBtn = (isFav, data) => {
-        checkUser.then(
-            res=>{
-                if (res) {
-                    if (isFav) {
-                        deleteFav(data.id)
-                    }
-                    else {
-                        createFavs({ user_id: localStorage.getItem("user_id"), ad_id: data.id })
-                    }
-                    return true;
+    const handleFavBtn = async (isFav, data) => {
+        try {
+            const res = await checkUser();
+
+            if (res) {
+                if (isFav) {
+                    await deleteFav(data.id);
+                } else {
+                    await createFavs({ user_id: localStorage.getItem("user_id"), ad_id: data.id });
                 }
-                else {
-                    setPopupOpen(true);
-                    return false;
-                }
+                return true;
+            } else {
+                setPopupOpen(true);
+                return false;
             }
-        )
-    }
+        } catch (error) {
+            console.error('Error in handleFavBtn:', error);
+            return false;
+        }
+    };
 
     const responsive = {
         desktop: {
@@ -84,7 +85,7 @@ function CardSlider({ data, title, openTo = "featured", category }) {
                         {title}
                     </Typography>
                 </Box>
-                <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end"}}>
+                <Box sx={{ display: "flex", justifyContent: i18n.language == "ar" ? "flex-start" : "flex-end" }}>
                     <a style={{ ...styles, flexDirection: i18n.language == "ar" && "row-reverse" }} href={`/${openTo}/${category}`}>
                         {t("home.viewMore")}
                         {

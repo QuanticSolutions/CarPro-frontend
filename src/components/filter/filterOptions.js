@@ -10,7 +10,7 @@ function getFilterOptions(category, t) {
                 {
                     title: t("filters.filters.Manufacturer"),
                     options: [
-                        t('cardValues.AccessMotor'),
+                        t('cardValues.Access Motor'),
                         t('cardValues.Aprillia'),
                         t('cardValues.Asiawing'),
                         t('cardValues.BMW'),

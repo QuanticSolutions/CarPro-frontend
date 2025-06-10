@@ -70,7 +70,8 @@ const DropMenuItem = styled(MenuItem)({
     p: 1,
     marginRight: 0,
     "&:hover": {
-        backgroundColor: "rgba(0, 0, 0, 0.05)"
+        color: "#fff",
+        backgroundColor: "#B71C1C"
     }
 })
 
@@ -230,7 +231,7 @@ function MainMenu({ notifications, toggleChat }) {
                                     top: '2.5rem',
                                     left: 0,
                                     backgroundColor: '#FFF',
-                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" ,
+                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                                     zIndex: 1000,
                                     color: 'black',
                                     borderRadius: 1,
@@ -261,7 +262,7 @@ function MainMenu({ notifications, toggleChat }) {
                                     backgroundColor: '#FFF',
                                     zIndex: 1000,
                                     color: 'black',
-                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)" ,
+                                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                                     borderRadius: 1,
                                     textAlign: i18n.language === 'ar' ? 'right' : 'left',
                                     direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
@@ -350,8 +351,9 @@ function MainMenu({ notifications, toggleChat }) {
                                     onClick={() => handleCountrySelect(country.code)}
                                     sx={{
                                         padding: '8px 16px',
-                                        '&:hover': {
-                                            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+                                        "&:hover": {
+                                            color: "#fff",
+                                            backgroundColor: "#B71C1C"
                                         },
                                         display: 'flex',
                                         alignItems: 'center',
@@ -402,16 +404,8 @@ function MainMenu({ notifications, toggleChat }) {
                                     direction: i18n.language === 'ar' ? 'rtl' : 'ltr'
                                 }}
                             >
-                                <DropMenuItem sx={{
-                                    "&:hover": {
-                                        color: "#B71C1C"
-                                    }
-                                }} onClick={() => window.location.href = "/sell/categories"}>{t("menu.forSell")}</DropMenuItem>
-                                <DropMenuItem sx={{
-                                    "&:hover": {
-                                        color: "#B71C1C"
-                                    }
-                                }} onClick={() => window.location.href = "/rent/categories"}>{t("menu.forRent")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/sell/categories"}>{t("menu.forSell")}</DropMenuItem>
+                                <DropMenuItem onClick={() => window.location.href = "/rent/categories"}>{t("menu.forRent")}</DropMenuItem>
                             </Box>
                         )}
                     </StyledMenuItem>

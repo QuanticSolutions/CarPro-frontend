@@ -99,20 +99,22 @@ function AdForm({ title, type, isUpdating = false, category }) {
       if (isUpdating) {
         getAdById(localStorage.getItem("ad_id")).then(
           response => {
-            setFormData(response)
-            getImages(response.car_plate_number).then(async res => {
-              const imageFiles = await Promise.all(
-                res.map(async (img) => {
-                  const response = await fetch(`${API_BASE_URL}${img.imageUrl}`);
-                  const blob = await response.blob();
-                  const contentType = blob.type || 'image/jpeg';
-                  return new File([blob], img.filename, { type: contentType });
-                })
-              );
+            setFormData(response[0])
+            getImages(response[0].car_plate_number).then(async res => {
+              if(res.length > 0 && res.length) {
+                const imageFiles = await Promise.all(
+                  res.map(async (img) => {
+                    const response = await fetch(`${API_BASE_URL}${img.imageUrl}`);
+                    const blob = await response.blob();
+                    const contentType = blob.type || 'image/jpeg';
+                    return new File([blob], img.filename, { type: contentType });
+                  })
+                );
+                setImages(imageFiles);
+                const previews = res.map(img => `${API_BASE_URL}${img.imageUrl}`);
+                setImagePreviews(previews);
+              }
 
-              setImages(imageFiles);
-              const previews = res.map(img => `${API_BASE_URL}${img.imageUrl}`);
-              setImagePreviews(previews);
             });
           })
       }

@@ -45,7 +45,8 @@ const testimonials = [
 const BoxStyles = {
   textAlign: "center",
   position: "relative",
-  my: 3,
+  mt: 3,
+  mb: 5,
   "@media (max-width: 425px)": {
     flexDirection: "column"
   }

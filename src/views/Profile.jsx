@@ -105,7 +105,7 @@ export default function EditProfile() {
             setPasswordError('كلمات المرور الجديدة غير متطابقة.');
             return;
         }
-        
+
         updateUser(localStorage.getItem("user_id"), {
             currentPassword: passwordData.currentPassword,
             newPassword: passwordData.newPassword
@@ -125,7 +125,7 @@ export default function EditProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        
+
         setFormData(
             prevData => {
                 const updatedData = prevData;
@@ -146,7 +146,12 @@ export default function EditProfile() {
             });
             uploadImages(localStorage.getItem("user_id"), imageData)
         }
-        // window.location.href = "/my/profile";
+        setTimeout(
+            () => {
+                window.location.href = "/my/profile";
+            },
+            2000
+        )
     };
 
     return (
@@ -169,7 +174,7 @@ export default function EditProfile() {
                                 alt="Profile"
                                 sx={{ width: 64, height: 64 }}
                             />
-                            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1}}>
+                            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
                                 <Button
                                     variant="outlined"
                                     component="label"
@@ -363,7 +368,7 @@ export default function EditProfile() {
                                 variant="contained"
                                 color="error"
                                 type="submit"
-                                sx={{textTransform: "none"}}
+                                sx={{ textTransform: "none" }}
                                 onClick={(e) => handleSubmit(e)}
                             >
                                 {t("editProfile.saveChanges")}
@@ -458,9 +463,9 @@ export default function EditProfile() {
                     <Button onClick={() => setPasswordPopupOpen(false)} sx={{ textTransform: "none", color: "black" }}>
                         {t("editProfile.cancel")}
                     </Button>
-                    <Button 
-                        onClick={handlePasswordSubmit} 
-                        variant="contained" 
+                    <Button
+                        onClick={handlePasswordSubmit}
+                        variant="contained"
                         color="error"
                         sx={{ textTransform: "none" }}
                     >

@@ -47,7 +47,7 @@ const AuthDialog = ({ popupOpen, setPopupOpen, popup1Open, setPopup1Open, backTo
                 </DialogActions>
                 <DialogContent sx={{ pb: window.innerWidth > 800 ? "4rem" : "10rem" }}>
                     <Signup />
-                    <Box sx={{ width: "100%", textAlign: "center" }}>
+                    <Box sx={{ width: "100%", textAlign: "center", pt: 3 }}>
                         <Typography variant="body" sx={{ textAlign: "center", width: "100%", p: 1 }}>
                             {t("auth.haveAccount")} <a style={{ color: "#B71C1C" }} href="#" onClick={() => { setPopupOpen(true); setPopup1Open(false) }}>{t("auth.signIn")}</a>
                         </Typography>

@@ -266,7 +266,7 @@ function Signup() {
                         )}
                     </form>
                 </Box>
-                <Typography variant="h6" color="black" textAlign="center" padding="2rem">
+                <Typography variant="body1" color="black" textAlign="center" padding="2rem" fontWeight={"bold"}>
                     {t("signup.terms")}
                 </Typography>
                 <MessagePopup

@@ -37,7 +37,7 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands, 
     toMiles: "",
     specs: [],
     transmission: [],
-    color: [],
+    exteriorColor: [],
     fromCapac: "",
     toCapac: "",
     body: [],
@@ -73,7 +73,8 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands, 
       if (filters.wheels.length > 0 && !filters.wheels.includes(car.wheels.toString())) {
         return false;
       }
-      if (filters.color.length > 0 && !filters.color.includes(car.color)) {
+      if (filters.exteriorColor.length > 0 && !filters.exteriorColor.includes(car.exterior_color)) {
+        console.log(filters.exteriorColor, car.exterior_color)
         return false;
       }
       if (filters.body.length > 0 && !filters.body.includes(car.body)) {
@@ -148,7 +149,6 @@ const FeaturedFilter = ({ data, title, type, loc, vehicleCondition, showBrands, 
   useEffect(() => {
     if (loc !== "null") { setFilters({ ...filters, city: [loc] }) }
     if (vehicleCondition !== "null") setFilters({ ...filters, vehicle_condition: vehicleCondition })
-    console.log(vehicleCondition)
   }, []);
 
   useEffect(() => {

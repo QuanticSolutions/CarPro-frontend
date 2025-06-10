@@ -19,12 +19,34 @@ const BoxStyles = {
     width: "100%",
     color: "black",
     "& a": {
-        color: "black"
+        color: "black",
+        textDecoration: "none"
     },
     "& a:hover": {
-        textDecoration: "underline"
+        textDecoration: "underline",
+        textDecorationColor: "#B71C1C",
+        textDecorationThickness: "3px", // Makes the underline bolder
+        textUnderlineOffset: "2px" // Optional: adds some space between text and underline
     }
 }
+
+const SocialIcon = styled('a')({
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    '& .MuiSvgIcon-root': {
+        fontSize: 22,
+        borderRadius: '50%',
+        backgroundColor: '#fff',
+        padding: '4px',
+        color: 'black',
+        transition: 'all 0.3s ease',
+        '&:hover': {
+            backgroundColor: "#B71C1C",
+            color: 'white'
+        }
+    }
+});
 
 function Footer({ countryCode }) {
 
@@ -175,24 +197,24 @@ function Footer({ countryCode }) {
                             </StyledListItem>
                             <List sx={{ display: "flex", p: 0, m: 0, position: "absolute", right: i18n.language == "ar" && 0 }}>
                                 <StyledListItem sx={{ pr: 3, pl: 0, width: 0 }}>
-                                    <a style={{ display: 'flex', alignItems: "center" }}>
-                                        <Facebook sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
-                                    </a>
+                                    <SocialIcon>
+                                        <Facebook />
+                                    </SocialIcon>
                                 </StyledListItem>
                                 <StyledListItem sx={{ px: 3, width: 0 }}>
-                                    <a style={{ display: 'flex', alignItems: "center" }}>
-                                        <Twitter sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
-                                    </a>
+                                    <SocialIcon>
+                                        <Twitter />
+                                    </SocialIcon>
                                 </StyledListItem>
                                 <StyledListItem sx={{ px: 3, width: 0 }}>
-                                    <a style={{ display: 'flex', alignItems: "center" }}>
-                                        <YouTube sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
-                                    </a>
+                                    <SocialIcon>
+                                        <YouTube />
+                                    </SocialIcon>
                                 </StyledListItem>
                                 <StyledListItem sx={{ px: 3, pl: i18n.language == "ar" ? 0 : 3 }}>
-                                    <a style={{ display: 'flex', alignItems: "center" }}>
-                                        <Instagram sx={{ fontSize: 22, borderRadius: '50%', backgroundColor: '#fff', padding: '4px', color: "black" }} />
-                                    </a>
+                                    <SocialIcon>
+                                        <Instagram />
+                                    </SocialIcon>
                                 </StyledListItem>
                             </List>
                         </List>

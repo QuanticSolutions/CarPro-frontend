@@ -114,7 +114,6 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands, cat
 
     const handleCheckboxChange = (event, label) => {
         const { name, checked } = event.target;
-        console.log(name, checked, label)
         setFilters((prevFilters) => {
 
             const currentArray = prevFilters[name] || [];
