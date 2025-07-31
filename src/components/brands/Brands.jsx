@@ -31,7 +31,7 @@ function Brands() {
     return (
         <BrandContainer sx={{ direction: i18n.language == "ar" && "rtl", my: 3}}>
             <Container>
-                <Typography variant="h3" fontWeight="bold" textAlign="center" color="black">
+                <Typography variant="h3" fontWeight="300"  textAlign="center" color="black">
                     {t("brands.popular")}
                 </Typography>
                 <Box

@@ -89,10 +89,10 @@ const DataGrid = ({ data, title, type }) => {
     return (
         <div style={{ width: "100%", direction: i18n.language === "ar" && "rtl" }}>
             <Grid2 display="flex" justifyContent="space-between" flexWrap="wrap" alignItems={"center"}>
-                <Typography variant="h5" fontWeight="bold">{title}</Typography>
+                <Typography variant="h5" fontWeight="300" >{title}</Typography>
                 <Box display="flex" alignItems="center" flexWrap="wrap" gap={3}>
                     <Box display="flex" justifyContent="center" gap={1} flexDirection={"column"}>
-                        <Typography variant="body1" fontWeight="bold" textAlign={"left"}>
+                        <Typography variant="body1" fontWeight="300"  textAlign={"left"}>
                             {view === "Grid" ? t("grid") : t("list")} {t('view')}
                         </Typography>
                         <Box>

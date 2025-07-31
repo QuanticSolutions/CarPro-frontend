@@ -170,7 +170,7 @@ const Description = ({ ad }) => {
     return (
         <Box sx={{ ...BoxStyles, direction: i18n.language == "ar" && "rtl" }}>
             <Box sx={{ mb: 2 }}>
-                <Typography variant="h6" fontWeight="bold">{t("basic_info")}</Typography>
+                <Typography variant="h6" fontWeight="300" >{t("basic_info")}</Typography>
                 <Divider sx={{ mb: 1 }} />
                 <Box display={"flex"} gap={6} flexDirection={window.innerWidth > 800 ? "row" : "column"}>
                     <Box flex={1}>
@@ -235,7 +235,7 @@ const Description = ({ ad }) => {
             </Box>
 
             <Box sx={{ mb: 2 }}>
-                <Typography variant="h6" fontWeight="bold">{t("carOverview") || "Vehicle Specifications"}</Typography>
+                <Typography variant="h6" fontWeight="300" >{t("carOverview") || "Vehicle Specifications"}</Typography>
                 <Divider sx={{ mb: 1 }} />
                 <Box display={"flex"} gap={6} flexDirection={window.innerWidth > 800 ? "row" : "column"}>
                     <Box flex={1}>
@@ -316,7 +316,7 @@ const Description = ({ ad }) => {
 
             {(hasValidValue(getFieldValue('seller_type')) || hasValidValue(getFieldValue('dealer_name')) || hasValidValue(getFieldValue('name'))) && (
                 <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" fontWeight="bold">{t("seller_info")}</Typography>
+                    <Typography variant="h6" fontWeight="300" >{t("seller_info")}</Typography>
                     <Divider sx={{ mb: 1 }} />
                     <List disablePadding>
                         {hasValidValue(getFieldValue('seller_type')) && (
@@ -350,7 +350,7 @@ const Description = ({ ad }) => {
 
             {hasValidValue(getFieldValue('warranty')) && (
                 <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" fontWeight="bold">{t("additional_info")}</Typography>
+                    <Typography variant="h6" fontWeight="300" >{t("additional_info")}</Typography>
                     <Divider sx={{ mb: 1 }} />
                     <List disablePadding>
                         <ListItem sx={{ paddingLeft: "0" }}>
@@ -361,10 +361,10 @@ const Description = ({ ad }) => {
             )}
 
             <Box sx={{ mb: 2 }}>
-                <Typography variant="h6" fontWeight="bold">{t("description") || "Description"}</Typography>
+                <Typography variant="h6" fontWeight="300" >{t("description") || "Description"}</Typography>
                 <Divider sx={{ mb: 1 }} />
                 <Typography>{hasValidValue(getFieldValue('description')) ? getFieldValue('description') : (t("noDescriptionAvailable") || "No description available")}</Typography>
-                <Typography fontWeight="bold" mt={1}>
+                <Typography fontWeight="300"  mt={1}>
                     {t("postedOn") || "Posted On"}: {i18n.language == "ar" ? convertDateToArabic(moment(ad.date).format("DD MMMM YYYY")) : moment(ad.date).format("DD MMMM YYYY")}
                 </Typography>
             </Box>

@@ -62,7 +62,7 @@ const TestimonialSlider = () => {
 
   return (
     <Container sx={BoxStyles}>
-      <Typography variant="h4" fontWeight="bold" sx={{ mb: 5, textAlign: i18n.language == "ar" ? "right" : "left" }}>
+      <Typography variant="h4" fontWeight="300"  sx={{ mb: 5, textAlign: i18n.language == "ar" ? "right" : "left" }}>
         {t("reviews")}
       </Typography>
       <Box sx={{ position: "relative" }}>

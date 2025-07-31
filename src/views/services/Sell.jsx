@@ -120,7 +120,7 @@ function Sell() {
   const textStyles = {
     marginTop: "1.5rem",
     lineHeight: "1.5px",
-    fontWeight: 700,
+    fontWeight: 300,
     fontSize: "28px",
     textAlign: "center",
     textTransform: "none"
@@ -139,7 +139,7 @@ function Sell() {
       <Categories title={t("sellPage.vehicleCategories")} contents={categories} />
       <Container sx={{ mt: '3rem' }}>
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h5" component="h2" sx={{ mb: 1, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
+          <Typography variant="h5" component="h2" sx={{ mb: 1, fontWeight: "300" , textAlign: i18n.language == "ar" ? "right" : "left" }}>
             {t("sellPage.whySell")}
           </Typography>
 
@@ -162,7 +162,7 @@ function Sell() {
                     minHeight: 120
                   }}
                 >
-                  <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
+                  <Typography variant="h4" sx={{ fontWeight: "300" , mb: 1 }}>
                     {point.title}
                   </Typography>
                   <Typography variant="body2">

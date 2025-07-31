@@ -95,7 +95,7 @@ const FilterButton = styled(Button)({
     borderRadius: "8px",
     padding: "12px 20px",
     fontSize: "1rem",
-    fontWeight: "bold",
+    fontWeight: "300" ,
     textTransform: "none",
     "&:hover": {
         backgroundColor: "#9A0007",
@@ -112,7 +112,7 @@ const PostAdButton = styled(Button)({
     width: "48%",
     fontSize: "1rem",
     textTransform: "none",
-    fontWeight: "bold",
+    fontWeight: "300" ,
     "&:hover": {
         backgroundColor: "#9A0007",
     },
@@ -688,7 +688,7 @@ function MobileMenu({ toggleChat }) {
                             onChange={handleAccordionChange('cityPanel')}
                         >
                             <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}>
-                                <Typography sx={{ fontWeight: "bold" }}>
+                                <Typography sx={{ fontWeight: "300"  }}>
                                     {t("filter.city")}
                                     {selectedCity && `: ${cityOptions.find(c => c.value === selectedCity)?.name}`}
                                 </Typography>
@@ -728,7 +728,7 @@ function MobileMenu({ toggleChat }) {
                             onChange={handleAccordionChange('vehiclePanel')}
                         >
                             <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}>
-                                <Typography sx={{ fontWeight: "bold" }}>
+                                <Typography sx={{ fontWeight: "300"  }}>
                                     {t("filter.vehicle") || "Vehicle Type"}
                                     {selectedVehicle && `: ${vehicleOptions.find(v => v.value === selectedVehicle)?.name}`}
                                 </Typography>
@@ -768,7 +768,7 @@ function MobileMenu({ toggleChat }) {
                             onChange={handleAccordionChange('typePanel')}
                         >
                             <FilterAccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: "black" }} />}>
-                                <Typography sx={{ fontWeight: "bold" }}>
+                                <Typography sx={{ fontWeight: "300"  }}>
                                     {t("filter.type") || "Item Condition"}
                                     {selectedType && `: ${typeOptions.find(t => t.value === selectedType)?.name}`}
                                 </Typography>

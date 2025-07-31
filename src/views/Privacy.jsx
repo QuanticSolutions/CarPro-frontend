@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
         <>
             <Container sx={{ py: 4, marginTop: window.innerWidth >= 1000 && 5 }}>
                 <Paper elevation={1} sx={{ p: 4, boxShadow: 0 }}>
-                    <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
+                    <Typography variant="h4" component="h1" fontWeight="300"  gutterBottom sx={{ mb: 3 }}>
                         {t("privacy.privacyPolicy")}
                     </Typography>
 
@@ -31,11 +31,11 @@ export default function PrivacyPolicy() {
                         {t("privacy.dataUsageNotice")}
                     </Typography>
 
-                    <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+                    <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
                         {t("privacy.interpretation")}
                     </Typography>
 
-                    <Typography variant="h6" component="h3" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+                    <Typography variant="h6" component="h3" fontWeight="300"  gutterBottom sx={{ mt: 3 }}>
                         {t("privacy.definitions")}
                     </Typography>
 
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
                         {t("privacy.definitionNote")}
                     </Typography>
 
-                    <Typography variant="h6" component="h3" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+                    <Typography variant="h6" component="h3" fontWeight="300"  gutterBottom sx={{ mt: 3 }}>
                         {t("privacy.account")}
                     </Typography>
 
@@ -125,11 +125,11 @@ export default function PrivacyPolicy() {
                         </ListItem>
                     </List>
 
-                    <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+                    <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
                         {t("privacy.personalDataHeader")}
                     </Typography>
 
-                    <Typography variant="h6" component="h3" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+                    <Typography variant="h6" component="h3" fontWeight="300"  gutterBottom sx={{ mt: 3 }}>
                         {t("privacy.personalDataExamples")}
                     </Typography>
 
@@ -145,7 +145,7 @@ export default function PrivacyPolicy() {
                         </ListItem>
                     </List>
 
-                    <Typography variant="subtitle1" component="h4" fontWeight="bold" gutterBottom sx={{ mt: 2 }}>
+                    <Typography variant="subtitle1" component="h4" fontWeight="300"  gutterBottom sx={{ mt: 2 }}>
                         {t("privacy.usageDataHeader")}
                     </Typography>
 
@@ -160,7 +160,7 @@ export default function PrivacyPolicy() {
                     <Typography variant="body1" paragraph>
                         {t("privacy.cookiesUsage")}
                     </Typography>
-                    <Typography variant="h6" component="h3" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+                    <Typography variant="h6" component="h3" fontWeight="300"  gutterBottom sx={{ mt: 3 }}>
 
                         {t("privacy.dataUsePurposes")}
                     </Typography>
@@ -197,7 +197,7 @@ export default function PrivacyPolicy() {
                             <ListItemText primary={<Typography variant="body1">{t("privacy.dataUseList.otherPurposes")}</Typography>} />
                         </ListItem>
                     </List>
-                    <Typography variant="h6" component="h3" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+                    <Typography variant="h6" component="h3" fontWeight="300"  gutterBottom sx={{ mt: 3 }}>
                         {t("privacy.contactUs")}
                     </Typography>
 

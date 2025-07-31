@@ -121,19 +121,19 @@ export default function ContactUs() {
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph>
                 {t("contact.description")}
               </Typography>
-              <Typography variant="h6" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ mt: 4, mb: 1, display: "flex", alignItems: "center", gap: 1 }}>
+              <Typography variant="h6" fontWeight="300"  fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ mt: 4, mb: 1, display: "flex", alignItems: "center", gap: 1 }}>
                 {t("contact.telephoneTitle")}
               </Typography>
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph>
                 {t("contact.telephoneDescription")}
               </Typography>
-              <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' fontWeight="bold" sx={{ mt: 4, mb: 1, display: "flex", alignItems: "center", gap: 1 }}>
+              <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' fontWeight="300"  sx={{ mt: 4, mb: 1, display: "flex", alignItems: "center", gap: 1 }}>
                 <Phone /> {t("contact.phoneNumber")}
               </Typography>
               <Typography variant="body2" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph sx={{ mb: 4 }}>
                 {t("contact.workingHours")}
               </Typography>
-              <Typography variant="h6" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ mb: 1 }}>
+              <Typography variant="h6" fontWeight="300"  fontFamily='"Franklin Gothic Demi", sans-serif' sx={{ mb: 1 }}>
                 {t("contact.addressTitle")}
               </Typography>
               <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' paragraph>

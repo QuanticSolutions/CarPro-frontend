@@ -13,11 +13,11 @@ export default function TermsOfUse() {
     <>
       <Container sx={{ py: 4, marginTop: window.innerWidth >= 1000 && 6 }}>
         <Paper elevation={1} sx={{ p: 4, boxShadow: 0 }}>
-          <Typography variant="h4" component="h1" fontWeight="bold" gutterBottom sx={{ mb: 3 }}>
+          <Typography variant="h4" component="h1" fontWeight="300"  gutterBottom sx={{ mb: 3 }}>
             {t("termsOfUse.title")}
           </Typography>
 
-          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+          <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
             {t("termsOfUse.section1Title")}
           </Typography>
 
@@ -38,7 +38,7 @@ export default function TermsOfUse() {
           </Typography>
 
           {/* Section 2 */}
-          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+          <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
             {t("termsOfUse.section2Title")}
           </Typography>
 
@@ -59,7 +59,7 @@ export default function TermsOfUse() {
           </Typography>
 
 
-          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+          <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
             {t("termsOfUse.section3Title")}
           </Typography>
 
@@ -100,7 +100,7 @@ export default function TermsOfUse() {
           </Typography>
 
           {/* Section 4 */}
-          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+          <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
             {t("termsOfUse.section4Title")}
           </Typography>
 
@@ -113,7 +113,7 @@ export default function TermsOfUse() {
           </Typography>
 
           {/* Section 5 */}
-          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+          <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
             {t("termsOfUse.section5Title")}
           </Typography>
 
@@ -141,7 +141,7 @@ export default function TermsOfUse() {
           </Typography>
 
           {/* Section 6 */}
-          <Typography variant="h5" component="h2" fontWeight="bold" gutterBottom sx={{ mt: 4 }}>
+          <Typography variant="h5" component="h2" fontWeight="300"  gutterBottom sx={{ mt: 4 }}>
             {t("termsOfUse.section6Title")}
           </Typography>
 
@@ -162,7 +162,7 @@ export default function TermsOfUse() {
             {t("termsOfUse.section6Paragraphs", { returnObjects: true })[3]}
           </Typography>
 
-          <Typography variant="h6" component="h3" fontWeight="bold" gutterBottom sx={{ mt: 3 }}>
+          <Typography variant="h6" component="h3" fontWeight="300"  gutterBottom sx={{ mt: 3 }}>
             {t("termsOfUse.privacyPolicyTitle")}
           </Typography>
 

@@ -22,7 +22,7 @@ const getConditionColor = (condition) => {
   }
 };
 
-function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = false }) {
+function CarCard({ data, type = "sell", width = 278, handleFavBtn, isGrid = false }) {
   const [isFav, setIsFav] = useState(false);
   const [images, setImages] = useState([]);
   const { t, i18n } = useTranslation();
@@ -73,10 +73,16 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
         p: 0,
         direction: i18n.language == "ar" && "rtl",
         "@media(max-width: 800px)": {
-          width: "45vw",
+          width: "30vw",
         },
-        "@media(max-width: 361px)": {
+        "@media(max-width: 500px)": {
+          width: "45vw"
+        },
+        "@media(max-width: 400px)": {
           width: isGrid ? 270 : 162,
+        },
+        "@media(max-width: 340px)": {
+          width: isGrid ? 270 : 150,
         }
       }}
     >
@@ -104,7 +110,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
               backgroundColor: "#B71C1C",
               color: "white",
               fontSize: "0.75rem",
-              fontWeight: "bold",
+              fontWeight: "300" ,
               '& .MuiChip-label': {
                 padding: '5px',
               }
@@ -118,7 +124,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
             sx={{
               backgroundColor: getConditionColor(data.vehicle_condition),
               color: 'white',
-              fontWeight: 'bold',
+              fontWeight: "300" ,
               fontSize: '0.75rem',
               height: '24px',
               position: "absolute",
@@ -174,13 +180,14 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
           window.innerWidth >= 700 &&
           <Typography
             variant="h6"
-            fontWeight="bold"
+            fontWeight="300" 
             sx={{
               display: 'inline-block',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
               whiteSpace: 'nowrap',
               maxWidth: '100%',
+              fontWeight: "200",
               "&:hover": { textDecoration: "underline" }
             }}
             onClick={() => (window.location = `/ad/${type}?id=${data.id}`)}
@@ -220,7 +227,7 @@ function CarCard({ data, type = "sell", width = 275, handleFavBtn, isGrid = fals
               sx={{
                 backgroundColor: getConditionColor(data.vehicle_condition),
                 color: 'white',
-                fontWeight: 'bold',
+                fontWeight: "300" ,
                 fontSize: '0.75rem',
                 height: '24px',
                 mt: 1

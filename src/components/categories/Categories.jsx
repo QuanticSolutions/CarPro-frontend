@@ -41,7 +41,7 @@ function Categories({ title, contents }) {
             <Container>
                 <Box>
                     {
-                        <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : 'left'}>
+                        <Typography variant="h5" fontWeight="300"  textAlign={i18n.language == "ar" ? "right" : 'left'}>
                             {title}
                         </Typography>
                     }
@@ -52,7 +52,7 @@ function Categories({ title, contents }) {
                             (content, index) => (
                                 <CatCard onClick={() => window.location.href = content.link}>
                                     <img src={`/assets/images/${content.image}.png`} style={{ marginTop: "auto", transform: i18n.language == "ar" && "rotateY(180deg)" }} width="100rem" />
-                                    <Typography variant="body" fontWeight="bold" textAlign="center" marginTop="auto">
+                                    <Typography variant="body" fontWeight="300"  textAlign="center" marginTop="auto">
                                         {content.name}
                                     </Typography>
 

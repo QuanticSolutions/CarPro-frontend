@@ -13,7 +13,7 @@ const StyledBtn = styled(Button)({
     textAlign: "center",
     backgroundColor: "#B71C1C",
     fontSize: "18px",
-    fontWeight: "bold",
+    fontWeight: "300" ,
     marginTop: "1rem",
     padding: "0.5rem",
     textTransform: "none"
@@ -142,7 +142,7 @@ function ForgotPassword() {
     return (
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
             <Container>
-                <Typography variant="h5" fontWeight="bold" color="black" textAlign="center">
+                <Typography variant="h5" fontWeight="300"  color="black" textAlign="center">
                     {t("forgotPassword.title")}
                 </Typography>
                 

@@ -12,8 +12,10 @@ import {
     Thread,
     Window,
 } from "stream-chat-react";
-import { EmojiPicker } from "stream-chat-react/emojis";
 import { SearchIndex } from "emoji-mart";
+import Picker from '@emoji-mart/react'
+import data from '@emoji-mart/data'
+import {Button} from '@mui/material';
 import { getUser, checkUser, createNotification, getStreamImages, API_BASE_URL } from '../../api/consumer';
 import { ArrowLeft } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
@@ -197,7 +199,7 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                 />
 
                 <div className="str-chat__header-livestream-left">
-                    <p className="str-chat__header-livestream-left--title" style={{ fontWeight: "bold" }}>
+                    <p className="str-chat__header-livestream-left--title" style={{ fontWeight: "300"  }}>
                         {receiverInfo.name}
                     </p>
                 </div>
@@ -206,23 +208,113 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
     );
 };
 
+
 const CustomInput = (props) => {
-  const { handleSubmit } = useMessageInputContext();
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const { handleSubmit, text, textareaRef } = useMessageInputContext();
 
-  const onKeyDown = (event) => {
-    console.log(event.key)
-    if (event.key == 'Enter') {
-      event.preventDefault();
-      handleSubmit();
-    }
-  };
+    const handleEmojiSelect = (emoji) => {
+        if (textareaRef?.current) {
+            const input = textareaRef.current;
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const newText = text.slice(0, start) + emoji.native + text.slice(end);
+            props.setText(newText);
+            setTimeout(() => {
+                input.selectionStart = input.selectionEnd = start + emoji.native.length;
+                input.focus();
+            }, 0);
+        }
+        setShowEmojiPicker(false);
+    };
 
-  return <MessageInputFlat {...props} onKeyDown={onKeyDown} />;
+    const onKeyDown = (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            if (text.trim()) handleSubmit();
+        }
+    };
+
+    useEffect(() => {
+        const textarea = textareaRef?.current;
+        if (textarea) textarea.addEventListener('keydown', onKeyDown);
+        return () => textarea?.removeEventListener('keydown', onKeyDown);
+    }, [text, textareaRef]);
+
+    return (
+        <div style={{ position: 'relative' }}>
+            {showEmojiPicker && (
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: '100%',
+                        left: 0,
+                        zIndex: 1000,
+                        marginBottom: '8px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        borderRadius: '8px',
+                        overflow: 'hidden'
+                    }}
+                >
+                    <Picker 
+                        data={data}
+                        onEmojiSelect={handleEmojiSelect}
+                        theme="light"
+                        previewPosition="none"
+                        skinTonePosition="none"
+                    />
+                </div>
+            )}
+
+            <div style={{ 
+                display: 'flex', 
+                alignItems: 'centet',
+                background: '#fff',
+                border: '1px solid #e0e0e0',
+                padding: '8px'
+            }}>
+
+                <Button
+                    onClick={() => setShowEmojiPicker(prev => !prev)}
+                    sx={{
+                        p:0,
+                        m:0,
+                        borderRadius: '6px',
+                        minWidth: 0,
+                        background: showEmojiPicker ? '#f0f0f0' : 'transparent',
+                        '&:hover': {
+                            background: '#f5f5f5'
+                        }
+                    }}
+                >
+                    😊
+                </Button>
+                <div style={{ flex: 1, }}>
+                    <MessageInputFlat {...props} />
+                </div>
+            </div>
+
+            {showEmojiPicker && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 999
+                    }}
+                    onClick={() => setShowEmojiPicker(false)}
+                />
+            )}
+        </div>
+    );
 };
+
+
 
 const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
     const { channel } = useChannelStateContext();
-    const shouldSubmit = (event) => (event.key === 'Enter' && event.shiftKey) || event.key === '9' || event.key === '0';
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -251,7 +343,6 @@ const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
             }
         };
 
-
         channel.on("message.new", handleNewMessage);
         return () => {
             channel.off("message.new", handleNewMessage);
@@ -267,7 +358,7 @@ const ChannelInner = ({ receiver, setIsChannelListOpen, isMobileView }) => {
                     isMobileView={isMobileView}
                 />
                 <MessageList />
-                <MessageInput Input={CustomInput} shouldSubmit={shouldSubmit}/>
+                <MessageInput Input={CustomInput} />
             </Window>
             <Thread />
         </>
@@ -412,7 +503,7 @@ const App = () => {
                         receiver={receiver}
                     />
                 )}
-                <Channel EmojiPicker={EmojiPicker} emojiSearchIndex={SearchIndex}>
+                <Channel emojiSearchIndex={SearchIndex}>
                     <ChannelInner
                         receiver={receiver}
                         setIsChannelListOpen={setIsChannelListOpen}

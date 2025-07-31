@@ -28,7 +28,7 @@ const ContactForm = ({ onNext, onBack, data, handleChange }) => {
 
   return (
     <Box>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" fontWeight="300"  gutterBottom>
         {t("contactForm.title")}
       </Typography>
       <Typography variant="body1" gutterBottom color="text.secondary">

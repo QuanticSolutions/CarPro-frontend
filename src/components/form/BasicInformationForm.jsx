@@ -217,7 +217,7 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
 
   return (
     <Box sx={{ direction: i18n.language == "ar" && "rtl" }}>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" fontWeight="300"  gutterBottom>
         {t("basicInfo.title")}
       </Typography>
       <Typography variant="body1" gutterBottom color="text.secondary">

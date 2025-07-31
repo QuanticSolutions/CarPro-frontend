@@ -15,7 +15,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     color: "#B71C1C",
-    fontWeight: "bold",
+    fontWeight: "300" ,
     fontSize: window.innerWidth >= 768 ? "15px" : "12px",
     borderRadius: "0",
     padding: 0,
@@ -67,11 +67,11 @@ function CardSlider({ data, title, openTo = "featured", category }) {
         },
         tablet: {
             breakpoint: { max: 900, min: 768 },
-            items: 2,
+            items: 3,
             slidesToSlide: 1,
         },
         mobile: {
-            breakpoint: { max: 768, min: 0 },
+            breakpoint: { max: 600, min: 0 },
             items: 2,
             slidesToSlide: 1,
         },
@@ -79,9 +79,9 @@ function CardSlider({ data, title, openTo = "featured", category }) {
 
     return (
         <>
-            <Container sx={{ width: "100%", margin: "auto", position: "relative", my: 3 }}>
+            <Container  sx={{ margin: "auto", position: "relative", my: 3, "@media(min-width:600px)":{paddingLeft: "33px", paddingRight: "29px"}}}>
                 <Box sx={BoxStyles} flexDirection={i18n.language == "ar" ? "row-reverse" : "row"}>
-                    <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>
+                    <Typography variant="h5" fontWeight="300" textAlign={i18n.language == "ar" ? "right" : "left"}>
                         {title}
                     </Typography>
                 </Box>

@@ -16,19 +16,19 @@ const theme = createTheme({
     fontFamily: '"franklin gothic demi", sans-serif',
     h2: {
       fontFamily: '"franklin gothic demi", sans-serif',
-      fontWeight: 700,
+      fontWeight: 500,
     },
     h3: {
       fontFamily: '"franklin gothic demi", sans-serif',
-      fontWeight: 600,
+      fontWeight: 400,
     },
     h4: {
       fontFamily: '"franklin gothic demi", sans-serif',
-      fontWeight: 500,
+      fontWeight: 300,
     },
     h5: {
       fontFamily: '"franklin gothic demi", sans-serif',
-      fontWeight: 400,
+      fontWeight: 200,
       fontSize: "30px",
       "@media (max-width:600px)": {
         fontSize: "18px",

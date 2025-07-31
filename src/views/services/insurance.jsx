@@ -65,7 +65,7 @@ function Insurance() {
     const headerText = t("insurancePage.headerText")
     const headerTextStyles = { color: "#B71C1C", fontWeight: "bolder", marginTop: "4rem", textAlign: i18n.language == "ar" ? "right" : "left", fontSize: "5rem" }
     const text = t("insurancePage.text")
-    const textStyles = { fontWeight: "bold", fontSize: "22px", textAlign: i18n.language == "ar" ? "right" : "left", fontSize: "2rem"}
+    const textStyles = { fontWeight: "300" , fontSize: "22px", textAlign: i18n.language == "ar" ? "right" : "left", fontSize: "2rem"}
 
     return (
         <>
@@ -83,7 +83,7 @@ function Insurance() {
             <Services title={t("insurancePage.chooseInsurancePackage")} cards={cards} background="linear-gradient(#B71C1C, black)" gap="45px" />
             <Banner image="16" width="65rem" />
             <Container sx={{my: 3 }}>
-                <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"} sx={{ "@media (max-width: 786px)": { textAlign: "center" } }} gutterBottom>
+                <Typography variant="h5" fontWeight="300"  textAlign={i18n.language == "ar" ? "right" : "left"} sx={{ "@media (max-width: 786px)": { textAlign: "center" } }} gutterBottom>
                     {t("insurancePage.whyInsuranceEssential")}
                 </Typography>
 
@@ -91,7 +91,7 @@ function Insurance() {
                     <Grid item xs={12} sm={5}>
                         {benefits.slice(0, 3).map((benefit, index) => (
                             <Box key={index} sx={{ mb: 2 }}>
-                                <Typography variant="body1" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>▪ {benefit.title}</Typography>
+                                <Typography variant="body1" fontWeight="300"  textAlign={i18n.language == "ar" ? "right" : "left"}>▪ {benefit.title}</Typography>
                                 <Typography variant="body2" color="textSecondary" textAlign={i18n.language == "ar" ? "right" : "left"}>{benefit.description}</Typography>
                             </Box>
                         ))}
@@ -104,7 +104,7 @@ function Insurance() {
                     <Grid item xs={12} sm={5}>
                         {benefits.slice(3, 6).map((benefit, index) => (
                             <Box key={index} sx={{ mb: 2 }}>
-                                <Typography variant="body1" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>▪ {benefit.title}</Typography>
+                                <Typography variant="body1" fontWeight="300"  textAlign={i18n.language == "ar" ? "right" : "left"}>▪ {benefit.title}</Typography>
                                 <Typography variant="body2" color="textSecondary" textAlign={i18n.language == "ar" ? "right" : "left"}>{benefit.description}</Typography>
                             </Box>
                         ))}
@@ -114,7 +114,7 @@ function Insurance() {
             <Box sx={{ backgroundColor: "#5D0101", py: 6, my: 3 }}>
                 <Container>
                     <Box sx={{ color: "white", mb: 4 }}>
-                        <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : "left"}>
+                        <Typography variant="h5" fontWeight="300"  textAlign={i18n.language == "ar" ? "right" : "left"}>
                             {t("insurancePage.carInsuranceTypes")}
                         </Typography>
                     </Box>
@@ -123,7 +123,7 @@ function Insurance() {
                             <Card sx={{ p: 2, textAlign: "center", borderRadius: 2, boxShadow: 3, flex: 1 }}>
                                 <CardContent>
                                     {insurance.icon}
-                                    <Typography variant="body1" fontWeight="bold" sx={{ mt: 2 }}>
+                                    <Typography variant="body1" fontWeight="300"  sx={{ mt: 2 }}>
                                         {insurance.title}
                                     </Typography>
                                 </CardContent>

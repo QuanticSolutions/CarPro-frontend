@@ -44,7 +44,7 @@ function Inspection() {
     const headerText = t("inspectionPage.headerText")
     const headerTextStyles = { color: "#B71C1C", fontWeight: "bolder", marginTop: "4rem", textAlign: i18n.language == "ar" ? "left" : "right", fontSize: "5rem" }
     const text = t("inspectionPage.headerSubText")
-    const textStyles = { fontWeight: "bold", fontSize: "22px", textAlign: i18n.language == "ar" ? "left" : "right", fontSize: "2rem"}
+    const textStyles = { fontWeight: "300" , fontSize: "22px", textAlign: i18n.language == "ar" ? "left" : "right", fontSize: "2rem"}
 
 
     return (
@@ -61,7 +61,7 @@ function Inspection() {
                 flexDirection={i18n.language == "ar" ? "row" : "row-reverse"}
             />
             <Container sx={BoxStyles}>
-                <Typography variant="h5" fontWeight="bold" sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
+                <Typography variant="h5" fontWeight="300"  sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
                     {t("inspectionPage.revolutionizingTitle", { country: t(`countries.${countries[localStorage.getItem('selectedCountry')]}`) })}
                 </Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", "@media (max-width: 768px)": { justifyContent: "center" } }}>
@@ -111,7 +111,7 @@ function Inspection() {
                                             width: "100%"
                                         }}
                                     >
-                                        <Typography fontWeight="bold" >{inspectionDetails[0].name}</Typography>
+                                        <Typography fontWeight="300"  >{inspectionDetails[0].name}</Typography>
                                         <Slider
                                             value={inspectionDetails[0].value}
                                             min={0}
@@ -154,7 +154,7 @@ function Inspection() {
                                             width: "100%"
                                         }}
                                     >
-                                        <Typography fontWeight="bold">{inspectionDetails[1].name}</Typography>
+                                        <Typography fontWeight="300" >{inspectionDetails[1].name}</Typography>
                                         <Slider
                                             value={inspectionDetails[1].value}
                                             min={0}
@@ -198,7 +198,7 @@ function Inspection() {
                                             width: "100%"
                                         }}
                                     >
-                                        <Typography fontWeight="bold">{inspectionDetails[2].name}</Typography>
+                                        <Typography fontWeight="300" >{inspectionDetails[2].name}</Typography>
                                         <Slider
                                             value={inspectionDetails[2].value}
                                             min={0}
@@ -241,7 +241,7 @@ function Inspection() {
                                             width: "100%"
                                         }}
                                     >
-                                        <Typography fontWeight="bold">{inspectionDetails[3].name}</Typography>
+                                        <Typography fontWeight="300" >{inspectionDetails[3].name}</Typography>
                                         <Slider
                                             value={inspectionDetails[3].value}
                                             min={0}
@@ -258,7 +258,7 @@ function Inspection() {
                 </Box>
             </Container>
             <Container sx={BoxStyles}>
-                <Typography variant="h5" fontWeight="bold" sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
+                <Typography variant="h5" fontWeight="300"  sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
                     {t("inspectionPage.reportIncludesTitle")}
                 </Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", "@media (max-width: 768px)": { justifyContent: "center" } }}>
@@ -280,7 +280,7 @@ function Inspection() {
                 </Box>
             </Container>
             <Container sx={BoxStyles}>
-                <Typography variant="h5" fontWeight="bold" sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
+                <Typography variant="h5" fontWeight="300"  sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
                     {t("inspectionPage.scoringCriteriaTitle")}
                 </Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", "@media (max-width: 768px)": { justifyContent: "center" } }}>
@@ -303,7 +303,7 @@ function Inspection() {
             </Container>
             <CardSlider data={data} title={t("inspectionPage.insuredCars")} />
             <Container sx={BoxStyles}>
-                <Typography variant="h5" fontWeight="bold" sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
+                <Typography variant="h5" fontWeight="300"  sx={{ mb: 4, textAlign: i18n.language == "ar" ? "right" : "left" }}>
                     {t("inspectionPage.inspectionProcessTitle")}
                 </Typography>
                 <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", "@media (max-width: 768px)": { justifyContent: "center" } }}>

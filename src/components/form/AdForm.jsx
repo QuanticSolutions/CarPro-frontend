@@ -271,8 +271,8 @@ function AdForm({ title, type, isUpdating = false, category }) {
             variant="h6"
             component="div"
             color="primary"
+            fontWeight="300" 
             sx={{
-              fontWeight: 'bold',
               mb: 1
             }}
           >

@@ -151,7 +151,7 @@ function ToggleBtn() {
                 }
                 {
                     (window.innerWidth <= 800 && isAuthenticated) ?
-                        <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold", color: "black" }} onClick={() => window.location.href = "/my/profile"}>
+                        <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "300" , color: "black" }} onClick={() => window.location.href = "/my/profile"}>
                             {t("auth.myProfile")}
                             {
                                 i18n.language != "ar" ?
@@ -159,7 +159,7 @@ function ToggleBtn() {
                                     <ChevronLeft />
                             }
                         </MenuItem>
-                        : !isAuthenticated && window.innerWidth <= 800 && <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "bold", color: "black" }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
+                        : !isAuthenticated && window.innerWidth <= 800 && <MenuItem sx={{ padding: 1, fontSize: "1.4rem", fontWeight: "300" , color: "black" }} onClick={handleLoginClick}>{t("auth.login")}</MenuItem>
                 }
             </IconButton>
             {

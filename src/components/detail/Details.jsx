@@ -253,7 +253,7 @@ function Details({ id, type = "sell" }) {
                             <Box>
                                 {
                                     type == "sell" &&
-                                    <Typography variant='h5' fontWeight="bold" textAlign="left">
+                                    <Typography variant='h5' fontWeight="300"  textAlign="left">
                                         {t("AED")} {i18n.language == "ar" && ad.price ? convertToArabicNumbers(ad.price) : ad.price}
                                     </Typography>
                                 }
@@ -296,7 +296,7 @@ function Details({ id, type = "sell" }) {
                                                     variant="h6"
                                                     component="span"
                                                     sx={{
-                                                        fontWeight: 'bold',
+                                                        fontWeight: "300" ,
                                                         color: '#333',
                                                         fontSize: '1.25rem',
                                                         marginRight: '4px'
@@ -351,7 +351,7 @@ function Details({ id, type = "sell" }) {
                                                     variant="h6"
                                                     component="span"
                                                     sx={{
-                                                        fontWeight: 'bold',
+                                                        fontWeight: "300" ,
                                                         color: '#333',
                                                         fontSize: '1.25rem',
                                                         marginRight: '4px'
@@ -407,7 +407,7 @@ function Details({ id, type = "sell" }) {
                                                     variant="h6"
                                                     component="span"
                                                     sx={{
-                                                        fontWeight: 'bold',
+                                                        fontWeight: "300" ,
                                                         color: '#333',
                                                         fontSize: '1.25rem',
                                                         marginRight: '4px'
@@ -475,7 +475,7 @@ function Details({ id, type = "sell" }) {
                                             sx={{
                                                 backgroundColor: getConditionColor(ad.vehicle_condition),
                                                 color: 'white',
-                                                fontWeight: 'bold',
+                                                fontWeight: "300" ,
                                                 fontSize: '0.75rem',
                                                 height: '24px'
                                             }}

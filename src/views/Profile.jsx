@@ -300,7 +300,7 @@ export default function EditProfile() {
                             <Grid item xs={12} md={4}>
                                 <Box sx={{ border: '1px solid #e0e0e0', p: 2, borderRadius: 1 }}>
                                     <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
-                                        <Typography variant="subtitle2" fontWeight="bold">
+                                        <Typography variant="subtitle2" fontWeight="300" >
                                             {t("editProfile.whyImportant")}
                                         </Typography>
                                     </Box>

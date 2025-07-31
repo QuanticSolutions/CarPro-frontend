@@ -35,7 +35,7 @@ const TestCard = ({ data }) => {
             <Box sx={{ display: "flex", aligndatas: "center", position: "absolute", bottom: 20, "@media(max-width:600px)": { bottom: 20 } }}>
                 <Avatar src={data.avatar} sx={{ width: 40, height: 40, mr: 2, }} />
                 <Box textAlign="left">
-                    <Typography fontWeight="bold" textAlign={"left"}>{data.name}</Typography>
+                    <Typography fontWeight="300"  textAlign={"left"}>{data.name}</Typography>
                     <Typography variant="body2">{data.company}</Typography>
                 </Box>
             </Box>

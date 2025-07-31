@@ -57,7 +57,7 @@ const Notifications = () => {
 
   return (
     <Box sx={{ p: 2, my: 3, minHeight: "20rem", width: "100%", mx: "auto", background: "#fff", "@media(max-width:800px)": { width: "90%" }, direction: i18n.language == "ar" && "rtl" }}>
-      <Typography variant="h6" fontWeight="bold">{t("notifications.title")}</Typography>
+      <Typography variant="h6" fontWeight="300" >{t("notifications.title")}</Typography>
       <Tabs
         value={tab}
         onChange={(e, newValue) => setTab(newValue)}
@@ -72,7 +72,7 @@ const Notifications = () => {
             px: 1,
             minWidth: "32px",
             minHeight: "32px",
-            fontWeight: "bold",
+            fontWeight: "300" ,
             textTransform: "none",
             fontSize: { xs: "12px", sm: "14px", md: "16px" },
             transition: "0.3s",
@@ -92,7 +92,7 @@ const Notifications = () => {
             <Card key={index} variant="outlined" sx={{ display: "flex", alignItems: "center", mb: 1 }} onClick={() => handleNotificationClick(notif)}>
               <Avatar src={notif.avatar} sx={{ m: 1 }} />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography fontWeight="bold">{notif.created_by}</Typography>
+                <Typography fontWeight="300" >{notif.created_by}</Typography>
                 <Typography variant="body2" color="textSecondary">
                   {notif.message}
                 </Typography>

@@ -41,7 +41,7 @@ const CategorySelection = ({ type }) => {
     return (
         <>
             <Container sx={{ maxWidth: 1400, margin: '0 auto', p: 3, py: 5, direction: i18n.language == "ar" && "rtl", mt: window.innerWidth > 800 ? 10 : 4 }}>
-                <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4 }}>{t('categorySelection.pageTitle')}</Typography>
+                <Typography variant="h4" sx={{ fontWeight: "300" , mb: 4 }}>{t('categorySelection.pageTitle')}</Typography>
                 <Typography variant="h5" sx={{ mb: 3 }}>{t('categorySelection.chooseCategory')}</Typography>
                 <Grid container spacing={3}>
                     {categories

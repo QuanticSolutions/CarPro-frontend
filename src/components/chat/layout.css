@@ -12,6 +12,16 @@
   --str-chat__border-radius-circle: 100%;
 }
 
+.str-chat__message-input {
+  padding: 0 !important;
+}
+
+.str-chat__message-input .str-chat__message-input-inner .str-chat__message-textarea-container .str-chat__message-textarea-with-emoji-picker{
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important
+}
+
 * {
   scrollbar-color: #B71C1C;
 }

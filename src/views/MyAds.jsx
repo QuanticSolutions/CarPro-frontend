@@ -172,7 +172,7 @@ function MyAds() {
         >
             <Container sx={{ py: 4 }}>
                 <Box width="100%">
-                    <Typography variant="h6" fontWeight="bold">{t("myAds.manageAds")}</Typography>
+                    <Typography variant="h6" fontWeight="300" >{t("myAds.manageAds")}</Typography>
                     <Tabs
                         value={tab}
                         variant='scrollable'
@@ -188,7 +188,7 @@ function MyAds() {
                                 px: 1,
                                 minHeight: "32px",
                                 minWidth: "32px",
-                                fontWeight: "bold",
+                                fontWeight: "300" ,
                                 textTransform: "none",
                                 fontSize: { xs: "12px", sm: "14px", md: "16px" },
                                 transition: "0.3s",
@@ -332,7 +332,7 @@ function MyAds() {
                                                                             <Typography variant="h5" component="h3">
                                                                                 {items.title}
                                                                             </Typography>
-                                                                            <Typography variant="subtitle1" fontWeight="bold" sx={{ mt: 0.5, color: "#B71C1C" }}>
+                                                                            <Typography variant="subtitle1" fontWeight="300"  sx={{ mt: 0.5, color: "#B71C1C" }}>
                                                                                 AED {items.price.toLocaleString()}
                                                                             </Typography>
                                                                         </Grid>
@@ -429,7 +429,7 @@ function MyAds() {
                             :
                             <Box width="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
                                 <img src="/assets/images/man-car.png" width={200} />
-                                <Typography fontWeight="bold" textAlign="center" py={4}>You Havent Posted Any Ads</Typography>
+                                <Typography fontWeight="300"  textAlign="center" py={4}>You Havent Posted Any Ads</Typography>
                             </Box>
                     }
                 </Box>

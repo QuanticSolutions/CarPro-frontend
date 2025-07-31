@@ -7,7 +7,7 @@ const styles = {
   width: "7rem",
   height: "2.5rem",
   color: "#fff",
-  fontWeight: "bold",
+  fontWeight: "300" ,
   border: "3px solid #fff",
   borderRadius: "10px",
   textTransform: "none"

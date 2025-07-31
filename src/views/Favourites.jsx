@@ -51,7 +51,7 @@ function Favourites() {
         <div style={{ display: "flex", flexDirection: "column", justifyContent: 'center', marginTop: window.innerWidth >= 1000 && "8rem", marginBottom: "5rem", direction: i18n.language == "ar" && "rtl" }}>
             <Container sx={{ py: 4 }}>
                 <Box width="100%" minHeight="20rem">
-                    <Typography variant="h6" fontWeight="bold">{t('favourites.title')}</Typography>
+                    <Typography variant="h6" fontWeight="300" >{t('favourites.title')}</Typography>
                     <Tabs
                         value={tab}
                         variant='scrollable'
@@ -68,7 +68,7 @@ function Favourites() {
                                 px: 1,
                                 minWidth: "32px",
                                 minHeight: "32px",
-                                fontWeight: "bold",
+                                fontWeight: "300" ,
                                 textTransform: "none",
                                 fontSize: { xs: "12px", sm: "14px", md: "16px" },
                                 transition: "0.3s",

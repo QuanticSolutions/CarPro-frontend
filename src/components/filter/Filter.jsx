@@ -208,7 +208,7 @@ const FilterSection = ({ filters, setFilters, title, filterData, showBrands, cat
                         background: "#fff",
                         color: "#B71C1C",
                         padding: "20px",
-                        fontWeight: "bold",
+                        fontWeight: "300" ,
                         borderTopRightRadius: "8px",
                         borderTopLeftRadius: "8px",
                         textAlign: i18n.language == "ar" && "right"

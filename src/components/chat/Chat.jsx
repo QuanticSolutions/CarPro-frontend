@@ -190,7 +190,7 @@ const CustomChannelHeader = ({ title, onBackClick, isMobileView }) => {
                     }}
                 />
                 <div className="str-chat__header-livestream-left">
-                    <p className="str-chat__header-livestream-left--title" style={{ fontWeight: "bold" }}>
+                    <p className="str-chat__header-livestream-left--title" style={{ fontWeight: "300"  }}>
                         {receiverInfo.name}
                     </p>
                 </div>

@@ -7,7 +7,7 @@ const styles = {
     backgroundColor: "#E00000",
     width: "7rem",
     color: "#fff",
-    fontWeight: "bold",
+    fontWeight: "300" ,
     border: "3px solid #fff",
     borderRadius: "5px",
     textTransform: "none"
@@ -45,7 +45,7 @@ function Video() {
         <Box sx={{ width: "100%", margin: "auto", my: 3 }}>
             <Container>
                 <Box sx={{ mb: 3}}>
-                    <Typography variant="h5" fontWeight="bold" fontFamily='"Franklin Gothic Demi", sans-serif' textAlign={i18n.language == "ar" ? "right" : "left"}>
+                    <Typography variant="h5" fontWeight="300"  fontFamily='"Franklin Gothic Demi", sans-serif' textAlign={i18n.language == "ar" ? "right" : "left"}>
                         {t("videoSection.title")}
                     </Typography>
                     <Typography variant="body1" fontFamily='"Franklin Gothic Demi", sans-serif' textAlign={i18n.language == "ar" ? "right" : "left"}>

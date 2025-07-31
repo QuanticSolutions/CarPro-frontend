@@ -34,7 +34,7 @@ function Brand({ image, name }) {
         >
             <CardContent sx={{ marginTop: "auto" }}>
                 <img src={`/assets/images/${image}.png`} style={{ width: "5rem"}}/>
-                <Typography variant="body1" fontWeight="bold">
+                <Typography variant="body1" fontWeight="300" >
                     {name}
                 </Typography>
             </CardContent>

@@ -45,7 +45,7 @@ function Services({ title, cards, background, alternateBg, gap = "30px" }) {
         <Box sx={{direction: i18n.language == "ar" && "rtl", my:3 }}>
             <Container>
                 <Box>
-                    <Typography variant="h5" fontWeight="bold" textAlign={i18n.language == "ar" ? "right" : 'left'}>
+                    <Typography variant="h5" fontWeight="300"  textAlign={i18n.language == "ar" ? "right" : 'left'}>
                         {title}
                     </Typography>
                 </Box>
@@ -59,7 +59,7 @@ function Services({ title, cards, background, alternateBg, gap = "30px" }) {
                                             <CardMedia>
                                                 <img src={`/assets/images/${card.img}.png`} style={{ transform: i18n.language == "ar" && "rotateY(180deg)" }} />
                                             </CardMedia>
-                                            <Typography variant="h6" fontWeight="bold" textAlign="center">
+                                            <Typography variant="h6" fontWeight="300"  textAlign="center">
                                                 {card.title}
                                             </Typography>
                                             <CardContent sx={{ textAlign: "center" }}>
@@ -95,7 +95,7 @@ function Services({ title, cards, background, alternateBg, gap = "30px" }) {
                                             <CardMedia>
                                                 <img src={`/assets/images/${card.img}.png`} style={{ transform: i18n.language == "ar" && "rotateY(180deg)" }}/>
                                             </CardMedia>
-                                            <Typography variant="h6" fontWeight="bold" textAlign="center">
+                                            <Typography variant="h6" fontWeight="300"  textAlign="center">
                                                 {card.title}
                                             </Typography>
                                             <CardContent sx={{ textAlign: "center" }}>

@@ -148,11 +148,11 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
       >
         {
           type != "rent" &&
-          <Typography variant="h6" fontWeight="bold" gutterBottom>
+          <Typography variant="h6" fontWeight="300"  gutterBottom>
             AED {data.price}
           </Typography>
         }
-        <Typography variant="h6" fontWeight="bolder" sx={{ mb: 1 }}>
+        <Typography variant="h6" fontWeight="bolder" fontWeight="300"  sx={{ mb: 1 }}>
           {data.title}
         </Typography>
         <Box
@@ -191,26 +191,26 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
           type == "rent" &&
           <Box sx={{ display: "flex", gap: 1 }}>
             <Box sx={{ background: "#bdc2c2", p:1, color: "black", borderRadius: 1 }}>
-              <Typography  variant="body1" fontWeight="bold" gutterBottom>
+              <Typography  variant="body1" fontWeight="300"  gutterBottom>
                 Daily Rent
               </Typography>
-              <Typography  variant="body2" fontWeight="bold" gutterBottom>
+              <Typography  variant="body2" fontWeight="300"  gutterBottom>
                 AED {data.daily_rent}
               </Typography>
             </Box>
             <Box sx={{ background: "#bdc2c2", p:1, color: "black", borderRadius: 1 }}>
-              <Typography  variant="body1" fontWeight="bold" gutterBottom>
+              <Typography  variant="body1" fontWeight="300"  gutterBottom>
                 Weekly Rent
               </Typography>
-              <Typography  variant="body2" fontWeight="bold" gutterBottom>
+              <Typography  variant="body2" fontWeight="300"  gutterBottom>
                 AED {data.weekly_rent}
               </Typography>
             </Box>
             <Box sx={{ background: "#bdc2c2", p:1, color: "black", borderRadius: 1 }}>
-              <Typography  variant="body1" fontWeight="bold" gutterBottom>
+              <Typography  variant="body1" fontWeight="300"  gutterBottom>
                 Monthly Rent
               </Typography>
-              <Typography  variant="body2" fontWeight="bold" gutterBottom>
+              <Typography  variant="body2" fontWeight="300"  gutterBottom>
                 AED {data.monthly_rent}
               </Typography>
             </Box>
@@ -262,7 +262,7 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
               sx={{
                 backgroundColor: getConditionColor(data.vehicle_condition),
                 color: 'white',
-                fontWeight: 'bold',
+                fontWeight: "300" ,
                 fontSize: '0.75rem',
                 height: '24px',
                 mt: 1
@@ -282,7 +282,7 @@ const CarListingCard = ({ data = {}, type = "sell", handleFavBtn }) => {
             left: { xs: "auto", sm: 10 },
             backgroundColor: "#d32f2f",
             color: "white",
-            fontWeight: "bold",
+            fontWeight: "300" ,
             fontSize: "0.7rem",
           }}
         />

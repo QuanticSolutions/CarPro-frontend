@@ -38,7 +38,7 @@ function MobileFooter({ countryCode }) {
                 <Box display={"flex"} gap={2} justifyContent={"space-between"} minWidth={"100%"} sx={{ direction: i18n.language == "ar" && "rtl" }}>
                     <Box display={"flex"} gap={2} flexDirection={"column"}>
                         <Grid2 >
-                            <Typography variant="h5" fontWeight="bold">{t("menu.allCategories")}</Typography>
+                            <Typography variant="h5" fontWeight="300" >{t("menu.allCategories")}</Typography>
                             <List>
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <a href="/cars/sell">{t("categories.cars")}</a>
@@ -61,7 +61,7 @@ function MobileFooter({ countryCode }) {
                             </List>
                         </Grid2>
                         <Grid2>
-                            <Typography variant="h5" fontWeight="bold">{t("menu.services")}</Typography>
+                            <Typography variant="h5" fontWeight="300" >{t("menu.services")}</Typography>
                             <List>
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <a href="/services/sell">{t("menu.sellACar")}</a>
@@ -78,7 +78,7 @@ function MobileFooter({ countryCode }) {
                             </List>
                         </Grid2>
                         <Grid2>
-                            <Typography variant="h5" fontWeight="bold">{t("footer.company")}</Typography>
+                            <Typography variant="h5" fontWeight="300" >{t("footer.company")}</Typography>
                             <List>
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <a href="/about">{t("footer.aboutUs")}</a>
@@ -92,7 +92,7 @@ function MobileFooter({ countryCode }) {
                             </List>
                         </Grid2>
                         <Grid2>
-                            <Typography variant="h6" fontWeight="bold">{t("footer.otherCountries")}</Typography>
+                            <Typography variant="h6" fontWeight="300" >{t("footer.otherCountries")}</Typography>
                             <List>
                                 {
                                     countries[countryCode] != "UAE" &&
@@ -135,7 +135,7 @@ function MobileFooter({ countryCode }) {
                     </Box>
                     <Box display={"flex"} gap={2} flexDirection={"column"}>
                         <Grid2 xs={6}>
-                            <Typography variant="h6" fontWeight="bold">{t(`countries.${countries[countryCode]}`)}</Typography>
+                            <Typography variant="h6" fontWeight="300" >{t(`countries.${countries[countryCode]}`)}</Typography>
                             <List>
                                 {t(`cities.${countries[countryCode || ""]}`, { returnObjects: true }).slice(0, 5).map((city, index) => (
                                     <ListItem key={index} sx={{ paddingLeft: "0" }}>
@@ -145,7 +145,7 @@ function MobileFooter({ countryCode }) {
                             </List>
                         </Grid2>
                         <Grid2>
-                            <Typography variant="h5" fontWeight="bold">{t("footer.help")}</Typography>
+                            <Typography variant="h5" fontWeight="300" >{t("footer.help")}</Typography>
                             <List>
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <a href="/contact">{t("footer.contact")}</a>
@@ -156,7 +156,7 @@ function MobileFooter({ countryCode }) {
                             </List>
                         </Grid2>
                         <Grid2 xs={6}>
-                            <Typography variant="h5" fontWeight="bold">{t("footer.languages")}</Typography>
+                            <Typography variant="h5" fontWeight="300" >{t("footer.languages")}</Typography>
                             <List>
                                 <ListItem sx={{ paddingLeft: "0" }}>
                                     <a>{t("footer.english")}</a>
@@ -200,7 +200,7 @@ function MobileFooter({ countryCode }) {
                     </Box>
                 </Box>
                 <Box container spacing={2} display="flex" flexDirection="column" alignItems="center" py="1rem" mt="2rem" width="100%" sx={{ "@media (max-width:425px)": { alignItems: "center", px: 1 } }}>
-                    <Typography variant="body" fontWeight="bold" marginTop="auto">{t("footer.copyright")}</Typography>
+                    <Typography variant="body" fontWeight="300"  marginTop="auto">{t("footer.copyright")}</Typography>
                 </Box>
             </Container>
         </Box>

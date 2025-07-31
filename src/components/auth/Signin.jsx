@@ -17,7 +17,7 @@ const StyledBtn = styled(Button)({
     maxWidth: "100%",
     display: "flex",
     justifyContent: "center",
-    fontWeight: "bold",
+    fontWeight: "300" ,
     alignItems: "center",
     padding: "0.5rem",
     textTransform: "none"
@@ -34,7 +34,7 @@ function Signin() {
             <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
                 <img src="/assets/images/caroo.gif" width={200} style={{ textAlign: "center" }} />
                 <Container>
-                    <Typography variant="h6" fontWeight="bold" color="black" textAlign="center">{t("signin.loginTitle")}</Typography>
+                    <Typography variant="h6" fontWeight="300"  color="black" textAlign="center">{t("signin.loginTitle")}</Typography>
                     <Box display="flex" flexDirection="column" gap="10px" padding="1rem" alignItems="center">
                         <StyledBtn startIcon={<img src="/assets/images/google.png" style={{ color: "#DB4437", width: "25px" }} />} onClick={() => socialLogin("google")} >
                             {t("signin.loginTitle")}

@@ -23,7 +23,7 @@ function RedRect({ right }) {
     return (
         <Grid2 sx={gridStyles}>
             <Box sx={boxStyles} right={right}>
-                <Typography variant="h4" sx={{ fontWeight: "bold", "@media (max-width: 375px)": { fontSize: "16px" } }}>
+                <Typography variant="h4" sx={{ fontWeight: "300" , "@media (max-width: 375px)": { fontSize: "16px" } }}>
                     {t("getQuoteNow")}
                 </Typography>
             </Box>

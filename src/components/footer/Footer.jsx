@@ -68,7 +68,7 @@ function Footer({ countryCode }) {
             <Container sx={{ position: "relative" }}>
                 <Box display="flex" flexDirection={i18n.language == "ar" && "row-reverse"} justifyContent="space-between" gap={5} sx={{ "@media (max-width: 768px)": { pl: 1, flexWrap: "wrap", gap: 1 } }}>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("menu.allCategories")}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t("menu.allCategories")}</Typography>
                         <List>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/cars/sell">{t("categories.cars")}</a>
@@ -91,7 +91,7 @@ function Footer({ countryCode }) {
                         </List>
                     </Grid2>
                     <Grid2 sx={{ position: "relative" }}>
-                        <Typography variant="h6" fontWeight="bold">{t("menu.services")}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t("menu.services")}</Typography>
                         <List>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/services/sell">{t("menu.sellACar")}</a>
@@ -108,7 +108,7 @@ function Footer({ countryCode }) {
                         </List>
                     </Grid2>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t(`countries.${countries[countryCode]}`)}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t(`countries.${countries[countryCode]}`)}</Typography>
                         <List>
                             {t(`cities.${countries[countryCode]}`, { returnObjects: true }).slice(0, 5).map((city, index) => (
                                 <StyledListItem key={index} sx={{ paddingLeft: "0" }}>
@@ -118,7 +118,7 @@ function Footer({ countryCode }) {
                         </List>
                     </Grid2>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("footer.otherCountries")}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t("footer.otherCountries")}</Typography>
                         <List>
                             {
                                 countries[countryCode] != "UAE" &&
@@ -159,7 +159,7 @@ function Footer({ countryCode }) {
                         </List>
                     </Grid2>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("footer.company")}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t("footer.company")}</Typography>
                         <List sx={{ position: "relative" }}>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/about">{t("footer.aboutUs")}</a>
@@ -171,7 +171,7 @@ function Footer({ countryCode }) {
                                 <a href="/privacy">{t("footer.privacy")}</a>
                             </StyledListItem>
                             <Box sx={{ marginTop: "2rem", position: "absolute", left: i18n.language != "ar" && 0, top: 80, right: i18n.language == "ar" && 0, direction: i18n.language == "ar" && "rtl" }}>
-                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "bold", "@media(max-width: 2000px)": { width: "8rem" }, flexDirection: "row" }}>
+                                <StyledListItem sx={{ paddingLeft: "0", fontWeight: "300" , "@media(max-width: 2000px)": { width: "8rem" }, flexDirection: "row" }}>
                                     {t("footer.downloadApp")}
                                 </StyledListItem>
                                 <Box sx={{ display: "flex" }}>
@@ -187,7 +187,7 @@ function Footer({ countryCode }) {
 
                     </Grid2>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("footer.help")}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t("footer.help")}</Typography>
                         <List >
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a href="/contact">{t("footer.contact")}</a>
@@ -220,7 +220,7 @@ function Footer({ countryCode }) {
                         </List>
                     </Grid2>
                     <Grid2>
-                        <Typography variant="h6" fontWeight="bold">{t("footer.languages")}</Typography>
+                        <Typography variant="h6" fontWeight="300" >{t("footer.languages")}</Typography>
                         <List sx={{ position: "relative" }}>
                             <StyledListItem sx={{ paddingLeft: "0" }}>
                                 <a style={{ cursor: "pointer" }} onClick={() => i18n.changeLanguage('en')}>{t("footer.english")}</a>
@@ -232,7 +232,7 @@ function Footer({ countryCode }) {
                     </Grid2>
                 </Box>
                 <Box container spacing={2} display="flex" flexDirection="column" alignItems="center" py="1rem" mt="2rem" width="100%" sx={{ "@media (max-width:425px)": { alignItems: "center", px: 1 } }}>
-                    <Typography variant="body" fontWeight="bold" marginTop="auto">{t("footer.copyright")}</Typography>
+                    <Typography variant="body" fontWeight="300"  marginTop="auto">{t("footer.copyright")}</Typography>
                 </Box>
             </Container>
         </Box>

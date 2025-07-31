@@ -87,7 +87,7 @@ function Rent() {
       {/* <Banner image="18" /> */}
       <Container>
         <Box sx={{ mt: "4rem" }}>
-          <Typography variant="h5" sx={{ mb: 2, fontWeight: 'bold', textAlign: i18n.language == "ar" ? "right" : "left" }}>
+          <Typography variant="h5" sx={{ mb: 2, fontWeight: "300" , textAlign: i18n.language == "ar" ? "right" : "left" }}>
             {t("rentPage.steps")}
           </Typography>
         </Box>
@@ -99,7 +99,7 @@ function Rent() {
           <Paper elevation={0} className="mb-8">
             <Box display="flex" justifyContent="center" gap={2} sx={{ "@media (max-width: 768px)": { flexDirection: "column", alignItems: "center" } }}>
               <Box width="50%" sx={{ "@media (max-width: 768px)": { width: "100%" } }}>
-                <Typography variant="h4" component="h1" fontWeight="bold" py={2}>
+                <Typography variant="h4" component="h1" fontWeight="300"  py={2}>
                   {t("rentPage.unleashYourJourney")}
                 </Typography>
                 <Typography variant="body1" py={1}>
@@ -138,7 +138,7 @@ function Rent() {
                 />
               </Box>
               <Box width="50%" textAlign={"right"} sx={{ "@media (max-width:768px)": { textAlign: "left", width: "100%" } }}>
-                <Typography variant="h4" component="h2" fontWeight="bold" py={2}>
+                <Typography variant="h4" component="h2" fontWeight="300"  py={2}>
                   {t("rentPage.beyondRentals")}
                 </Typography>
                 <Typography variant="body1" py={1}>
