@@ -609,12 +609,12 @@ const BasicInformationForm = ({ onNext, type = "sell", data, handleChange, categ
             <></>
         }
         {
-          getFields(category).includes("number_of_cylinder") ?
+          getFields(category).includes("fuel") ?
             <Grid item xs={12} sm={6} md={4}>
               <CustomSelect
                 styles={customSelectStyles}
                 options={fuelTyperOptions}
-                onChange={(value) => handleChange({ target: { name: "fuel", value: value } })}
+                onChange={(value) => handleChange({ target: { name: "fuel_type", value: value } })}
                 placeholder={t("filters.filters.Fuel Type")}
                 value={data.seats}
                 showStartAndorement={false}

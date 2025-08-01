@@ -34,6 +34,8 @@ export const login = async (credentials) => {
         localStorage.setItem("user_id", response.data.user.id)
         localStorage.setItem("stream_token", response.data.stream_token)
         localStorage.setItem("stream_id", response.data.stream_id)
+        console.log(response)
+        // window.location.reload();
         return response.data;
     } catch (error) {
         console.error("Login failed:", error.response?.data || error.message);
