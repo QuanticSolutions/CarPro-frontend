@@ -201,10 +201,10 @@ function MyAds() {
                         }}
                     >
                         <Tab label={`${t("myAds.tabs.all")} (${ads.length})`} value="all" />
-                        <Tab label={`${t("myAds.tabs.live")} (${ads.filter(ad => ad.status == "live").length})`} value="live" />
-                        <Tab label={`${t("myAds.tabs.draft")} (${ads.filter(ad => ad.status == "draft").length})`} value="draft" />
-                        <Tab label={`${t("myAds.tabs.pending")} (${ads.filter(ad => ad.status == "pending").length})`} value="pending" />
-                        <Tab label={`${t("myAds.tabs.rejected")} (${ads.filter(ad => ad.status == "rejected").length})`} value="rejected" />
+                        <Tab label={`${t("myAds.tabs.live")} (${ads.filter(ad => ad.status == "Live").length})`} value="live" />
+                        <Tab label={`${t("myAds.tabs.draft")} (${ads.filter(ad => ad.status == "Draft").length})`} value="draft" />
+                        <Tab label={`${t("myAds.tabs.pending")} (${ads.filter(ad => ad.status == "Pending").length})`} value="pending" />
+                        <Tab label={`${t("myAds.tabs.rejected")} (${ads.filter(ad => ad.status == "Rejected").length})`} value="rejected" />
                     </Tabs>
                     {
                         ads ?
@@ -398,7 +398,7 @@ function MyAds() {
                                                                                         menuAd && menuAd.status != "draft" &&
                                                                                         <MenuItem onClick={() => {
                                                                                             if (menuAd) {
-                                                                                                updateAd(menuAd.id, { ...menuAd, status: "draft" }).then(() => {
+                                                                                                updateAd(menuAd.id, { ...menuAd, status: "Draft" }).then(() => {
                                                                                                     retrieveAds();
                                                                                                     handleMenuClose();
                                                                                                 });

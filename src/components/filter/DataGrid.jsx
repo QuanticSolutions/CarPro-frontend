@@ -156,7 +156,7 @@ const DataGrid = ({ data, title, type }) => {
                 <Grid2 item pt={2} sx={{
                     display: "flex",
                     flexWrap: "wrap",
-                    gap: 3,
+                    gap: 2,
                     "@media(max-width: 800px)": { justifyContent: "space-between", gap: 0 },
                     "@media(max-width: 361px)": { justifyContent: "center", gap: 2 }
                 }}>

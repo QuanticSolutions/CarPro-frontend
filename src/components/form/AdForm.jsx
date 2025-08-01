@@ -152,6 +152,9 @@ function AdForm({ title, type, isUpdating = false, category }) {
         updatedData.user_id = localStorage.getItem("user_id")
         updatedData.status = "Pending"
         updatedData.featured = false;
+        if(!updatedData.fuel_type) {
+          updatedData.fuel_type = "N/A";
+        }
         updatedData.reported = 0;
         updatedData.category = path.substring(path.lastIndexOf('/') + 1);
         updatedData.country = countries[localStorage.getItem("selectedCountry")];
